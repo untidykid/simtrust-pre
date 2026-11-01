@@ -22,6 +22,12 @@ This document records the artifact-level conclusions frozen on 2026-11-01. It is
 
 H701 is a manually operated open-loop heater, not a PI-controlled jacket heater.
 
+The four listed candidates are the duration-qualified subset of six preliminary single-H701 candidate event records across five chemical/operating-point groups. The other two were:
+- `OP001TA011A001`: 279 s (nine theoretical non-overlapping 30-s windows), below the ten-window/300-s screen. Its metadata contains a direction-label warning: the perturbation text says H701 power increased while the label says reduced.
+- `OP028TA001A002`: 270 s (nine theoretical windows). The selected simulation member spans 39,875–52,775 s while the mapped YAML event interval is 56,700–56,970 s, so the selected member has zero overlap. The check did not exhaustively enumerate alternative/duplicate members.
+
+The broader 2026-10-31 decision memo separately reports five time-evaluable pressure candidates and treats OP028 as missing evidence, not as an invariant trace. These are different denominators from the four-trace locked v3.1 artifact; do not merge them.
+
 ### Channel conclusions
 
 #### Stage pressure
@@ -45,23 +51,23 @@ The directional relation shown above is an expected physical relation (heating u
 
 The event metadata and the inspected simulation XML provide distinct representations; their percentages must not be assumed numerically interchangeable.
 
-| Candidate | Metadata description | XML `heat_duty` values (initial → perturbed) | XML relative change |
-|---|---|---:|---:|
-| OP003 | H701 +25% (to 245 W) | 129.575087 → 189.150174 | +46.0% |
-| OP004 | H701 −30% (to 70 W) | 146.988148 → 13.976296 | −90.5% |
-| OP009 | H701 +20% (to 210 W) | 211.901208 → 253.802416 | +19.8% |
-| OP001TA009A002 | H701 off | 185.031024 → −49.937952 | −127.0% |
+| Candidate | Metadata description | XML time interval (s, simulation-relative) | XML `heat_duty` values (initial → perturbed) | XML relative change |
+|---|---|---:|---:|---:|
+| OP003 | H701 +25% (to 245 W) | 1615–2096 (481 s) | 129.575087 → 189.150174 | +46.0% |
+| OP004 | H701 −30% (to 70 W) | 1273–1889 (616 s) | 146.988148 → 13.976296 | −90.5% |
+| OP009 | H701 +20% (to 210 W) | 582–1262 (680 s) | 211.901208 → 253.802416 | +19.8% |
+| OP001TA009A002 | H701 off | 1975–2294 (319 s) | 185.031024 → −49.937952 | −127.0% |
 
-These values come from separate metadata and XML fields. The unit/semantic relationship between the metadata's heater-power values and the XML `heat_duty` schedule has not been established in the included evidence. The negative OP001 XML value has an unresolved sign-convention interpretation. Do not describe these pairs as matching percentages or as a confirmed physical power conversion.
+Each XML time interval has the same duration as its corresponding metadata event duration in the four inspected cases. This supports duration-level alignment of the schedule windows, but does not establish the unit or meaning of the `heat_duty` magnitudes. These values come from separate metadata and XML fields. The unit/semantic relationship between the metadata's heater-power values and the XML `heat_duty` schedule has not been established in the included evidence. The negative OP001 XML value has an unresolved sign-convention interpretation. Do not describe these pairs as matching percentages or as a confirmed physical power conversion.
 
 #### Temperature
 
-`NOT_VERIFIED`; the locked v3.1 result records T701-stage sign agreement of 2/4. A separate 2026-10-31 screening memo reports a different metric: the within-event `T_stage1` range crossed its preliminary heuristic in OP003 (2.70 °C) and OP009 (2.24 °C), but not OP004 (0.14 °C) or OP001TA009 (0.02 °C). OP001TA011 was below the 300-s duration screen and OP028 was not evaluable. Do not conflate the range-screen metric with the final sign-agreement statistic. The T701 superheat/heater-surface account is a post-hoc physical hypothesis only.
+`NOT_VERIFIED`; the locked v3.1 result records T701-stage sign agreement of 2/4. A separate 2026-10-31 screening memo reports a different metric: the within-event `T_stage1` range crossed its preliminary heuristic, `during_range > max(2.0 °C, 5 × pre-event standard deviation)`, in OP003 (2.70 °C) and OP009 (2.24 °C), but not OP004 (0.14 °C) or OP001TA009 (0.02 °C). OP001TA011 was below the 300-s duration screen and OP028 was not evaluable. Do not conflate the range-screen metric with the final sign-agreement statistic. The T701 superheat/heater-surface account is a post-hoc physical hypothesis only.
 
 #### Flow
 
 `COINCIDENTAL_BY_PREDEFINED_TRAJECTORY_SCREEN`; direction matched in 4/4, corrected trajectory mean 0.561, pooled 0.627, and 2/4 cases below threshold 0.70. OP004 contrary bins: 480, 510, 540 s. Directional agreement alone does not satisfy the trajectory screen.
-The criteria were locked before v3.1 evaluation, but not necessarily before any data inspection. For Spearman calculations with N=4, the exact two-sided permutation minimum for untied ranks is 2/24 = 0.0833; the exact/asymptotic method and any formal alpha preregistration were not independently verified.
+The criteria were locked before v3.1 evaluation, but not necessarily before any data inspection. The planned primary estimand, pre-onset fidelity `q` versus fault-segment utility `ΔAP`, was not estimated on a validated H701 cohort. Invariant simulated stage-12 pressure during the fault does not establish that pre-onset `q` is zero, constant, or uncomputable; paired pre-onset real/simulation values, valid uncertainty measurements, and verified time alignment would be required. For Spearman calculations with N=4, the exact two-sided permutation minimum for untied ranks is 2/24 = 0.0833; the exact/asymptotic method and any formal alpha preregistration were not independently verified.
 
 ## Crosswalk counts and boundaries
 
