@@ -24,11 +24,15 @@ H701 is a manually operated open-loop heater, not a PI-controlled jacket heater.
 
 ### Channel conclusions
 
-- Stage pressure outputs: `NOT_IDENTIFIABLE_FROM_EXPORTED_TRACE`. Twelve exported stage-pressure columns were static in the four inspected traces. No global statement about all simulator pressure variables follows.
+#### Stage pressure
+
+For each of the four inspected traces, the 12 exported stage-wise pressure columns each had one unique value across the recorded time series. The result is `NOT_IDENTIFIABLE_FROM_EXPORTED_TRACE` for a pressure-response analysis in these traces; no global claim about simulator pressure modelling follows.
+
+**Unit/scale discrepancy requiring resolution:** in the OP003 diagnostic, the exported column is labelled `pressure stage 12 / Pa` and has the constant value 300.0. The corresponding operating-point metadata says 300 mbar, while the selected XML configuration excerpt reports `pressure_12 = 30000.00`. These values are numerically consistent with a factor-of-100 Pa↔mbar conversion, but the CSV label and numeric scale do not agree. The conversion and exact semantics of the exported column have not been independently confirmed. Pressure constancy can be reported; the absolute unit/value must remain unresolved pending review of the raw CSV, XML definition, and export convention.
 
 #### PY23
 
-| Candidate | H701 perturbation | Expected physical pressure direction | Observed ΔPY23 | Interpretation |
+| Candidate | H701 metadata perturbation | Expected physical pressure direction | Observed ΔPY23 | Interpretation |
 |---|---|---|---:|---|
 | OP003 | +25% heating | Up | −1.21 | No sustained response |
 | OP004 | −30% heating | Down | +17.81 | Sustained change opposite to expectation |
@@ -37,14 +41,26 @@ H701 is a manually operated open-loop heater, not a PI-controlled jacket heater.
 
 The directional relation shown above is an expected physical relation (heating up → pressure up; heating down → pressure down). The available audit record does not establish that this directional expectation itself was preregistered before data inspection. Do not describe it as a confirmed preregistered prediction.
 
+#### Metadata description versus XML heat-duty schedule
+
+The event metadata and the inspected simulation XML provide distinct representations; their percentages must not be assumed numerically interchangeable.
+
+| Candidate | Metadata description | XML `heat_duty` values (initial → perturbed) | XML relative change |
+|---|---|---:|---:|
+| OP003 | H701 +25% (to 245 W) | 129.575087 → 189.150174 | +46.0% |
+| OP004 | H701 −30% (to 70 W) | 146.988148 → 13.976296 | −90.5% |
+| OP009 | H701 +20% (to 210 W) | 211.901208 → 253.802416 | +19.8% |
+| OP001TA009A002 | H701 off | 185.031024 → −49.937952 | −127.0% |
+
+These values come from separate metadata and XML fields. The unit/semantic relationship between the metadata's heater-power values and the XML `heat_duty` schedule has not been established in the included evidence. The negative OP001 XML value has an unresolved sign-convention interpretation. Do not describe these pairs as matching percentages or as a confirmed physical power conversion.
+
 #### Temperature
 
-`NOT_VERIFIED`; T701-stage sign agreement was 2/4. The T701 superheat/heater-surface account is a post-hoc physical hypothesis only.
+`NOT_VERIFIED`; the locked v3.1 result records T701-stage sign agreement of 2/4. A separate 2026-10-31 screening memo reports a different metric: the within-event `T_stage1` range crossed its preliminary heuristic in OP003 (2.70 °C) and OP009 (2.24 °C), but not OP004 (0.14 °C) or OP001TA009 (0.02 °C). OP001TA011 was below the 300-s duration screen and OP028 was not evaluable. Do not conflate the range-screen metric with the final sign-agreement statistic. The T701 superheat/heater-surface account is a post-hoc physical hypothesis only.
 
 #### Flow
 
-`COINCIDENTAL_BY_PREDEFINED_TRAJECTORY_SCREEN`; direction matched in 4/4, corrected trajectory mean 0.561, pooled 0.627, and 2/4 cases below threshold 0.70. OP004 contrary bins: 480, 510, 540 s.
-
+`COINCIDENTAL_BY_PREDEFINED_TRAJECTORY_SCREEN`; direction matched in 4/4, corrected trajectory mean 0.561, pooled 0.627, and 2/4 cases below threshold 0.70. OP004 contrary bins: 480, 510, 540 s. Directional agreement alone does not satisfy the trajectory screen.
 The criteria were locked before v3.1 evaluation, but not necessarily before any data inspection. For Spearman calculations with N=4, the exact two-sided permutation minimum for untied ranks is 2/24 = 0.0833; the exact/asymptotic method and any formal alpha preregistration were not independently verified.
 
 ## Crosswalk counts and boundaries
@@ -81,7 +97,7 @@ Link counts 4/3/7 respectively; no independent event count is implied. These fam
 
 121 raw metadata records -> 25 parent keys across 19 experiment keys. A previous text classifier incorrectly assigned four HV004 descriptions to pump P701 because “behind reflux pump P701” appeared in the text. The system_id is HV004, so these are sample-valve metadata, not pump events.
 
-Correct grouping: 12 compound pumps & others, 1 pure P701, 1 pure P702, 3 both-pumps-only, 4 multi-all-actuators-off. Both pure-single events occur in one experiment:
+The detailed summary lists 12 compound pumps & others, 1 pure P701, 1 pure P702, 3 both-pumps-only, and 4 multi-all-actuators-off. These categories sum to 21, not 25 parent keys; four parent keys are not accounted for in this breakdown. The original event CSV is required to determine whether this reflects omitted categories or a reporting error; no class is inferred for the four-key difference. Both pure-single events occur in one experiment:
 `batch_dist_ternary_butan-1-ol+propan-2-ol+water/operating_point_021/test_anormal_experiment_001`.
 Both are `sim_flag=True`; the three both-pumps-only changes are `sim_flag=False`.
 
@@ -89,7 +105,7 @@ OP021 has 18,001 time-series rows spanning 38,253–56,253 s. The inspected extr
 
 Config efflux-ratio values: [0.301722, 0, 0.301722, 1, 0.301722]; corresponding times: [0, 1123, 1379, 4924, 5178]. Pump-off windows: P702 1123–1379 (256 s); P701 4924–5178 (254 s). Real-event onset offsets are 2 s and 11 s (9 s spread).
 
-The identity `efflux_ratio = D/(D+R)` has median absolute residual 2.214895e-14, mean 4.972e-05, p99 7.971e-05, p99.9 1.742e-02, max 0.02843. 173 rows (0.9611%) exceed 1e-4; 30 rows (0.1667%) exceed 1e-2. Outliers cluster around two transient windows; a solver-transition explanation is plausible but unproven. A small-value-artifact explanation was refuted.
+For the simulator-side identity check, `efflux_ratio = D/(D+R)` (where `D` and `R` are the simulator-side distillate and reflux terms used in this calculation; this is distinct from the experimental reflux ratio `FT704/FT703`) has median absolute residual 2.214895e-14, mean 4.972e-05, p99 7.971e-05, p99.9 1.742e-02, max 0.02843. 173 rows (0.9611%) exceed 1e-4; 30 rows (0.1667%) exceed 1e-2. Outliers cluster around two transient windows; a solver-transition explanation is plausible but unproven. A small-value-artifact explanation was refuted.
 
 Mass-derived ratio median absolute error was 0, maximum 0.03152; effective MW median 0.0455 kg/mol. Do not claim the ratios are identical or composition-equivalent.
 
