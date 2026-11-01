@@ -82,8 +82,8 @@ def verify_directory(
 
         try:
             actual_size, actual_md5, actual_sha256 = file_digests(path)
-        except OSError as exc:
-            print(f"ERROR    {filename}: could not read file ({exc})", file=output)
+        except (OSError, RuntimeError, ValueError) as exc:
+            print(f"ERROR    {filename}: could not compute/read digest ({exc})", file=output)
             failures += 1
             continue
 
