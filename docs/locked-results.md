@@ -45,7 +45,7 @@ For each of the four inspected traces, the 12 exported stage-wise pressure colum
 | OP009 | +20 percentage points (40% → 60%; 140 → 210 W) | Up | +13.79 | Sustained change consistent with expectation |
 | OP001 | Heater off | Down | +0.004 | No sustained response |
 
-The directional relation shown above is an expected physical relation (heating up → pressure up; heating down → pressure down). The available audit record does not establish that this directional expectation itself was preregistered before data inspection. Do not describe it as a confirmed preregistered prediction.
+The directional relation shown above is an expected physical relation (heating up → pressure up; heating down → pressure down). The available audit record does not establish that this directional expectation itself was preregistered before data inspection. Do not describe it as a confirmed preregistered prediction. The unit of reported ΔPY23 is not asserted here pending confirmation of the exported-column unit mapping; do not silently interpret it as mbar or Pa.
 
 #### Metadata description versus XML heat-duty schedule
 
@@ -63,6 +63,8 @@ Each XML time interval has the same duration as its corresponding metadata event
 #### Temperature
 
 `NOT_VERIFIED`; the locked v3.1 result records T701-stage sign agreement of 2/4. A separate 2026-10-31 screening memo reports a different metric: the within-event `T_stage1` range crossed its preliminary heuristic, `during_range > max(2.0 °C, 5 × pre-event standard deviation)`, in OP003 (2.70 °C) and OP009 (2.24 °C), but not OP004 (0.14 °C) or OP001TA009 (0.02 °C). OP001TA011 was below the 300-s duration screen and OP028 was not evaluable. Do not conflate the range-screen metric with the final sign-agreement statistic. The T701 superheat/heater-surface account is a post-hoc physical hypothesis only.
+
+**Separate simulator-export diagnostic:** the diagnostic file also reports columns named `temperature stage n / K`. For stage 1, the recorded min/max/range values were OP003 3.109275/3.597901/0.488626, OP004 3.154767/3.634303/0.479537, OP009 3.218939/3.696649/0.477710, and OP001TA009 3.424207/3.722393/0.298187. These are not the same numerical ranges as the `T_stage1` screening values above. The `/K` labels and values near 3–4 do not support interpretation as ordinary absolute kelvin without a variable-definition/export-scale explanation. The mapping between this simulator-export variable and the separately screened `T_stage1` signal is not established.
 
 #### Flow
 
@@ -111,11 +113,13 @@ OP021 has 18,001 time-series rows spanning 38,253–56,253 s. The inspected extr
 
 Config efflux-ratio values: [0.301722, 0, 0.301722, 1, 0.301722]; corresponding times: [0, 1123, 1379, 4924, 5178]. Pump-off windows: P702 1123–1379 (256 s); P701 4924–5178 (254 s). Real-event onset offsets are 2 s and 11 s (9 s spread).
 
-For the simulator-side identity check, `efflux_ratio = D/(D+R)` (where `D` and `R` are the simulator-side distillate and reflux terms used in this calculation; this is distinct from the experimental reflux ratio `FT704/FT703`) has median absolute residual 2.214895e-14, mean 4.972e-05, p99 7.971e-05, p99.9 1.742e-02, max 0.02843. 173 rows (0.9611%) exceed 1e-4; 30 rows (0.1667%) exceed 1e-2. Outliers cluster around two transient windows; a solver-transition explanation is plausible but unproven. A small-value-artifact explanation was refuted.
+The retained simulator-side diagnostic checked the identity `epsilon = D/(D + R_sim)`; its median absolute residual was 2.214895e-14, mean 4.972e-05, p99 7.971e-05, p99.9 1.742e-02, max 0.02843. 173 rows (0.9611%) exceed 1e-4; 30 rows (0.1667%) exceed 1e-2. Outliers cluster around two transient windows; a solver-transition explanation is plausible but unproven. A small-value-artifact explanation was refuted.
+
+The model-level addendum defines `epsilon = D/B`, where `D` is molar distillate and `B` is the total liquid molar stream leaving the buffer. A candidate reflux branch is `B − D`; only if `R_sim` is confirmed to equal `B − D` does `D/(D + R_sim)` reduce algebraically to `D/B`. The meaning of the diagnostic's `R_sim` must be checked against the original simulation equations and CSV definitions.
+
+The experimental reflux ratio is `R_exp = FT704/FT703`. The candidate cross-domain mapping is `epsilon ≈ FT703/(FT703 + FT704) = 1/(1 + R_exp)`, conditional on FT703 and FT704 representing the two branches of the same condensate split and on negligible losses. Directly comparing `epsilon` with `R_exp` is invalid. The FT703/FT704 mapping remains provisional and was not independently confirmed with a P&ID. If one event informed selection of the mapping, that event is mapping-selection evidence; the other gives descriptive cross-event consistency, not independent validation.
 
 Mass-derived ratio median absolute error was 0, maximum 0.03152; effective MW median 0.0455 kg/mol. Do not claim the ratios are identical or composition-equivalent.
-
-FT703/FT704 are both described as mass-flux sensors. FT703 -> distillate and FT704 -> reflux remains provisional and not independently confirmed with a P&ID. Directional real/sim alignment under this mapping is descriptive. If mapping was selected using one event, that event is mapping-selection data; the second is descriptive cross-event consistency, not independent validation.
 
 No direct P701/P702 power/state variables were found in the inspected OP021 file. Do not generalize this to the entire simulation archive.
 
