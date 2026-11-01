@@ -19,7 +19,7 @@ The project’s central conclusion is not that the simulator is generally invali
 
 ## Dataset version and scope
 
-The source dataset is pinned to [Zenodo record 22250958, version 1.1.3](https://doi.org/10.5281/zenodo.22250958). The source publication describes 119 experimental runs, with simulation predictions available for 115 experiments. Version 1.1.3 corrects a formatting error in one binary ethanol/2-propanol normal run affecting sensor, actuator, and uncertainty modalities; do not silently mix this release with earlier versions. This audit concerns selected event families and selected archive members, not a complete validation of all runs.
+The source dataset is pinned to [Zenodo record 22250958, version 1.1.3](https://doi.org/10.5281/zenodo.22250958), published 2026-09-02. The record lists 119 experimental runs with simulation predictions available for 115 experiments, within a 95.2-GB multimodal deposit. Version 1.1.3 corrects a formatting error in one binary ethanol/2-propanol normal run affecting sensor, actuator, and uncertainty modalities; do not silently mix this release with earlier versions. This audit concerns selected event families and selected archive members, not a complete validation of all runs.
 
 This GitHub repository is currently a **documentation bootstrap**, not a computationally reproducible release. The final evidence CSVs, source archives, and the analysis/extraction code that generated the locked tables are not included. The figures and counts below are transcribed from the locked audit record and retained diagnostic outputs; they have not been independently regenerated from raw source files in this repository.
 
@@ -27,7 +27,7 @@ This GitHub repository is currently a **documentation bootstrap**, not a computa
 
 ### Artifact 1 — H701 v3.1
 
-The locked v3.1 H701 cohort contains four duration-qualified candidates: `OP003TA001A001` (481 s), `OP004TA001A001` (616 s), `OP009TA001A001` (680 s), and `OP001TA009A002` (319 s). They were selected from six preliminary single-H701 candidate event records spanning five chemical/operating-point groups; the six records must not be treated as six independent groups.
+The locked v3.1 H701 cohort contains four duration-qualified candidates: `OP003TA001A001` (481 s), `OP004TA001A001` (616 s), `OP009TA001A001` (680 s), and `OP001TA009A002` (319 s). They were selected from six preliminary single-H701 candidate event records spanning five chemical/operating-point groups; the six records must not be treated as six independent groups. On the physical plant, H701 is the 350-W reboiler-vessel heating jacket; for these YAML-described events, its operating state is recorded as `manual open-loop controlled`, not PI/PID feedback control.
 
 Two other preliminary records were not included in the four-case cohort: `OP001TA011A001` (279 s; nine theoretical 30-s windows, below the ten-window/300-s screen, with a metadata label-direction warning) and `OP028TA001A002` (270 s; nine theoretical windows and not evaluable in the selected simulation member under the current time mapping). For OP028, the selected member spans 39,875–52,775 s while the mapped YAML interval is 56,700–56,970 s (zero overlap). The check did not enumerate every possible duplicate/alternative archive member, so this is a selected-member result, not a claim that no alternative member exists anywhere in the archive.
 
@@ -147,7 +147,7 @@ A separate Stage 1 structural/protocol notebook was reviewed during this audit. 
 
 ## License and citation
 
-The upstream dataset is described under **CC BY 4.0** in its paper; this applies to the source dataset, not automatically to this repository's original documentation, audit tables, or scripts. This repository has no `LICENSE` or `CITATION.cff` yet; its own reuse terms and formal citation metadata must be set separately by the project owner.
+The dataset descriptor states that the complete dataset is openly shared under **CC BY 4.0**. Before redistributing individual upstream archive files, check the license field on the specific Zenodo record/version as well. This upstream statement does not automatically license this repository's original documentation, derived audit tables, or scripts. This repository has no `LICENSE` or `CITATION.cff` yet; its own reuse terms and formal citation metadata must be set separately by the project owner.
 
 ### Upstream citation
 
