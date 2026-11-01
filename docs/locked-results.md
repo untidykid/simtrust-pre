@@ -40,9 +40,9 @@ For each of the four inspected traces, the 12 exported stage-wise pressure colum
 
 | Candidate | H701 metadata perturbation | Expected physical pressure direction | Observed ΔPY23 | Interpretation |
 |---|---|---|---:|---|
-| OP003 | +25% heating | Up | −1.21 | No sustained response |
-| OP004 | −30% heating | Down | +17.81 | Sustained change opposite to expectation |
-| OP009 | +20% heating | Up | +13.79 | Sustained change consistent with expectation |
+| OP003 | +25 percentage points (45% → 70%; 157.5 → 245 W) | Up | −1.21 | No sustained response |
+| OP004 | −30 percentage points (50% → 20%; 175 → 70 W) | Down | +17.81 | Sustained change opposite to expectation |
+| OP009 | +20 percentage points (40% → 60%; 140 → 210 W) | Up | +13.79 | Sustained change consistent with expectation |
 | OP001 | Heater off | Down | +0.004 | No sustained response |
 
 The directional relation shown above is an expected physical relation (heating up → pressure up; heating down → pressure down). The available audit record does not establish that this directional expectation itself was preregistered before data inspection. Do not describe it as a confirmed preregistered prediction.
@@ -53,9 +53,9 @@ The event metadata and the inspected simulation XML provide distinct representat
 
 | Candidate | Metadata description | XML time interval (s, simulation-relative) | XML `heat_duty` values (initial → perturbed) | XML relative change |
 |---|---|---:|---:|---:|
-| OP003 | H701 +25% (to 245 W) | 1615–2096 (481 s) | 129.575087 → 189.150174 | +46.0% |
-| OP004 | H701 −30% (to 70 W) | 1273–1889 (616 s) | 146.988148 → 13.976296 | −90.5% |
-| OP009 | H701 +20% (to 210 W) | 582–1262 (680 s) | 211.901208 → 253.802416 | +19.8% |
+| OP003 | H701 +25 percentage points (45% → 70%; 157.5 → 245 W) | 1615–2096 (481 s) | 129.575087 → 189.150174 | +46.0% |
+| OP004 | H701 −30 percentage points (50% → 20%; 175 → 70 W) | 1273–1889 (616 s) | 146.988148 → 13.976296 | −90.5% |
+| OP009 | H701 +20 percentage points (40% → 60%; 140 → 210 W) | 582–1262 (680 s) | 211.901208 → 253.802416 | +19.8% |
 | OP001TA009A002 | H701 off | 1975–2294 (319 s) | 185.031024 → −49.937952 | −127.0% |
 
 Each XML time interval has the same duration as its corresponding metadata event duration in the four inspected cases. This supports duration-level alignment of the schedule windows, but does not establish the unit or meaning of the `heat_duty` magnitudes. These values come from separate metadata and XML fields. The unit/semantic relationship between the metadata's heater-power values and the XML `heat_duty` schedule has not been established in the included evidence. The negative OP001 XML value has an unresolved sign-convention interpretation. Do not describe these pairs as matching percentages or as a confirmed physical power conversion.
