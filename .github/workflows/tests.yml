@@ -1,0 +1,52 @@
+name: tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  unit-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+
+      - name: Set up Python
+        uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+
+      - name: Compile Python files
+        run: python -m compileall -q scripts tests
+
+      - name: Run unit tests
+        run: python -m unittest discover -s tests -v
+
+      - name: Verify frozen evidence when all files are present
+        shell: bash
+        run: |
+          files=(
+            evidence/artifact_1_h701_cohort.csv
+            evidence/artifact_2_crosswalk_254_parents.csv
+            evidence/artifact_3_hv_feasibility.csv
+            evidence/artifact_4_p701p702_events.csv
+          )
+          missing=0
+          for file in "${files[@]}"; do
+            if [[ ! -f "$file" ]]; then
+              echo "Evidence pending: $file"
+              missing=1
+            fi
+          done
+
+          if [[ "$missing" -eq 0 ]]; then
+            python scripts/verify_evidence.py
+          else
+            echo "::notice::Evidence checksum verification skipped until all four original CSVs are committed."
+          fi
