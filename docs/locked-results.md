@@ -69,7 +69,7 @@ Correct grouping: 12 compound pumps & others, 1 pure P701, 1 pure P702, 3 both-p
 `batch_dist_ternary_butan-1-ol+propan-2-ol+water/operating_point_021/test_anormal_experiment_001`.
 Both are `sim_flag=True`; the three both-pumps-only changes are `sim_flag=False`.
 
-OP021 has 18,001 rows × 180? The inspected trace was described as 18,001 × 180 in one extraction and 179 variables in the tabulated variable count; preserve this distinction until the raw file is present and the counting convention can be rechecked. Time spans 38,253–56,253 s.
+OP021 has 18,001 time-series rows spanning 38,253–56,253 s. The inspected extraction reported 179 variables, while an earlier shape summary reported 180 columns; the difference in counting convention (for example, whether a time/index column is included) cannot be resolved without the original trace file.
 
 Config efflux-ratio values: [0.301722, 0, 0.301722, 1, 0.301722]; corresponding times: [0, 1123, 1379, 4924, 5178]. Pump-off windows: P702 1123–1379 (256 s); P701 4924–5178 (254 s). Real-event onset offsets are 2 s and 11 s (9 s spread).
 
