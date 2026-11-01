@@ -19,7 +19,7 @@ The project’s central conclusion is not that the simulator is generally invali
 
 ## Dataset version and scope
 
-The source dataset is pinned to [Zenodo record 22250958, version 1.1.3](https://doi.org/10.5281/zenodo.22250958). The audit must not silently mix this version with earlier dataset releases. The Zenodo record describes 119 experimental runs and simulation predictions for 115 of them; this audit concerns selected event families and selected archive members, not a complete validation of all runs.
+The source dataset is pinned to [Zenodo record 22250958, version 1.1.3](https://doi.org/10.5281/zenodo.22250958), published 2026-09-02. This release includes 119 experimental runs and corresponding simulation predictions for 115 experiments. Version 1.1.3 corrects a formatting error in one binary ethanol/2-propanol normal run affecting sensor, actuator, and uncertainty modalities; do not silently mix this release with earlier versions. This audit concerns selected event families and selected archive members, not a complete validation of all runs.
 
 This GitHub repository is currently a **documentation bootstrap**, not a computationally reproducible release. The final evidence CSVs, source archives, and the analysis/extraction code that generated the locked tables are not included. The figures and counts below are transcribed from the locked audit record and retained diagnostic outputs; they have not been independently regenerated from raw source files in this repository.
 
@@ -48,11 +48,13 @@ Under the expected physical relation (heating up → pressure up; heating down �
 | OP009 | +20 percentage points (40% → 60%; 140 → 210 W) | +13.79 | Sustained change consistent with expectation |
 | OP001 | Heater off | +0.004 | No sustained response |
 
-The available audit record does not establish that this directional expectation was preregistered before data inspection. It is presented as a physical expectation used in interpretation, not as a confirmed preregistered prediction.
+The available audit record does not establish that this directional expectation was preregistered before data inspection. It is presented as a physical expectation used in interpretation, not as a confirmed preregistered prediction. The unit of the reported ΔPY23 values is not asserted here because the exact exported-column unit mapping remains unresolved; do not silently interpret these differences as mbar or Pa.
 
 #### Temperature
 
 The locked v3.1 result is `NOT_VERIFIED`; T701-stage sign agreement was 2/4. A separate 2026-10-31 screening memo reports a different metric: the within-event `T_stage1` range crossed its preliminary heuristic, `during_range > max(2.0 °C, 5 × pre-event standard deviation)`, for OP003 (2.70 °C) and OP009 (2.24 °C), but not OP004 (0.14 °C) or OP001TA009 (0.02 °C). OP001TA011 was below the 300-s duration screen and OP028 was not evaluable. These are different metrics and must not be conflated. Neither establishes a confirmed causal thermal response. The superheat/heater-surface explanation remains a post-hoc hypothesis.
+
+**Separate simulator-export diagnostic:** the diagnostic file also reports columns named `temperature stage n / K`. For stage 1, the recorded min/max/range values were OP003 3.109275/3.597901/0.488626, OP004 3.154767/3.634303/0.479537, OP009 3.218939/3.696649/0.477710, and OP001TA009 3.424207/3.722393/0.298187. These are not the same numerical ranges as the `T_stage1` screening values above. The `/K` labels and values near 3–4 do not support interpretation as ordinary absolute kelvin without a variable-definition/export-scale explanation. The mapping between this simulator-export variable and the separately screened `T_stage1` signal is not established.
 
 #### Flow
 
@@ -97,8 +99,8 @@ When the planned evidence file `artifact_3_hv_feasibility.csv` is added, it will
 - 121 raw metadata records were grouped into 25 parent keys across 19 experiment keys.
 - The two genuine pure-single parent events (one P701, one P702) occur in the same experiment: `batch_dist_ternary_butan-1-ol+propan-2-ol+water/operating_point_021/test_anormal_experiment_001`.
 - The OP021 trace contains 18,001 time-series rows spanning 38,253–56,253 s. The final extraction inventory lists 179 variables, while an earlier shape summary reported 180 columns; the counting convention cannot be resolved without the original trace file. The pump-off windows are 256 s (P702) and 254 s (P701); observed onset offsets were 2 s and 11 s, with a 9 s spread.
-- The simulator-side relationship `efflux_ratio = D/(D+R)` matched to a median absolute residual of 2.214895e-14, but transient outliers remain (maximum 0.02843). This is not the same quantity as the experimental reflux ratio `FT704/FT703`; the FT703/FT704 mapping remains provisional. The cause of the transient residuals has not been established.
-- The FT703/FT704 mapping to distillate/reflux is provisional and was not independently confirmed against a P&ID.
+- In the retained simulator-side diagnostic, the checked identity was `efflux_ratio = D/(D + R_sim)`; its median absolute residual was 2.214895e-14, but transient outliers remain (maximum 0.02843). The model-level addendum defines `epsilon = D/B`, where `D` is molar distillate and `B` is the total liquid molar stream leaving the buffer. A candidate reflux branch is `B − D`; only if the diagnostic's `R_sim` is confirmed to equal `B − D` does `D/(D + R_sim)` reduce algebraically to `D/B`. This variable identity must be checked against the original simulation equations and CSV definitions.
+- The experimental reflux ratio is `R_exp = FT704/FT703`. The candidate cross-domain mapping is `epsilon ≈ FT703/(FT703 + FT704) = 1/(1 + R_exp)`, conditional on FT703 and FT704 being the two branches of the same condensate split and on negligible losses. Directly comparing simulator `epsilon` with experimental `R_exp` is invalid. The FT703/FT704 mapping is provisional and was not independently confirmed against a P&ID. The cause of the transient residuals has not been established.
 - Directional real/sim alignment is descriptive evidence under that provisional mapping, not four independent validation tests. If one event informed selection of the sensor mapping, that event is mapping-selection evidence; the second event provides descriptive cross-event consistency, not an independent validation set. Both pump cases come from one independent experiment.
 - The listed P701/P702 parent-key categories in the detailed record (12 compound pumps & others, 1 pure P701, 1 pure P702, 3 both-pumps-only, 4 multi-all-actuators-off) sum to 21, not 25. Four of the 25 parent keys are not accounted for by that category summary and are left unclassified here pending the original event CSV; no category is inferred for them.
 
@@ -140,4 +142,10 @@ A separate Stage 1 structural/protocol notebook was reviewed during this audit. 
 
 ## License and citation
 
-No license or formal citation metadata is assigned in this bootstrap. Reuse permissions and citation details should be added only after the project owner confirms them.
+The upstream dataset is described under **CC BY 4.0** in its paper; this applies to the source dataset, not automatically to this repository's original documentation, audit tables, or scripts. This repository has no `LICENSE` or `CITATION.cff` yet; its own reuse terms and formal citation metadata must be set separately by the project owner.
+
+### Upstream citation
+
+Arweiler, J., Jungjohann, I., Muraleedharan, A. et al. *Batch Distillation Data for Developing Machine Learning Anomaly Detection Methods.* Scientific Data 13, 513 (2026). https://doi.org/10.1038/s41597-026-07124-3.
+
+Dataset: *Batch Distillation Data for Developing Machine Learning Anomaly Detection Methods*, version 1.1.3, Zenodo. https://doi.org/10.5281/zenodo.22250958.
