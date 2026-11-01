@@ -90,7 +90,7 @@ class VerifyEvidenceTests(unittest.TestCase):
             with patch("verify_evidence.file_digests", side_effect=PermissionError("denied")):
                 status = verify_directory(root, expected, output)
         self.assertEqual(status, 1)
-        self.assertIn("could not read file", output.getvalue())
+        self.assertIn("could not compute/read digest", output.getvalue())
 
     def test_main_rejects_more_than_one_argument(self):
         with patch("sys.stderr", io.StringIO()):
