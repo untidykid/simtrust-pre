@@ -31,8 +31,32 @@ The locked v3.1 H701 cohort contains four duration-qualified candidates: `OP003T
 
 Two other preliminary records were not included in the four-case cohort: `OP001TA011A001` (279 s; nine theoretical 30-s windows, below the ten-window/300-s screen, with a metadata label-direction warning) and `OP028TA001A002` (270 s; nine theoretical windows and not evaluable in the selected simulation member under the current time mapping). For OP028, the selected member spans 39,875–52,775 s while the mapped YAML interval is 56,700–56,970 s (zero overlap). The check did not enumerate every possible duplicate/alternative archive member, so this is a selected-member result, not a claim that no alternative member exists anywhere in the archive.
 
-- **Stage pressure:** the 12 exported stage-pressure columns inspected were static across the four traces. The result is `NOT_IDENTIFIABLE_FROM_EXPORTED_TRACE`; it does not establish that pressure is absent from the simulator globally.
-- **PY23:** Under the expected physical relation (heating up → pressure up; heating down → pressure down), OP004 (H701 −30%; ΔPY23 +17.81) showed a sustained change opposite to expectation, while OP009 (H701 +20%; ΔPY23 +13.79) was consistent with expectation. OP003 (H701 +25%; ΔPY23 −1.21) and OP001 (H701 off; ΔPY23 +0.004) showed no sustained response. The available audit record does not establish that this directional expectation was preregistered before data inspection; it is therefore described here as a physical expectation used in interpretation, not as a confirmed preregistered prediction.
+#### Stage pressure
+
+For each of the four inspected traces, the 12 exported stage-wise pressure columns each had one unique value across the recorded time series. The result is `NOT_IDENTIFIABLE_FROM_EXPORTED_TRACE` for a pressure-response analysis in these traces; it does not establish that pressure is absent from the simulator globally.
+
+**Unit/scale discrepancy requiring resolution:** in the OP003 diagnostic, the exported column is labelled `pressure stage 12 / Pa` and has the constant value 300.0. The corresponding operating-point metadata says 300 mbar, while the selected XML configuration excerpt reports `pressure_12 = 30000.00`. The values are numerically consistent with a factor-of-100 Pa↔mbar conversion, but the CSV label and its numeric scale do not agree. The conversion and the exact semantics of the exported column are not independently confirmed here. Pressure constancy can be described; its absolute unit/value must remain unresolved until the raw CSV, XML definition, and export convention are checked together.
+
+#### PY23
+
+Under the expected physical relation (heating up → pressure up; heating down → pressure down):
+
+| Candidate | H701 metadata perturbation | ΔPY23 | Interpretation |
+|---|---|---:|---|
+| OP003 | +25% heating | −1.21 | No sustained response |
+| OP004 | −30% heating | +17.81 | Sustained change opposite to expectation |
+| OP009 | +20% heating | +13.79 | Sustained change consistent with expectation |
+| OP001 | Heater off | +0.004 | No sustained response |
+
+The available audit record does not establish that this directional expectation was preregistered before data inspection. It is presented as a physical expectation used in interpretation, not as a confirmed preregistered prediction.
+
+#### Temperature
+
+The locked v3.1 result is `NOT_VERIFIED`; T701-stage sign agreement was 2/4. A separate 2026-10-31 screening memo reports a different metric: the within-event `T_stage1` range crossed its preliminary heuristic for OP003 (2.70 °C) and OP009 (2.24 °C), but not OP004 (0.14 °C) or OP001TA009 (0.02 °C). OP001TA011 was below the 300-s duration screen and OP028 was not evaluable. These are different metrics and must not be conflated. Neither establishes a confirmed causal thermal response. The superheat/heater-surface explanation remains a post-hoc hypothesis.
+
+#### Flow
+
+`COINCIDENTAL_BY_PREDEFINED_TRAJECTORY_SCREEN`. Mean direction agreed in 4/4, but corrected trajectory mean was 0.561 and pooled mean 0.627; 2/4 cases fell below the pre-specified 0.70 threshold. OP004 had contrary bins at 480, 510, and 540 seconds. Directional agreement alone does not satisfy the trajectory screen.
 
 #### Metadata description versus XML heat-duty schedule
 
@@ -46,9 +70,6 @@ The event metadata and the inspected simulation XML provide two distinct represe
 | OP001TA009A002 | H701 off | 185.031024 → −49.937952 | −127.0% |
 
 These are values from separate metadata and XML fields. The unit/semantic relationship between the metadata's heater-power values and the XML `heat_duty` schedule has not been established in the included evidence. In particular, the negative OP001 XML value has an unresolved sign-convention interpretation. Do not describe these pairs as matching percentages or as a confirmed physical power conversion.
-- **Temperature:** `NOT_VERIFIED`; the locked v3.1 result records T701-stage sign agreement of 2/4. A separate 2026-10-31 screening memo reported a different metric: the within-event `T_stage1` range crossed its preliminary heuristic in OP003 (2.70 °C) and OP009 (2.24 °C), but not OP004 (0.14 °C) or OP001TA009 (0.02 °C). OP001TA011 was below the 300-s duration screen and OP028 was not evaluable. Do not conflate this range-screen metric with the final sign-agreement statistic; neither establishes a confirmed causal thermal response. The proposed superheat/heater-surface explanation remains a post-hoc hypothesis.
-- **Flow:** `COINCIDENTAL_BY_PREDEFINED_TRAJECTORY_SCREEN`. Mean direction agreed in 4/4, but corrected trajectory mean was 0.561 and pooled mean 0.627; 2/4 cases fell below the pre-specified 0.70 threshold. OP004 had contrary bins at 480, 510, and 540 seconds. Directional agreement alone therefore does not satisfy the trajectory screen.
-
 The predefined criteria were locked before the v3.1 evaluation, but not necessarily before any data inspection.
 
 ### Artifact 2 — Archive Crosswalk v2.2.5
