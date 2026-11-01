@@ -25,6 +25,9 @@ H701 is a manually operated open-loop heater, not a PI-controlled jacket heater.
 ### Channel conclusions
 
 - Stage pressure outputs: `NOT_IDENTIFIABLE_FROM_EXPORTED_TRACE`. Twelve exported stage-pressure columns were static in the four inspected traces. No global statement about all simulator pressure variables follows.
+
+#### PY23
+
 | Candidate | H701 perturbation | Expected physical pressure direction | Observed ΔPY23 | Interpretation |
 |---|---|---|---:|---|
 | OP003 | +25% heating | Up | −1.21 | No sustained response |
@@ -33,8 +36,14 @@ H701 is a manually operated open-loop heater, not a PI-controlled jacket heater.
 | OP001 | Heater off | Down | +0.004 | No sustained response |
 
 The directional relation shown above is an expected physical relation (heating up → pressure up; heating down → pressure down). The available audit record does not establish that this directional expectation itself was preregistered before data inspection. Do not describe it as a confirmed preregistered prediction.
-- Temperature: `NOT_VERIFIED`, T701-stage sign agreement 2/4. The T701 superheat/heater-surface account is a post-hoc physical hypothesis only.
-- Flow: `COINCIDENTAL_BY_PREDEFINED_TRAJECTORY_SCREEN`; direction matched in 4/4, corrected trajectory mean 0.561, pooled 0.627, and 2/4 cases below threshold 0.70. OP004 contrary bins: 480, 510, 540 s.
+
+#### Temperature
+
+`NOT_VERIFIED`; T701-stage sign agreement was 2/4. The T701 superheat/heater-surface account is a post-hoc physical hypothesis only.
+
+#### Flow
+
+`COINCIDENTAL_BY_PREDEFINED_TRAJECTORY_SCREEN`; direction matched in 4/4, corrected trajectory mean 0.561, pooled 0.627, and 2/4 cases below threshold 0.70. OP004 contrary bins: 480, 510, 540 s.
 
 The criteria were locked before v3.1 evaluation, but not necessarily before any data inspection. For Spearman calculations with N=4, the exact two-sided permutation minimum for untied ranks is 2/24 = 0.0833; the exact/asymptotic method and any formal alpha preregistration were not independently verified.
 
@@ -91,6 +100,7 @@ No direct P701/P702 power/state variables were found in the inspected OP021 file
 ## Claims explicitly not made
 
 - No claim that the simulator globally lacks pressure modelling.
+- No claim that the PY23 physical direction expectation was preregistered before data inspection.
 - No claim that H701 passed validation.
 - No claim that raw metadata rows or parent keys equal independent physical events.
 - No claim that the P701/P702 demonstration validates the simulator.
