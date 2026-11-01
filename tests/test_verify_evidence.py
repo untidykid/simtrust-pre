@@ -14,6 +14,13 @@ sys.path.insert(0, str(ROOT / "scripts"))
 from verify_evidence import file_digests, main, verify_directory  # noqa: E402
 
 
+def md5_hex(data: bytes) -> str:
+    try:
+        return hashlib.md5(data, usedforsecurity=False).hexdigest()
+    except TypeError:
+        return hashlib.md5(data).hexdigest()
+
+
 class VerifyEvidenceTests(unittest.TestCase):
     def test_file_digests_reports_size_md5_sha256(self):
         payload = b"SimTrust-Pre test fixture\n"
@@ -22,7 +29,7 @@ class VerifyEvidenceTests(unittest.TestCase):
             path.write_bytes(payload)
             size, md5, sha256 = file_digests(path)
         self.assertEqual(size, len(payload))
-        self.assertEqual(md5, hashlib.md5(payload).hexdigest())
+        self.assertEqual(md5, md5_hex(payload))
         self.assertEqual(sha256, hashlib.sha256(payload).hexdigest())
 
     def test_verify_directory_accepts_exact_size_and_md5(self):
@@ -30,7 +37,7 @@ class VerifyEvidenceTests(unittest.TestCase):
         expected = {
             "sample.csv": {
                 "size": len(payload),
-                "md5": hashlib.md5(payload).hexdigest(),
+                "md5": md5_hex(payload),
             }
         }
         with tempfile.TemporaryDirectory() as tmp:
