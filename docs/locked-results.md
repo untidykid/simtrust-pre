@@ -20,7 +20,7 @@ This document records the artifact-level conclusions frozen on 2026-11-01. It is
 | `OP009TA001A001` | 680 s |
 | `OP001TA009A002` | 319 s |
 
-H701 is a manually operated open-loop heater, not a PI-controlled jacket heater.
+On the physical plant, H701 is the 350-W reboiler-vessel heating jacket. For the four YAML-described cohort events, its operating state is recorded as `manual open-loop controlled`; do not characterize these perturbations as PI/PID-controlled feedback operation.
 
 The four listed candidates are the duration-qualified subset of six preliminary single-H701 candidate event records across five chemical/operating-point groups. The other two were:
 - `OP001TA011A001`: 279 s (nine theoretical non-overlapping 30-s windows), below the ten-window/300-s screen. Its metadata contains a direction-label warning: the perturbation text says H701 power increased while the label says reduced.
