@@ -110,7 +110,7 @@ When the planned evidence file `artifact_3_hv_feasibility.csv` is added, it will
 
 See [the evidence manifest](evidence/README.md) for filenames, sizes, and recorded MD5 values.
 
-**Important:** this initial repository commit does not yet contain the four CSV evidence payloads or the original simulation ZIP. The manifest records previously verified metadata only. Hashes cannot reconstruct missing files, and MD5 integrity checks do not establish semantic correctness.
+**Important:** the current repository tree does not contain the four CSV evidence payloads or the original simulation ZIP. The manifest records previously verified metadata only. Hashes cannot reconstruct missing files, and MD5 integrity checks do not establish semantic correctness.
 
 Do not treat this documentation bootstrap as a complete data release. The evidence files should be added from the original verified files, without regenerating or substituting them from summaries.
 
