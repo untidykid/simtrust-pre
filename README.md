@@ -24,7 +24,7 @@ The project’s central conclusion is not that the simulator is generally invali
 Four candidates were evaluated: `OP003TA001A001` (481 s), `OP004TA001A001` (616 s), `OP009TA001A001` (680 s), and `OP001TA009A002` (319 s).
 
 - **Stage pressure:** the 12 exported stage-pressure columns inspected were static across the four traces. The result is `NOT_IDENTIFIABLE_FROM_EXPORTED_TRACE`; it does not establish that pressure is absent from the simulator globally.
-- **PY23:** sustained changes occurred in OP004 (+17.81) and OP009 (+13.79), but opposite to the predicted direction. OP003 (-1.21) and OP001 (+0.004) showed no sustained response.
+- **PY23:** Under the expected physical relation (heating up → pressure up; heating down → pressure down), OP004 (H701 −30%; ΔPY23 +17.81) showed a sustained change opposite to expectation, while OP009 (H701 +20%; ΔPY23 +13.79) was consistent with expectation. OP003 (H701 +25%; ΔPY23 −1.21) and OP001 (H701 off; ΔPY23 +0.004) showed no sustained response. The available audit record does not establish that this directional expectation was preregistered before data inspection; it is therefore described here as a physical expectation used in interpretation, not as a confirmed preregistered prediction.
 - **Temperature:** `NOT_VERIFIED`; T701-stage sign agreement was 2/4. The proposed superheat/heater-surface explanation remains a post-hoc hypothesis, not a confirmed mechanism.
 - **Flow:** `COINCIDENTAL_BY_PREDEFINED_TRAJECTORY_SCREEN`. Mean direction agreed in 4/4, but corrected trajectory mean was 0.561 and pooled mean 0.627; 2/4 cases fell below the pre-specified 0.70 threshold. OP004 had contrary bins at 480, 510, and 540 seconds.
 
