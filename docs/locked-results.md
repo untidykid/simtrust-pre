@@ -94,7 +94,7 @@ The published paper's figure 36 was not reproduced from the current archive extr
 69 raw metadata links -> 42 parent keys. 59 raw descriptions say “Improperly sealed sample valve”. These are not 59 independent events. Interpretation as manual sample-valve cases is strongly supported but not fully verified. In the checked actuator archive/config, no matching direct actuator/control signal was identified; only a representative simulator file was checked, not all simulation outputs. Verdict: `NOT_FEASIBLE_FOR_DIRECT_ACTUATOR_PAIRED_STUDY`.
 
 ### T703
-66 raw metadata records -> 14 parent keys across 6 experiments. Composition: 49 noise injections, 8 compound H701/P702/PDI702, 4 unsuitable sensor placement, 4 temperature ramp, 1 empty. Only one Observation child was tied to T703; all 14 parent configurations had `sim_flag=False`. A zero sensor file from an old path lookup was inconclusive. Verdict: `NOT_FEASIBLE_FOR_CURRENT_PAIRED_VALIDATION`; this does not mean T703 is universally unusable.
+66 raw metadata records -> 14 parent keys across 6 experiments. Raw-record description counts: 49 noise injections, 8 compound H701/P702/PDI702, 4 unsuitable sensor placement, 4 temperature ramp, and 1 empty. These counts sum to the 66 raw metadata records, not to 66 independent events. Only one Observation child was tied to T703; all 14 parent configurations had `sim_flag=False`. A zero sensor file from an old path lookup was inconclusive. Verdict: `NOT_FEASIBLE_FOR_CURRENT_PAIRED_VALIDATION`; this does not mean T703 is universally unusable.
 
 ### AV716/V001/PDI702
 Link counts 4/3/7 respectively; no independent event count is implied. These families were not advanced and were not proven non-feasible.
