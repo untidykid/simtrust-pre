@@ -12,6 +12,8 @@ This directory is intended to hold the four frozen CSV evidence artifacts. The v
 ## Pinned source dataset
 
 - Record: [Zenodo 22250958, version 1.1.3](https://zenodo.org/records/22250958)
+- Version published: 2026-09-02
+- Record size: 95.2 GB (the selected archive list below is not exhaustive)
 - DOI: `10.5281/zenodo.22250958`
 - The following **selected upstream archives relevant to this audit** have names, published sizes, and MD5 checksums transcribed from the Zenodo v1.1.3 record. They identify upstream source files; they are not checksums for the four derived audit CSVs above. This is not a complete inventory of the Zenodo record. None of these source archives is currently committed to this GitHub repository. The published 2.1-GB simulation archive should remain hosted at Zenodo rather than be copied into ordinary Git. GitHub documents a 100-MB per-file limit for ordinary Git and a 2-GB per-file Git LFS limit on Free/Pro plans; see [repository file limits](https://docs.github.com/en/repositories/working-with-files/managing-large-files/about-large-files-on-github) and [Git LFS limits](https://docs.github.com/en/repositories/working-with-files/managing-large-files/about-storage-and-bandwidth-usage).
 
@@ -24,7 +26,7 @@ This directory is intended to hold the four frozen CSV evidence artifacts. The v
 | `13_Batch_Distillation_Plant_M-202210_Timeseries_Simulation.zip` | 2.1 GB | `21399c5def2c114bd2461e80270d90cf` |
 | `14_Batch_Distillation_Plant_M-202210_Timeseries_Simulation_Configuration.zip` | 258.0 kB | `8676ba6454704dd6829d46dfadd1afe6` |
 
-The upstream MD5 values were checked against the Zenodo v1.1.3 record page on 2026-11-01. The exact archive bytes used in the audit are not available in this repository, so their local digests have not been independently recomputed here. The upstream dataset paper describes the dataset under CC BY 4.0; that license does not automatically assign a license to this repository's original files.
+The upstream MD5 values were checked against the Zenodo v1.1.3 record page on 2026-11-01. The exact archive bytes used in the audit are not available in this repository, so their local digests have not been independently recomputed here. The dataset descriptor states that the complete dataset is openly shared under CC BY 4.0. Check the license field on the specific Zenodo record/version before redistributing individual source archives. This upstream statement does not automatically assign a license to this repository's original files.
 
 Related upstream resources: [dataset descriptor paper](https://doi.org/10.1038/s41597-026-07124-3), [companion processing-code repository](https://github.com/Jarweile/batch-distillation-anomaly-detection-data), and [archived software release](https://doi.org/10.5281/zenodo.18744032). These are upstream dataset/code references; they are not the SimTrust-Pre analysis pipeline or a reproduction of the four locked audit CSVs.
 
