@@ -33,9 +33,11 @@ Two other preliminary records were not included in the four-case cohort: `OP001T
 
 #### Stage pressure
 
-For each of the four inspected traces, the 12 exported stage-wise pressure columns each had one unique value across the recorded time series. The result is `NOT_IDENTIFIABLE_FROM_EXPORTED_TRACE` for a pressure-response analysis in these traces; it does not establish that pressure is absent from the simulator globally.
+For each of the four locked v3.1 traces, all 12 exported stage-wise pressure columns had exactly one unique value across the full recorded time series. The result is `NOT_IDENTIFIABLE_FROM_EXPORTED_TRACE` as a within-event pressure-response channel for this H701 cohort; it is not a claim that the simulator globally lacks pressure variables.
 
-**Unit/scale discrepancy requiring resolution:** in the OP003 diagnostic, the exported column is labelled `pressure stage 12 / Pa` and has the constant value 300.0. The corresponding operating-point metadata says 300 mbar, while the selected XML configuration excerpt reports `pressure_12 = 30000.00`. The values are numerically consistent with a factor-of-100 Pa↔mbar conversion, but the CSV label and its numeric scale do not agree. The conversion and the exact semantics of the exported column are not independently confirmed here. Pressure constancy can be described; its absolute unit/value must remain unresolved until the raw CSV, XML definition, and export convention are checked together.
+**Model-structure interpretation:** the revised 2026-10-31 pre-lock addendum records the simulator pressure profile as `P^j = P^S + (S-j)·ΔP/(S-1)`. For the head stage `j=S=12`, this gives `P^12=P^S`. With an unchanged head-pressure setpoint during an H701 heat-duty perturbation, stage-12 pressure is therefore expected to remain constant by model construction. This explains why it is unsuitable as the H701 *fault-response* feature; it does not establish a general failure of the simulator's pressure modelling.
+
+**Unit/scale discrepancy requiring resolution:** the retained diagnostic labels the exported columns `pressure stage n / Pa`, but its summary table names the scale fields `min_mbar`, `max_mbar`, `range_mbar` and `delta_raw_mbar`. In that diagnostic, stage-12 values are 300.0, 350.0, 450.0 and 500.0 for the four locked traces, matching the corresponding operating-pressure levels recorded in mbar. The column label and the diagnostic's numerical scale therefore conflict. The raw simulation CSV and exact export/conversion code are not present in this repository; retain the pressure constancy finding, but do not silently assert that the exported `/Pa` label is correct or apply an unverified conversion.
 
 #### PY23
 
