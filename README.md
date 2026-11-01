@@ -52,7 +52,7 @@ The available audit record does not establish that this directional expectation 
 
 #### Temperature
 
-The locked v3.1 result is `NOT_VERIFIED`; T701-stage sign agreement was 2/4. A separate 2026-10-31 screening memo reports a different metric: the within-event `T_stage1` range crossed its preliminary heuristic for OP003 (2.70 °C) and OP009 (2.24 °C), but not OP004 (0.14 °C) or OP001TA009 (0.02 °C). OP001TA011 was below the 300-s duration screen and OP028 was not evaluable. These are different metrics and must not be conflated. Neither establishes a confirmed causal thermal response. The superheat/heater-surface explanation remains a post-hoc hypothesis.
+The locked v3.1 result is `NOT_VERIFIED`; T701-stage sign agreement was 2/4. A separate 2026-10-31 screening memo reports a different metric: the within-event `T_stage1` range crossed its preliminary heuristic, `during_range > max(2.0 °C, 5 × pre-event standard deviation)`, for OP003 (2.70 °C) and OP009 (2.24 °C), but not OP004 (0.14 °C) or OP001TA009 (0.02 °C). OP001TA011 was below the 300-s duration screen and OP028 was not evaluable. These are different metrics and must not be conflated. Neither establishes a confirmed causal thermal response. The superheat/heater-surface explanation remains a post-hoc hypothesis.
 
 #### Flow
 
@@ -62,14 +62,14 @@ The locked v3.1 result is `NOT_VERIFIED`; T701-stage sign agreement was 2/4. A s
 
 The event metadata and the inspected simulation XML provide two distinct representations; their percentages must not be assumed to be numerically interchangeable. The retained XML diagnostic reports:
 
-| Candidate | Metadata description | XML `heat_duty` values (initial → perturbed) | XML relative change |
-|---|---|---:|---:|
-| OP003 | H701 +25% (to 245 W) | 129.575087 → 189.150174 | +46.0% |
-| OP004 | H701 −30% (to 70 W) | 146.988148 → 13.976296 | −90.5% |
-| OP009 | H701 +20% (to 210 W) | 211.901208 → 253.802416 | +19.8% |
-| OP001TA009A002 | H701 off | 185.031024 → −49.937952 | −127.0% |
+| Candidate | Metadata description | XML time interval (s, simulation-relative) | XML `heat_duty` values (initial → perturbed) | XML relative change |
+|---|---|---:|---:|---:|
+| OP003 | H701 +25% (to 245 W) | 1615–2096 (481 s) | 129.575087 → 189.150174 | +46.0% |
+| OP004 | H701 −30% (to 70 W) | 1273–1889 (616 s) | 146.988148 → 13.976296 | −90.5% |
+| OP009 | H701 +20% (to 210 W) | 582–1262 (680 s) | 211.901208 → 253.802416 | +19.8% |
+| OP001TA009A002 | H701 off | 1975–2294 (319 s) | 185.031024 → −49.937952 | −127.0% |
 
-These are values from separate metadata and XML fields. The unit/semantic relationship between the metadata's heater-power values and the XML `heat_duty` schedule has not been established in the included evidence. In particular, the negative OP001 XML value has an unresolved sign-convention interpretation. Do not describe these pairs as matching percentages or as a confirmed physical power conversion.
+Each XML time interval has the same duration as its corresponding metadata event duration in the four inspected cases. This supports duration-level alignment of the schedule windows, but does not establish the unit or meaning of the `heat_duty` magnitudes. These are values from separate metadata and XML fields. The unit/semantic relationship between the metadata's heater-power values and the XML `heat_duty` schedule has not been established in the included evidence. In particular, the negative OP001 XML value has an unresolved sign-convention interpretation. Do not describe these pairs as matching percentages or as a confirmed physical power conversion.
 The predefined criteria were locked before the v3.1 evaluation, but not necessarily before any data inspection.
 
 ### Artifact 2 — Archive Crosswalk v2.2.5
@@ -96,7 +96,7 @@ When the planned evidence file `artifact_3_hv_feasibility.csv` is added, it will
 - 121 raw metadata records were grouped into 25 parent keys across 19 experiment keys.
 - The two genuine pure-single parent events (one P701, one P702) occur in the same experiment: `batch_dist_ternary_butan-1-ol+propan-2-ol+water/operating_point_021/test_anormal_experiment_001`.
 - The OP021 trace contains 18,001 time-series rows spanning 38,253–56,253 s. The final extraction inventory lists 179 variables, while an earlier shape summary reported 180 columns; the counting convention cannot be resolved without the original trace file. The pump-off windows are 256 s (P702) and 254 s (P701); observed onset offsets were 2 s and 11 s, with a 9 s spread.
-- The relationship `efflux_ratio = D/(D+R)` matched to a median absolute residual of 2.214895e-14, but transient outliers remain (maximum 0.02843). Their cause has not been established.
+- The simulator-side relationship `efflux_ratio = D/(D+R)` matched to a median absolute residual of 2.214895e-14, but transient outliers remain (maximum 0.02843). This is not the same quantity as the experimental reflux ratio `FT704/FT703`; the FT703/FT704 mapping remains provisional. The cause of the transient residuals has not been established.
 - The FT703/FT704 mapping to distillate/reflux is provisional and was not independently confirmed against a P&ID.
 - Directional real/sim alignment is descriptive evidence under that provisional mapping, not four independent validation tests. If one event informed selection of the sensor mapping, that event is mapping-selection evidence; the second event provides descriptive cross-event consistency, not an independent validation set. Both pump cases come from one independent experiment.
 - The listed P701/P702 parent-key categories in the detailed record (12 compound pumps & others, 1 pure P701, 1 pure P702, 3 both-pumps-only, 4 multi-all-actuators-off) sum to 21, not 25. Four of the 25 parent keys are not accounted for by that category summary and are left unclassified here pending the original event CSV; no category is inferred for them.
@@ -127,6 +127,8 @@ evidence/
   README.md
 scripts/
   verify_evidence.py
+tests/
+  test_verify_evidence.py
 ```
 
 Run `python scripts/verify_evidence.py` from the repository root after placing the four original CSVs in `evidence/`. The verifier checks both recorded byte size and MD5, and prints SHA-256 digests for recording. Run its fixture-based unit tests with `python -m unittest discover -s tests -v` (Python 3.10+).
