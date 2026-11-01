@@ -32,20 +32,22 @@ The broader 2026-10-31 decision memo separately reports five time-evaluable pres
 
 #### Stage pressure
 
-For each of the four inspected traces, the 12 exported stage-wise pressure columns each had one unique value across the recorded time series. The result is `NOT_IDENTIFIABLE_FROM_EXPORTED_TRACE` for a pressure-response analysis in these traces; no global claim about simulator pressure modelling follows.
+For each of the four locked v3.1 traces, all 12 exported stage-wise pressure columns had exactly one unique value across the full recorded time series. The result is `NOT_IDENTIFIABLE_FROM_EXPORTED_TRACE` as a within-event pressure-response channel for this H701 cohort; no global claim about simulator pressure modelling follows.
 
-**Unit/scale discrepancy requiring resolution:** in the OP003 diagnostic, the exported column is labelled `pressure stage 12 / Pa` and has the constant value 300.0. The corresponding operating-point metadata says 300 mbar, while the selected XML configuration excerpt reports `pressure_12 = 30000.00`. These values are numerically consistent with a factor-of-100 Pa↔mbar conversion, but the CSV label and numeric scale do not agree. The conversion and exact semantics of the exported column have not been independently confirmed. Pressure constancy can be reported; the absolute unit/value must remain unresolved pending review of the raw CSV, XML definition, and export convention.
+**Model-structure interpretation:** a revised 2026-10-31 pre-lock addendum (explicitly marked draft, not yet locked) records the simulator pressure profile as `P^j = P^S + (S-j)·ΔP/(S-1)`. For the head stage `j=S=12`, this gives `P^12=P^S`. Under an unchanged head-pressure setpoint during an H701 heat-duty perturbation, stage-12 pressure is therefore expected to remain constant by this model relation. This explains why it is unsuitable as the H701 fault-response feature; it does not establish a general failure of the simulator's pressure modelling.
+
+**Unit/scale discrepancy requiring resolution:** the retained diagnostic labels the exported columns `pressure stage n / Pa`, but its summary table names the scale fields `min_mbar`, `max_mbar`, `range_mbar` and `delta_raw_mbar`. In that diagnostic, stage-12 values are 300.0, 350.0, 450.0 and 500.0 for the four locked traces, matching the operating-pressure levels recorded in mbar. The column label and diagnostic numerical scale conflict. The raw simulation CSV and exact export/conversion code are not present in this repository; retain the pressure constancy finding, but do not silently assert that the exported `/Pa` label is correct or apply an unverified conversion.
 
 #### PY23
 
-| Candidate | H701 metadata perturbation | Expected physical pressure direction | Observed ΔPY23 | Interpretation |
+| Candidate | H701 metadata perturbation | Expected physical pressure direction | Observed ΔPY23 (mbar) | Interpretation |
 |---|---|---|---:|---|
-| OP003 | +25 percentage points (45% → 70%; 157.5 → 245 W) | Up | −1.21 | No sustained response |
-| OP004 | −30 percentage points (50% → 20%; 175 → 70 W) | Down | +17.81 | Sustained change opposite to expectation |
-| OP009 | +20 percentage points (40% → 60%; 140 → 210 W) | Up | +13.79 | Sustained change consistent with expectation |
-| OP001 | Heater off | Down | +0.004 | No sustained response |
+| `OP003TA001A001` | +25 percentage points (45% → 70%; 157.5 → 245 W) | Up | −1.21 | No sustained response |
+| `OP004TA001A001` | −30 percentage points (50% → 20%; 175 → 70 W) | Down | +17.81 | Sustained change opposite to expectation |
+| `OP009TA001A001` | +20 percentage points (40% → 60%; 140 → 210 W) | Up | +13.79 | Sustained change consistent with expectation |
+| `OP001TA009A002` | Heater off (60% → 0%; 210 → 0 W) | Down | +0.004 | No sustained response |
 
-The directional relation shown above is an expected physical relation (heating up → pressure up; heating down → pressure down). The available audit record does not establish that this directional expectation itself was preregistered before data inspection. Do not describe it as a confirmed preregistered prediction. The unit of reported ΔPY23 is not asserted here pending confirmation of the exported-column unit mapping; do not silently interpret it as mbar or Pa.
+The directional relation shown above is an expected physical relation (heating up → pressure up; heating down → pressure down). The available audit record does not establish that this directional expectation itself was preregistered before data inspection. Do not describe it as a confirmed preregistered prediction. The ΔPY23 values refer to the experimental PY23 pressure signal and are reported in mbar; this is separate from the unresolved simulator-export `/Pa` versus `_mbar` labelling discrepancy.
 
 #### Metadata description versus XML heat-duty schedule
 
@@ -53,10 +55,10 @@ The event metadata and the inspected simulation XML provide distinct representat
 
 | Candidate | Metadata description | XML time interval (s, simulation-relative) | XML `heat_duty` values (initial → perturbed) | XML relative change |
 |---|---|---:|---:|---:|
-| OP003 | H701 +25 percentage points (45% → 70%; 157.5 → 245 W) | 1615–2096 (481 s) | 129.575087 → 189.150174 | +46.0% |
-| OP004 | H701 −30 percentage points (50% → 20%; 175 → 70 W) | 1273–1889 (616 s) | 146.988148 → 13.976296 | −90.5% |
-| OP009 | H701 +20 percentage points (40% → 60%; 140 → 210 W) | 582–1262 (680 s) | 211.901208 → 253.802416 | +19.8% |
-| OP001TA009A002 | H701 off | 1975–2294 (319 s) | 185.031024 → −49.937952 | −127.0% |
+| `OP003TA001A001` | H701 +25 percentage points (45% → 70%; 157.5 → 245 W) | 1615–2096 (481 s) | 129.575087 → 189.150174 | +46.0% |
+| `OP004TA001A001` | H701 −30 percentage points (50% → 20%; 175 → 70 W) | 1273–1889 (616 s) | 146.988148 → 13.976296 | −90.5% |
+| `OP009TA001A001` | H701 +20 percentage points (40% → 60%; 140 → 210 W) | 582–1262 (680 s) | 211.901208 → 253.802416 | +19.8% |
+| `OP001TA009A002` | H701 off (60% → 0%; 210 → 0 W) | 1975–2294 (319 s) | 185.031024 → −49.937952 | −127.0% |
 
 Each XML time interval has the same duration as its corresponding metadata event duration in the four inspected cases. This supports duration-level alignment of the schedule windows, but does not establish the unit or meaning of the `heat_duty` magnitudes. These values come from separate metadata and XML fields. The unit/semantic relationship between the metadata's heater-power values and the XML `heat_duty` schedule has not been established in the included evidence. The negative OP001 XML value has an unresolved sign-convention interpretation. Do not describe these pairs as matching percentages or as a confirmed physical power conversion.
 
@@ -69,7 +71,7 @@ Each XML time interval has the same duration as its corresponding metadata event
 #### Flow
 
 `COINCIDENTAL_BY_PREDEFINED_TRAJECTORY_SCREEN`; direction matched in 4/4, corrected trajectory mean 0.561, pooled 0.627, and 2/4 cases below threshold 0.70. OP004 contrary bins: 480, 510, 540 s. Directional agreement alone does not satisfy the trajectory screen.
-The criteria were locked before v3.1 evaluation, but not necessarily before any data inspection. The planned primary estimand, pre-onset fidelity `q` versus fault-segment utility `ΔAP`, was not estimated on a validated H701 cohort. Invariant simulated stage-12 pressure during the fault does not establish that pre-onset `q` is zero, constant, or uncomputable; paired pre-onset real/simulation values, valid uncertainty measurements, and verified time alignment would be required. For Spearman calculations with N=4, the exact two-sided permutation minimum for untied ranks is 2/24 = 0.0833; the exact/asymptotic method and any formal alpha preregistration were not independently verified.
+The criteria were locked before v3.1 evaluation, but not necessarily before any data inspection. The planned primary predictor was `q_i^300 = median(|PY23_real(t) − P12_sim(t−δ_i)| / u_PY23(t))` over `t ∈ [t0−300 s,t0)`, subject to the documented missingness, interpolation, uncertainty, and alignment rules, with `t_real=t_sim+δ_i`. The planned primary utility was paired fault-segment `ΔAP_i^fault = AP(M_{−i,+S_i},R_i^eval)−AP(M_{−i},R_i^eval)`. Neither `q` nor `ΔAP` was estimated on a validated H701 cohort. Constant P12 during the fault does not imply constant or zero pre-onset `q`; paired values would have to be calculated. For Spearman calculations with N=4, the exact two-sided permutation minimum for untied ranks is 2/24 = 0.0833; the exact/asymptotic method and any formal alpha preregistration were not independently verified.
 
 ## Crosswalk counts and boundaries
 
