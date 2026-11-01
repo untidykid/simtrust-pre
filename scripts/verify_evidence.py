@@ -43,7 +43,13 @@ def main() -> int:
             failures += 1
             continue
 
-        actual = md5_file(path)
+        try:
+            actual = md5_file(path)
+        except OSError as exc:
+            print(f"ERROR    {filename}: could not read file ({exc})")
+            failures += 1
+            continue
+
         if actual == expected:
             print(f"OK       {filename}  {actual}")
         else:
