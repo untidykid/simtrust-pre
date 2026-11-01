@@ -69,6 +69,18 @@ class VerifyEvidenceTests(unittest.TestCase):
         self.assertIn("expected size: 100", output.getvalue())
         self.assertIn("expected MD5:", output.getvalue())
 
+    def test_verify_directory_handles_digest_unavailable_error(self):
+        expected = {"sample.csv": {"size": 1, "md5": "0" * 32}}
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            (root / "sample.csv").write_bytes(b"x")
+            output = io.StringIO()
+            with patch("verify_evidence.file_digests", side_effect=ValueError("MD5 unavailable under FIPS policy")):
+                status = verify_directory(root, expected, output)
+        self.assertEqual(status, 1)
+        self.assertIn("could not compute/read digest", output.getvalue())
+        self.assertIn("MD5 unavailable under FIPS policy", output.getvalue())
+
     def test_verify_directory_handles_read_error(self):
         expected = {"sample.csv": {"size": 1, "md5": "0" * 32}}
         with tempfile.TemporaryDirectory() as tmp:
