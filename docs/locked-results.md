@@ -25,7 +25,14 @@ H701 is a manually operated open-loop heater, not a PI-controlled jacket heater.
 ### Channel conclusions
 
 - Stage pressure outputs: `NOT_IDENTIFIABLE_FROM_EXPORTED_TRACE`. Twelve exported stage-pressure columns were static in the four inspected traces. No global statement about all simulator pressure variables follows.
-- PY23: opposite-direction sustained change in OP004 (+17.81) and OP009 (+13.79); no sustained response in OP003 (-1.21) and OP001 (+0.004).
+| Candidate | H701 perturbation | Expected physical pressure direction | Observed ΔPY23 | Interpretation |
+|---|---|---|---:|---|
+| OP003 | +25% heating | Up | −1.21 | No sustained response |
+| OP004 | −30% heating | Down | +17.81 | Sustained change opposite to expectation |
+| OP009 | +20% heating | Up | +13.79 | Sustained change consistent with expectation |
+| OP001 | Heater off | Down | +0.004 | No sustained response |
+
+The directional relation shown above is an expected physical relation (heating up → pressure up; heating down → pressure down). The available audit record does not establish that this directional expectation itself was preregistered before data inspection. Do not describe it as a confirmed preregistered prediction.
 - Temperature: `NOT_VERIFIED`, T701-stage sign agreement 2/4. The T701 superheat/heater-surface account is a post-hoc physical hypothesis only.
 - Flow: `COINCIDENTAL_BY_PREDEFINED_TRAJECTORY_SCREEN`; direction matched in 4/4, corrected trajectory mean 0.561, pooled 0.627, and 2/4 cases below threshold 0.70. OP004 contrary bins: 480, 510, 540 s.
 
