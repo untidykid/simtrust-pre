@@ -9,19 +9,34 @@ This directory is intended to hold the four frozen CSV evidence artifacts. The v
 | `artifact_3_hv_feasibility.csv` | 11,863 | `b0345b49abb899a2d7cdca8f65bb1b87` | Awaiting original file |
 | `artifact_4_p701p702_events.csv` | 3,539 | `127ed0fb1ed7145fd439d7c0e3bf08fe` | Awaiting original file |
 
-The source simulation archive was separately recorded as:
+## Pinned source dataset
 
-- Filename: `13_Batch_Distillation_Plant_M-202210_Timeseries_Simulation.zip`
-- Size: not recorded here
-- MD5: `21399c5def2c114bd2461e80270d90cf`
-- Repository status: not included
+- Record: [Zenodo 22250958, version 1.1.3](https://zenodo.org/records/22250958)
+- DOI: `10.5281/zenodo.22250958`
+- The following archive names, published sizes, and MD5 checksums are transcribed from the Zenodo v1.1.3 record. They identify the upstream source files; they are not checksums for the four derived audit CSVs above. None of these source archives is currently committed to this GitHub repository.
+
+| Source archive | Published size | Zenodo MD5 |
+|---|---:|---|
+| `00_Batch_Distillation_Plant_M-202210_Timeseries_Label_Anomaly_Metadata.zip` | 1.7 MB | `636dcb8188e5eb80f19522e244704e2c` |
+| `01_Batch_Distillation_Plant_M-202210_Timeseries_Sensors.zip` | 36.5 MB | `ecf2ee25f32d758bdd1e31820d77883e` |
+| `02_Batch_Distillation_Plant_M-202210_Timeseries_Actuators.zip` | 8.8 MB | `d345a725171ea2fecd0b608752998d63` |
+| `03_Batch_Distillation_Plant_M-202210_Timeseries_Sensor_Uncertainties.zip` | 31.9 MB | `0ee827ce07f3b520fb61ae15903b06cb` |
+| `13_Batch_Distillation_Plant_M-202210_Timeseries_Simulation.zip` | 2.1 GB | `21399c5def2c114bd2461e80270d90cf` |
+| `14_Batch_Distillation_Plant_M-202210_Timeseries_Simulation_Configuration.zip` | 258.0 kB | `8676ba6454704dd6829d46dfadd1afe6` |
+
+The upstream MD5 values were checked against the Zenodo record page on 2026-11-01. The exact archive bytes used in the audit are not available in this repository, so their local digests have not been independently recomputed here.
 
 ## Integrity versus semantic validity
 
 MD5 hashes verify byte-level integrity of the evidence artifacts. They do not independently re-verify the semantic classification rules used in Crosswalk v2.2.5. The classification labels (`OBSERVATION_DERIVED`, `PROVENANCE_UNRESOLVED`, etc.) are inherited from the original v2.2.5 extraction pipeline, not re-derived from first principles in this audit. The extraction code is not included in this documentation bootstrap, so the current repository does not independently reproduce the crosswalk construction.
 
-A simplified rebuild of the crosswalk from the raw ZIP produced 240 parent keys (5 `PROVENANCE_UNRESOLVED`) versus 254 (19) in the original. The original v2.2.5 crosswalk is retained as the frozen audit artifact. The simplified rebuild is not used as evidence.
+A simplified rebuild of the crosswalk from the raw ZIP produced 240 parent keys (5 `PROVENANCE_UNRESOLVED`) versus 254 (19) in the original. The original v2.2.5 crosswalk is retained as the frozen audit artifact, but its CSV payload is not yet committed. The simplified rebuild is not used as evidence. The final crosswalk CSV and the code that generated the v2.2.5 parent-key classification are not included in this bootstrap; therefore those classification labels and counts are inherited from the frozen extraction and are not independently reproduced from the source archives in this repository.
 
 ## Scope note for Artifact 3
 
 The evidence file `artifact_3_hv_feasibility.csv` contains the HV004/HV005 feasibility audit specifically. The full Feasibility Map covers five families (H701, HV004/HV005, T703, P701/P702, AV716/V001/PDI702); only the HV audit is provided as a separate evidence file. The other family verdicts are documented in the project narrative and in `artifact_1` (H701) and `artifact_4` (P701/P702).
+
+
+## Unresolved source-variable unit audit
+
+A retained OP003 diagnostic labels the exported variable as `pressure stage 12 / Pa` and reports the constant value 300.0. The operating-point metadata reports 300 mbar, while the selected configuration excerpt reports `pressure_12 = 30000.00`. The factor-of-100 relationship is numerically consistent with Pa↔mbar, but the output column's label and value appear inconsistent. The original simulation CSV and the simulator export/unit definition must be checked together before assigning an absolute unit to this time-series column. The current audit conclusion is limited to within-trace constancy, not a validated absolute pressure value.
