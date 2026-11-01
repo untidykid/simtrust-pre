@@ -82,7 +82,11 @@ docs/
   locked-results.md
 evidence/
   README.md
+scripts/
+  verify_evidence.py
 ```
+
+Run `python scripts/verify_evidence.py` from the repository root after placing the four original CSVs in `evidence/`.
 
 ## License and citation
 
