@@ -136,7 +136,7 @@ Run `python scripts/verify_evidence.py` from the repository root after placing t
 
 The planned primary estimand, pre-onset fidelity `q` versus fault-segment utility `ΔAP`, was **not estimated** on a validated H701 cohort. Invariant simulated stage-12 pressure during the perturbation does not establish that pre-onset `q` is zero, constant, or uncomputable; paired pre-onset real/simulation values and valid uncertainty measurements would be required.
 
-The notebook `SimTrust_Pre_Audit_v3_1.ipynb` retained in the Library is a Stage 1 structural/protocol audit notebook, not the executed pipeline that generated all four locked artifact CSVs. The stored copy has 14 code cells with no execution counts and no saved outputs. It is therefore not represented here as a reproduction package.
+A separate Stage 1 structural/protocol notebook was reviewed during this audit. The reviewed copy had 14 code cells with no execution counts and no saved outputs; it is not included in this repository and is not represented as a reproduction package.
 
 ## License and citation
 
