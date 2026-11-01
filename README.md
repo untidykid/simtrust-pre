@@ -19,7 +19,7 @@ The project’s central conclusion is not that the simulator is generally invali
 
 ## Dataset version and scope
 
-The source dataset is pinned to [Zenodo record 22250958, version 1.1.3](https://doi.org/10.5281/zenodo.22250958), published 2026-09-02. This release includes 119 experimental runs and corresponding simulation predictions for 115 experiments. Version 1.1.3 corrects a formatting error in one binary ethanol/2-propanol normal run affecting sensor, actuator, and uncertainty modalities; do not silently mix this release with earlier versions. This audit concerns selected event families and selected archive members, not a complete validation of all runs.
+The source dataset is pinned to [Zenodo record 22250958, version 1.1.3](https://doi.org/10.5281/zenodo.22250958). The source publication describes 119 experimental runs, with simulation predictions available for 115 experiments. Version 1.1.3 corrects a formatting error in one binary ethanol/2-propanol normal run affecting sensor, actuator, and uncertainty modalities; do not silently mix this release with earlier versions. This audit concerns selected event families and selected archive members, not a complete validation of all runs.
 
 This GitHub repository is currently a **documentation bootstrap**, not a computationally reproducible release. The final evidence CSVs, source archives, and the analysis/extraction code that generated the locked tables are not included. The figures and counts below are transcribed from the locked audit record and retained diagnostic outputs; they have not been independently regenerated from raw source files in this repository.
 
@@ -41,16 +41,16 @@ For each of the four locked v3.1 traces, all 12 exported stage-wise pressure col
 
 #### PY23
 
-Under the expected physical relation (heating up → pressure up; heating down → pressure down). The H701 perturbation magnitudes below are percentage-point changes in the metadata's heater setting, not relative-percent changes in the initial power value:
+Under the expected physical relation (heating up → pressure up; heating down → pressure down). The H701 perturbation magnitudes below are **percentage-point** changes in the metadata's heater setting, not relative-percent changes in the initial power value. PY23 is the experimental column-top pressure signal; its values and differences in this audit are reported in **mbar**. This experimental sensor unit is separate from the unresolved `/Pa` versus `_mbar` labelling discrepancy in the simulator-export diagnostic.
 
-| Candidate | H701 metadata perturbation | ΔPY23 | Interpretation |
+| Candidate | H701 metadata perturbation | Observed ΔPY23 (mbar) | Interpretation |
 |---|---|---:|---|
-| OP003 | +25 percentage points (45% → 70%; 157.5 → 245 W) | −1.21 | No sustained response |
-| OP004 | −30 percentage points (50% → 20%; 175 → 70 W) | +17.81 | Sustained change opposite to expectation |
-| OP009 | +20 percentage points (40% → 60%; 140 → 210 W) | +13.79 | Sustained change consistent with expectation |
-| OP001 | Heater off | +0.004 | No sustained response |
+| `OP003TA001A001` | +25 percentage points (45% → 70%; 157.5 → 245 W) | −1.21 | No sustained response |
+| `OP004TA001A001` | −30 percentage points (50% → 20%; 175 → 70 W) | +17.81 | Sustained change opposite to expectation |
+| `OP009TA001A001` | +20 percentage points (40% → 60%; 140 → 210 W) | +13.79 | Sustained change consistent with expectation |
+| `OP001TA009A002` | Heater off (60% → 0%; 210 → 0 W) | +0.004 | No sustained response |
 
-The available audit record does not establish that this directional expectation was preregistered before data inspection. It is presented as a physical expectation used in interpretation, not as a confirmed preregistered prediction. The unit of the reported ΔPY23 values is not asserted here because the exact exported-column unit mapping remains unresolved; do not silently interpret these differences as mbar or Pa.
+The available audit record does not establish that this directional physical expectation was preregistered before data inspection. It is used in interpretation, not presented as a confirmed preregistered prediction.
 
 #### Temperature
 
@@ -68,10 +68,10 @@ The event metadata and the inspected simulation XML provide two distinct represe
 
 | Candidate | Metadata description | XML time interval (s, simulation-relative) | XML `heat_duty` values (initial → perturbed) | XML relative change |
 |---|---|---:|---:|---:|
-| OP003 | H701 +25 percentage points (45% → 70%; 157.5 → 245 W) | 1615–2096 (481 s) | 129.575087 → 189.150174 | +46.0% |
-| OP004 | H701 −30 percentage points (50% → 20%; 175 → 70 W) | 1273–1889 (616 s) | 146.988148 → 13.976296 | −90.5% |
-| OP009 | H701 +20 percentage points (40% → 60%; 140 → 210 W) | 582–1262 (680 s) | 211.901208 → 253.802416 | +19.8% |
-| OP001TA009A002 | H701 off | 1975–2294 (319 s) | 185.031024 → −49.937952 | −127.0% |
+| `OP003TA001A001` | H701 +25 percentage points (45% → 70%; 157.5 → 245 W) | 1615–2096 (481 s) | 129.575087 → 189.150174 | +46.0% |
+| `OP004TA001A001` | H701 −30 percentage points (50% → 20%; 175 → 70 W) | 1273–1889 (616 s) | 146.988148 → 13.976296 | −90.5% |
+| `OP009TA001A001` | H701 +20 percentage points (40% → 60%; 140 → 210 W) | 582–1262 (680 s) | 211.901208 → 253.802416 | +19.8% |
+| `OP001TA009A002` | H701 off (60% → 0%; 210 → 0 W) | 1975–2294 (319 s) | 185.031024 → −49.937952 | −127.0% |
 
 Each XML time interval has the same duration as its corresponding metadata event duration in the four inspected cases. This supports duration-level alignment of the schedule windows, but does not establish the unit or meaning of the `heat_duty` magnitudes. These are values from separate metadata and XML fields. The unit/semantic relationship between the metadata's heater-power values and the XML `heat_duty` schedule has not been established in the included evidence. In particular, the negative OP001 XML value has an unresolved sign-convention interpretation. Do not describe these pairs as matching percentages or as a confirmed physical power conversion.
 
@@ -141,7 +141,7 @@ tests/
 
 Run `python scripts/verify_evidence.py` from the repository root after placing the four original CSVs in `evidence/`. The verifier checks both recorded byte size and MD5, and prints SHA-256 digests for recording. Run its fixture-based unit tests with `python -m unittest discover -s tests -v` (Python 3.10+). GitHub Actions repeats compile and unit-test checks on pushes and pull requests to `main`; the frozen-file checksum step stays skipped until all four original CSVs are present.
 
-The planned primary estimand, pre-onset fidelity `q` versus fault-segment utility `ΔAP`, was **not estimated** on a validated H701 cohort. Invariant simulated stage-12 pressure during the perturbation does not establish that pre-onset `q` is zero, constant, or uncomputable; paired pre-onset real/simulation values and valid uncertainty measurements would be required.
+The planned primary predictor was the pre-onset pressure discrepancy over the 300-s window: `q_i^300 = median(|PY23_real(t) − P12_sim(t−δ_i)| / u_PY23(t))`, for `t ∈ [t0−300 s, t0)`, subject to the documented missingness, interpolation, uncertainty, and alignment rules. The offset convention is `t_real = t_sim + δ_i`. The planned primary utility estimand was paired fault-segment `ΔAP_i^fault = AP(M_{−i,+S_i}, R_i^eval) − AP(M_{−i}, R_i^eval)`. Neither the paired `q` values nor `ΔAP` were estimated on a validated H701 cohort. A constant simulated P12 trajectory during the fault does not establish that pre-onset `q` is zero, constant, or uncomputable; the paired pre-onset real/simulation values and valid uncertainties would have to be calculated.
 
 A separate Stage 1 structural/protocol notebook was reviewed during this audit. The reviewed copy had 14 code cells with no execution counts and no saved outputs; it is not included in this repository and is not represented as a reproduction package.
 
