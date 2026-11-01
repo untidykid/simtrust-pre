@@ -129,7 +129,7 @@ scripts/
   verify_evidence.py
 ```
 
-Run `python scripts/verify_evidence.py` from the repository root after placing the four original CSVs in `evidence/`.
+Run `python scripts/verify_evidence.py` from the repository root after placing the four original CSVs in `evidence/`. The verifier checks both recorded byte size and MD5, and prints SHA-256 digests for recording. Run its fixture-based unit tests with `python -m unittest discover -s tests -v` (Python 3.10+).
 
 The planned primary estimand, pre-onset fidelity `q` versus fault-segment utility `ΔAP`, was **not estimated** on a validated H701 cohort. Invariant simulated stage-12 pressure during the perturbation does not establish that pre-onset `q` is zero, constant, or uncomputable; paired pre-onset real/simulation values and valid uncertainty measurements would be required.
 
