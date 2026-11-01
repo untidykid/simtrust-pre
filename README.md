@@ -37,7 +37,7 @@ The predefined criteria were locked before the v3.1 evaluation, but not necessar
 - Parent-key class counts: 99 `OBSERVATION_DERIVED`, 73 `SYSTEM_ASSOCIATED_NO_RECOGNIZED_ACTUATOR`, 38 `SINGLE_DECLARED_ACTUATOR`, 25 `MULTIPLE_DECLARED_ACTUATORS`, and 19 `PROVENANCE_UNRESOLVED`.
 - A parent key is not necessarily an independent physical event. In particular, raw metadata counts and parent-key counts must not be presented as physical-event counts.
 - Safety metadata classification is lexical/text-coverage evidence, not a census of safety events.
-- The original v2.2.5 crosswalk is retained as the frozen audit artifact. A simplified rebuild produced 240 keys rather than 254 and is **not** used as evidence.
+- The original v2.2.5 crosswalk remains the frozen audit artifact for this audit. Its CSV payload is **not yet present in this GitHub repository**; see the evidence manifest. A simplified rebuild produced 240 keys rather than 254 and is **not** used as evidence.
 
 ### Artifact 3 — Feasibility Map
 
@@ -47,13 +47,13 @@ The complete map screened five families: H701, HV004/HV005, T703, P701/P702, and
 - **T703:** 66 raw records grouped into 14 parent keys across 6 experiments. The 49 noise-injection records are not 49 independent events. Status: `NOT_FEASIBLE_FOR_CURRENT_PAIRED_VALIDATION`, not a universal claim that T703 can never be studied.
 - **AV716/V001/PDI702:** link counts were 4/3/7 respectively; these are not independent event counts and were not advanced.
 
-The separate evidence CSV in this repository is scoped specifically to the HV004/HV005 audit, not the entire five-family Feasibility Map.
+When the planned evidence file `artifact_3_hv_feasibility.csv` is added, it will cover the HV004/HV005 audit specifically, not the entire five-family Feasibility Map.
 
 ### Artifact 4 — P701/P702 feasibility demonstration
 
 - 121 raw metadata records were grouped into 25 parent keys across 19 experiment keys.
 - The two genuine pure-single parent events (one P701, one P702) occur in the same experiment: `batch_dist_ternary_butan-1-ol+propan-2-ol+water/operating_point_021/test_anormal_experiment_001`.
-- The OP021 trace contains 18,001 rows and 179 variables. The pump-off windows are 256 s (P702) and 254 s (P701); observed onset offsets were 2 s and 11 s, with a 9 s spread.
+- The OP021 trace contains 18,001 time-series rows spanning 38,253–56,253 s. The final extraction inventory lists 179 variables, while an earlier shape summary reported 180 columns; the counting convention cannot be resolved without the original trace file. The pump-off windows are 256 s (P702) and 254 s (P701); observed onset offsets were 2 s and 11 s, with a 9 s spread.
 - The relationship `efflux_ratio = D/(D+R)` matched to a median absolute residual of 2.214895e-14, but transient outliers remain (maximum 0.02843). Their cause has not been established.
 - The FT703/FT704 mapping to distillate/reflux is provisional and was not independently confirmed against a P&ID.
 - Directional real/sim alignment is descriptive evidence under that provisional mapping, not four independent validation tests. Both pump cases come from one independent experiment.
