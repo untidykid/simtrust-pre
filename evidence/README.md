@@ -18,7 +18,7 @@ The source simulation archive was separately recorded as:
 
 ## Integrity versus semantic validity
 
-MD5 hashes verify byte-level integrity of the evidence artifacts. They do not independently re-verify the semantic classification rules used in Crosswalk v2.2.5. The classification labels (`OBSERVATION_DERIVED`, `PROVENANCE_UNRESOLVED`, etc.) are inherited from the extraction pipeline documented in the code, not re-derived from first principles in this audit.
+MD5 hashes verify byte-level integrity of the evidence artifacts. They do not independently re-verify the semantic classification rules used in Crosswalk v2.2.5. The classification labels (`OBSERVATION_DERIVED`, `PROVENANCE_UNRESOLVED`, etc.) are inherited from the original v2.2.5 extraction pipeline, not re-derived from first principles in this audit. The extraction code is not included in this documentation bootstrap, so the current repository does not independently reproduce the crosswalk construction.
 
 A simplified rebuild of the crosswalk from the raw ZIP produced 240 parent keys (5 `PROVENANCE_UNRESOLVED`) versus 254 (19) in the original. The original v2.2.5 crosswalk is retained as the frozen audit artifact. The simplified rebuild is not used as evidence.
 
