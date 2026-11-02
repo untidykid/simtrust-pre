@@ -143,6 +143,8 @@ docs/
     phase0/
       README.md
       DECISIONS.md
+      RATIONALE.md
+      DECISION_ADDENDUM_2026-11-02.md
       RESEARCH_ROADMAP_v2.md
     phase0-protocol-summary.md
 notebooks/
