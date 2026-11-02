@@ -558,10 +558,12 @@ def _run_event_arms(
 
     per_seed: list[dict[str, Any]] = []
     primary_deltas: list[float] = []
+    paired_matched_deltas: list[float] = []
     wrong_deltas: list[float] = []
     real_deltas: list[float] = []
     decor_deltas: list[float] = []
     base_aps: list[float] = []
+    paired_matched_base_aps: list[float] = []
     matched_wrong_base_aps: list[float] = []
     matched_real_base_aps: list[float] = []
     prep_fingerprints: set[str] = set()
@@ -596,6 +598,37 @@ def _run_event_arms(
             "test_window_hash": hashlib.sha256("|".join(test_ids).encode()).hexdigest(),
             "donor_experiment_key": "",
         })
+
+        # Matched-baseline reference for donor controls. The primary paired arm
+        # above retains the full leave-one-experiment-out training pool; donor
+        # controls below exclude both target and donor real experiments. Refit the
+        # target paired simulation on that exact matched pool so donor comparisons
+        # share the same real baseline, test rows, preprocessing, K, and weight mass.
+        paired_matched_result = None
+        if donor_status == "AVAILABLE":
+            paired_matched_result = fit_predict_ap(
+                matched_train, target_test, sim_fault=paired_sample,
+                random_state=seed, features=FEATURES,
+            )
+            if paired_matched_result is None:
+                raise RuntimeError(f"Matched-baseline paired fit failed at seed {seed_idx}.")
+            paired_matched_deltas.append(float(paired_matched_result["delta_ap"]))
+            paired_matched_base_aps.append(float(paired_matched_result["ap_base"]))
+            per_seed.append({
+                EVENT_COL: event_key, "seed_index": seed_idx, "seed": seed,
+                "arm": "paired_fault_simulation_matched_baseline",
+                "ap_base": float(paired_matched_result["ap_base"]),
+                "ap_aug": float(paired_matched_result["ap_aug"]),
+                "delta_ap": float(paired_matched_result["delta_ap"]),
+                "n_augmented_windows": int(paired_matched_result["n_sim_fault"]),
+                "weight_real_neg_mass": float(paired_matched_result["weight_real_neg_mass"]),
+                "weight_real_pos_mass": float(paired_matched_result["weight_real_pos_mass"]),
+                "weight_sim_mass": float(paired_matched_result["weight_sim_mass"]),
+                "n_train_experiments": int(paired_matched_result["n_train_experiments"]),
+                "preprocessor_fingerprint": str(paired_matched_result["preprocessor_fingerprint"]),
+                "test_window_hash": hashlib.sha256("|".join(test_ids).encode()).hexdigest(),
+                "donor_experiment_key": "",
+            })
 
         # Control 1: same target simulation sample, but independently permute each
         # feature column to destroy row-wise multivariate/time structure.
@@ -638,8 +671,19 @@ def _run_event_arms(
                 matched_train, target_test, sim_fault=real_sample,
                 random_state=seed, features=FEATURES,
             )
-            if wrong_result is None or real_result is None:
+            if wrong_result is None or real_result is None or paired_matched_result is None:
                 raise RuntimeError(f"Matched donor control returned None at seed {seed_idx}.")
+            matched_baselines = np.asarray([
+                paired_matched_result["ap_base"],
+                wrong_result["ap_base"],
+                real_result["ap_base"],
+            ], dtype=float)
+            if not np.allclose(
+                matched_baselines, matched_baselines[0], rtol=0.0, atol=1e-12
+            ):
+                raise AssertionError(
+                    "Paired, wrong-run, and real-donor controls do not share an identical matched baseline AP."
+                )
             wrong_deltas.append(float(wrong_result["delta_ap"]))
             real_deltas.append(float(real_result["delta_ap"]))
             matched_wrong_base_aps.append(float(wrong_result["ap_base"]))
@@ -702,11 +746,15 @@ def _run_event_arms(
     row.update(_seed_summary(base_aps, "ap_base"))
     row.update(_seed_summary(decor_deltas, "delta_feature_decorrelated"))
     if donor_status == "AVAILABLE":
+        row.update(_seed_summary(paired_matched_deltas, "delta_paired_matched_baseline"))
+        row.update(_seed_summary(paired_matched_base_aps, "ap_paired_matched_base"))
         row.update(_seed_summary(wrong_deltas, "delta_wrong_run"))
         row.update(_seed_summary(real_deltas, "delta_real_donor"))
         row.update(_seed_summary(matched_wrong_base_aps, "ap_wrong_matched_base"))
         row.update(_seed_summary(matched_real_base_aps, "ap_real_matched_base"))
     else:
+        row.update(_seed_summary([], "delta_paired_matched_baseline"))
+        row.update(_seed_summary([], "ap_paired_matched_base"))
         row.update(_seed_summary([], "delta_wrong_run"))
         row.update(_seed_summary([], "delta_real_donor"))
         row.update(_seed_summary([], "ap_wrong_matched_base"))
@@ -792,6 +840,7 @@ def run_orchestrator(
             n_events=(EVENT_COL, "nunique"),
             median_q=("q_median", "median"),
             median_delta_paired=("delta_paired_mean", "median"),
+            median_delta_paired_matched_baseline=("delta_paired_matched_baseline_mean", "median"),
             median_delta_wrong_run=("delta_wrong_run_mean", "median"),
             median_delta_real_donor=("delta_real_donor_mean", "median"),
             median_delta_feature_decorrelated=("delta_feature_decorrelated_mean", "median"),
@@ -1003,13 +1052,30 @@ def run_smoke_tests() -> None:
         print("  PASS 8: wrong-run donor provenance retained; donor's real run removed from matched control training")
 
         # 9. All three control arms are emitted separately and per-event summaries exist.
-        expected_arms = {"paired_fault_simulation", "wrong_run_simulation",
-                         "real_donor_positive", "feature_decorrelated_simulation"}
+        expected_arms = {
+            "paired_fault_simulation",
+            "paired_fault_simulation_matched_baseline",
+            "wrong_run_simulation",
+            "real_donor_positive",
+            "feature_decorrelated_simulation",
+        }
         assert set(result["per_seed"]["arm"].unique()) == expected_arms
+        assert result["per_event"]["delta_paired_matched_baseline_n_seeds"].eq(20).all()
         assert result["per_event"]["delta_wrong_run_n_seeds"].eq(20).all()
         assert result["per_event"]["delta_real_donor_n_seeds"].eq(20).all()
         assert result["per_event"]["delta_feature_decorrelated_n_seeds"].eq(20).all()
-        print("  PASS 9: all matched controls use complete 20-seed summaries")
+        matched_arms = result["per_seed"].loc[
+            result["per_seed"]["arm"].isin([
+                "paired_fault_simulation_matched_baseline",
+                "wrong_run_simulation",
+                "real_donor_positive",
+            ])
+        ]
+        baseline_spread = matched_arms.groupby([EVENT_COL, "seed_index"])["ap_base"].agg(
+            lambda values: float(values.max() - values.min())
+        )
+        assert np.allclose(baseline_spread.to_numpy(), 0.0, rtol=0.0, atol=1e-12)
+        print("  PASS 9: paired and donor controls share the same matched baseline across all 20 seeds")
 
         # 10. Group aggregation is explicit; three groups from six events.
         assert result["per_group"][GROUP_COL].nunique() == 3
