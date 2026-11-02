@@ -997,7 +997,8 @@ def run_smoke_tests() -> None:
         for _, row in result["per_event"].iterrows():
             assert row["donor_control_status"] == "AVAILABLE"
             assert row["matched_donor_experiment_key"] != row[EXPERIMENT_COL]
-            assert row["n_train_experiments_matched_controls"] == 5        wrong_rows = result["per_seed"].loc[result["per_seed"]["arm"] == "wrong_run_simulation"]
+            assert row["n_train_experiments_matched_controls"] == 5
+        wrong_rows = result["per_seed"].loc[result["per_seed"]["arm"] == "wrong_run_simulation"]
         assert (wrong_rows["donor_experiment_key"] != "").all()
         print("  PASS 8: wrong-run donor provenance retained; donor's real run removed from matched control training")
 
