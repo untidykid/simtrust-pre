@@ -31,6 +31,7 @@ The four-file v3.1 checksum gate was skipped with the configured notice because 
 ## What this merge does not claim or change
 
 - It does not add or restore any of the four original v3.1 evidence CSV payloads.
+- It does not modify `scripts/verify_evidence.py` or the four historical expected size/MD5 pairs; the evidence verifier continues to check the original files only.
 - It does not treat the 371-row Crosswalk approximation or the 25-row P701/P702 rebuild as byte-identical originals.
 - It does not change the locked v3.1 scientific conclusions.
 - It does not execute the v5.2 pipeline on the real Zenodo dataset or establish an empirical result.
