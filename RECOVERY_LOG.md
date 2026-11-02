@@ -178,7 +178,7 @@ Separately, the GitHub main tree at baseline commit 47df178d9464af4d5c484c3b9490
 7. Do not describe Artifact 3 as reconstructed.
 8. Do not reopen or revise the locked scientific conclusions through this recovery exercise.
 
-This documentation update does not add any CSV payload, modify the verifier or CI workflow, create a release, or create a Git tag.
+The recovery-documentation change relative to the baseline commit above did not add any CSV payload, modify the verifier or CI workflow, create a release, or create a Git tag. This sentence is scoped to that recovery-documentation change only; it does not describe the complete later PR #1. PR #1 separately added the v5.2 source package and changed `.github/workflows/tests.yml` to install the pinned v5.2 dependencies, compile the `src/` package, and run the synthetic smoke-test wrapper. Those v5.2 workflow changes did not add any of the four original v3.1 CSV payloads or modify `scripts/verify_evidence.py` or the historical fingerprints.
 
 ## 8. Current recovery boundary
 

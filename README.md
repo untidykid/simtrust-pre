@@ -108,11 +108,11 @@ When the planned evidence file `artifact_3_hv_feasibility.csv` is added, it will
 
 ## Evidence and integrity
 
-See [the evidence manifest](evidence/README.md) for the original evidence inventory, upstream archive references, and recorded historical MD5 values. The post-reset recovery status and reported rebuilt-file fingerprints are documented separately in [RECOVERY_LOG.md](RECOVERY_LOG.md) and the [rebuild manifest](evidence/MANIFEST_v3_1_rebuild.json).
+See [the evidence manifest](evidence/README.md) for the original evidence inventory, upstream archive references, and recorded historical MD5 values. The post-reset recovery status and reported rebuilt-file fingerprints are documented separately in [RECOVERY_LOG.md](RECOVERY_LOG.md) and the [rebuild manifest](evidence/MANIFEST_v3_1_rebuild.json). The scope of the recovery-log statement and the contents/verification boundary of merged PR #1 are summarized in the [v5.2 merge record](docs/MERGE_v5.2.md).
 
 **Important:** the current repository tree does not contain the four original CSV evidence payloads or the original simulation ZIP. Historical hashes are retained as fingerprints; they cannot reconstruct missing files, and MD5 integrity checks do not establish semantic correctness. The rebuild manifest records reported recovery metadata for alternative copies, but those CSV copies are not committed in this repository and are not substitutes for the original evidence payloads.
 
-Do not treat this documentation bootstrap as a complete data release. The evidence files should be added from the original verified files, without regenerating or substituting them from summaries.
+Do not treat this repository as a complete data release. The evidence files should be added from the original verified files, without regenerating or substituting them from summaries.
 
 ## Reproducibility and interpretation rules
 
@@ -133,6 +133,7 @@ requirements-v5.2.txt
   workflows/
     tests.yml
 docs/
+  MERGE_v5.2.md
   decisions/
     h701-op028-decision-addendum-2026-10-31.md
   drafts/
