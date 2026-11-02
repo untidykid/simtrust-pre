@@ -182,7 +182,7 @@ This documentation update does not add any CSV payload, modify the verifier or C
 
 ## 8. Current recovery boundary
 
-As of 2026-11-02, the repository remains a documentation bootstrap with a recorded partial recovery. The exact Artifact 1 fingerprint is reported recovered; Artifact 2 has only an approximate v2.1 reconstruction; Artifact 3 remains unavailable; Artifact 4 has a 25-row non-byte-identical reconstruction.
+As of 2026-11-02, the v3.1 evidence and recovery record remains documentation-only, with a recorded partial recovery. The broader repository also contains a separate v5.2 research source package with synthetic-only software tests; that package has not processed the real Zenodo dataset and does not reproduce the v3.1 evidence artifacts. The exact Artifact 1 fingerprint is reported recovered; Artifact 2 has only an approximate v2.1 reconstruction; Artifact 3 remains unavailable; Artifact 4 has a 25-row non-byte-identical reconstruction.
 
 The recovery manifest at evidence/MANIFEST_v3_1_rebuild.json provides the machine-readable inventory, historical fingerprints, reported rebuilt-file fingerprints, and source-archive checksum record.
 
