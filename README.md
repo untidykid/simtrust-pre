@@ -126,6 +126,7 @@ Do not treat this documentation bootstrap as a complete data release. The eviden
 
 ```
 README.md
+.gitignore
 RECOVERY_LOG.md
 requirements-v5.2.txt
 .github/
