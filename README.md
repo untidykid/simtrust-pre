@@ -1,6 +1,6 @@
 # SimTrust-Pre
 
-**Repository status:** documentation bootstrap committed; evidence payload pending.
+**Repository status:** v3.1 audit records and integrity tooling committed; reviewed v5.2 research modules and synthetic CI tests included; original v3.1 evidence payload pending.
 
 SimTrust-Pre is a structured audit of whether selected simulated process-plant perturbations support predefined sensor-response expectations. The project deliberately distinguishes trace-level observations, archive metadata, feasibility evidence, and validation claims.
 
@@ -21,7 +21,7 @@ The project’s central conclusion is not that the simulator is generally invali
 
 The source dataset is pinned to [Zenodo record 22250958, version 1.1.3](https://doi.org/10.5281/zenodo.22250958), published 2026-09-02. The record lists 119 experimental runs with simulation predictions available for 115 experiments, within a 95.2-GB multimodal deposit. Version 1.1.3 corrects a formatting error in one binary ethanol/2-propanol normal run affecting sensor, actuator, and uncertainty modalities; do not silently mix this release with earlier versions. This audit concerns selected event families and selected archive members, not a complete validation of all runs.
 
-This GitHub repository is currently a **documentation bootstrap**, not a computationally reproducible release. The final evidence CSVs, source archives, and the analysis/extraction code that generated the locked tables are not included. The figures and counts below are transcribed from the locked audit record and retained diagnostic outputs; they have not been independently regenerated from raw source files in this repository.
+This GitHub repository is a documentation and source-code package, but it is not a computationally reproducible release of the locked v3.1 audit. The v5.2 research modules are included as a separate, synthetic-test-validated implementation of the corrected protocol; they do not reproduce the v3.1 audit tables and have not been executed on the real Zenodo data in this repository. The four final v3.1 evidence CSVs, source archives, and the exact analysis/extraction code that generated the locked v3.1 tables are still not included. The figures and counts below are transcribed from the locked audit record and retained diagnostic outputs; they have not been independently regenerated from raw source files in this repository.
 
 ## Principal findings
 
@@ -127,18 +127,42 @@ Do not treat this documentation bootstrap as a complete data release. The eviden
 ```
 README.md
 RECOVERY_LOG.md
+requirements-v5.2.txt
 .github/
   workflows/
     tests.yml
 docs/
+  decisions/
+    h701-op028-decision-addendum-2026-10-31.md
+  drafts/
+    README.md
   locked-results.md
+  source-inventory.md
+  v5.2/
+    README.md
+    phase0/
+      README.md
+      DECISIONS.md
+      RESEARCH_ROADMAP_v2.md
+    phase0-protocol-summary.md
+notebooks/
+  archive/
+    README.md
+    SimTrust_Pre_Audit_v4_2_UNEXECUTED.ipynb
 evidence/
   README.md
   MANIFEST_v3_1_rebuild.json
 scripts/
   verify_evidence.py
+src/
+  SimTrust_Pre_v5_2_Module1_reviewed.py
+  SimTrust_Pre_v5_2_Module2_reviewed.py
+  SimTrust_Pre_v5_2_Module3_reviewed.py
+  SimTrust_Pre_v5_2_Module4_1_Reviewed.py
+  SimTrust_Pre_v5_2_Module5_reviewed.py
 tests/
   test_verify_evidence.py
+  test_v5_2_smoke.py
 ```
 
 Run `python scripts/verify_evidence.py` from the repository root after placing the four original CSVs in `evidence/`. The verifier checks both recorded byte size and MD5, and prints SHA-256 digests for recording. Run its fixture-based unit tests with `python -m unittest discover -s tests -v` (Python 3.10+). GitHub Actions repeats compile and unit-test checks on pushes and pull requests to `main`; the frozen-file checksum step stays skipped until all four original CSVs are present.
@@ -146,6 +170,10 @@ Run `python scripts/verify_evidence.py` from the repository root after placing t
 The planned primary predictor was the pre-onset pressure discrepancy over the 300-s window: `q_i^300 = median_{t∈[t0−300 s,t0)} (|P^real_{PY23,i}(t) − P^sim_{12,i}(t−δ_i)| / u_{PY23,i}(t))`, subject to the documented missingness, interpolation, uncertainty, and alignment rules and requiring valid positive uncertainty values. The offset convention is `t_real = t_sim + δ_i`. The planned primary utility estimand was paired fault-segment `ΔAP_i^fault = AP(M_{−i,+S_i}, R_i^eval) − AP(M_{−i}, R_i^eval)`. Neither the paired `q` values nor `ΔAP` were estimated on a validated H701 cohort. A constant simulated P12 trajectory during the fault does not establish that pre-onset `q` is zero, constant, or uncomputable; the paired pre-onset real/simulation values and valid uncertainties would have to be calculated.
 
 A separate Stage 1 structural/protocol notebook was reviewed during this audit. The reviewed copy had 14 code cells with no execution counts and no saved outputs; it is not included in this repository and is not represented as a reproduction package.
+
+## Separate v5.2 research implementation
+
+The repository also contains the reviewed v5.2 research pipeline under `src/`. Its five modules cover fault-only sampling and weighting, paired utility estimation, reviewed pre-onset discrepancy calculation, real-window construction, and end-to-end orchestration. The five synthetic smoke suites contain 84 checks and run in GitHub Actions. They use synthetic arrays and temporary ZIP fixtures only; they do not read the real Zenodo archives or establish any empirical result. This code is separate from the locked v3.1 audit and does not rebuild its four evidence CSVs. See [the v5.2 implementation guide](docs/v5.2/README.md), [the source inventory](docs/source-inventory.md), and [the Phase 0 protocol summary](docs/v5.2/phase0-protocol-summary.md).
 
 ## License and citation
 
