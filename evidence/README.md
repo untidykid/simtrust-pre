@@ -1,5 +1,8 @@
 # Evidence manifest
 
+
+> **Post-reset recovery record (2026-11-02):** The original evidence CSV payloads remain absent from this GitHub tree. Recovery status, preserved historical fingerprints, and rebuilt/approximate alternatives are recorded in [RECOVERY_LOG.md](../RECOVERY_LOG.md) and [MANIFEST_v3_1_rebuild.json](MANIFEST_v3_1_rebuild.json). Rebuilt and approximate files are not substitutes for the original evidence payloads.
+
 This directory is intended to hold the four frozen CSV evidence artifacts. The values below were recorded from the verified files in the audit environment; the file bytes were not available when this repository was bootstrapped.
 
 | File | Size (bytes) | MD5 | Repository status |

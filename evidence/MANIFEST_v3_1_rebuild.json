@@ -1,0 +1,172 @@
+{
+  "manifest_title": "SimTrust-Pre v3.1 post-reset rebuild manifest",
+  "manifest_version": "1.0",
+  "record_date": "2026-11-02",
+  "repository": "untidykid/simtrust-pre",
+  "baseline_commit": "47df178d9464af4d5c484c3b9490bfb1edcd46ca",
+  "provenance_note": "Reported sizes, row counts, and locally computed hashes below come from the project owner's Colab/Google Drive outputs pasted into the project conversation. This GitHub documentation update did not have direct access to those runtime files and did not independently re-hash them. Historical expected fingerprints are retained from the repository's pre-recovery evidence/README.md.",
+  "repository_payload_note": "This manifest and RECOVERY_LOG.md are documentation only. No recovered CSV payload is added to this commit. Recovered/rebuilt CSV copies were reported in Google Drive, not in the GitHub tree.",
+  "artifacts": [
+    {
+      "artifact": "artifact_1_h701_cohort.csv",
+      "status": "EXACT",
+      "rows": 40,
+      "size_bytes": 19327,
+      "md5_original_expected": "38f395a6e5b32fa7c97a13dc6e0cd208",
+      "md5_actual_reported": "38f395a6e5b32fa7c97a13dc6e0cd208",
+      "byte_identical_by_recorded_size_and_md5": true,
+      "row_count_matches_original": true,
+      "rebuild_source": "SimTrust_Pre_v5_2_Module5_Orchestrator cell #41",
+      "recovered_copy_location_reported": "Google Drive",
+      "committed_to_github": false,
+      "identity_note": "Reported recovered size and MD5 match the historical fingerprint retained in the original evidence manifest. The recovered CSV bytes were not independently re-read in this GitHub documentation commit."
+    },
+    {
+      "artifact": "artifact_2_crosswalk_v21_APPROX_371.csv",
+      "status": "APPROXIMATE",
+      "rows": 371,
+      "size_bytes": 153626,
+      "md5_actual_reported": "5b5a8fdd1023f09a1ff1832f33fb270e",
+      "original_rows": 254,
+      "original_size_bytes": 78322,
+      "md5_original_expected": "780886326cbb615cfeb3a4a563ed820b",
+      "byte_identical": false,
+      "row_count_matches_original": false,
+      "rebuild_source": "v2.1 processing logic, recovered v5.2 notebook cells #57-58",
+      "recovered_copy_location_reported": "Google Drive",
+      "committed_to_github": false,
+      "identity_note": "This is a v2.1 approximation, not the original v2.2.5 254-parent-key crosswalk. The historical MD5 remains recorded in evidence/README.md even though the original bytes are unavailable in the current recovery directory."
+    },
+    {
+      "artifact": "artifact_3_hv_feasibility.csv",
+      "status": "UNAVAILABLE",
+      "rows": null,
+      "size_bytes": 11863,
+      "md5_original_expected": "b0345b49abb899a2d7cdca8f65bb1b87",
+      "md5_actual_reported": null,
+      "byte_identical": null,
+      "row_count_matches_original": null,
+      "rebuild_source": null,
+      "recovered_copy_location_reported": null,
+      "committed_to_github": false,
+      "identity_note": "No replacement was recovered or rebuilt. The historical size and MD5 remain recorded in evidence/README.md; the original file bytes are not available in the current recovery materials."
+    },
+    {
+      "artifact": "artifact_4_p701p702_events_REBUILT.csv",
+      "status": "REBUILT_NOT_BYTE_IDENTICAL",
+      "rows": 25,
+      "size_bytes": 14706,
+      "md5_actual_reported": "52c9c270194ed470fcfc929e7d2d9607",
+      "original_rows": 25,
+      "original_size_bytes": 3539,
+      "md5_original_expected": "127ed0fb1ed7145fd439d7c0e3bf08fe",
+      "byte_identical": false,
+      "row_count_matches_original": true,
+      "rebuild_source": "v2.1 filter C minus NOID, using recovered v5.2 cells #57-58 plus a custom filter",
+      "recovered_copy_location_reported": "Google Drive",
+      "committed_to_github": false,
+      "content_note": "Four OP017 records (OP017TA001A001-A004) have system_ids=HV004 but declared_actuators=P701. These may reflect textual attribution rather than direct pump perturbations. They were retained without modification. Whether original v2.2.5 included or excluded them remains unknown.",
+      "identity_note": "Matching row count (25) does not establish matching event identities, schema, or semantic equivalence. Reverse-engineering the original schema from file-size projections was attempted and abandoned as non-diagnostic. No 21-row derivative was created."
+    }
+  ],
+  "source_archives_downloaded_during_recovery": [
+    {
+      "archive": "00_Batch_Distillation_Plant_M-202210_Timeseries_Label_Anomaly_Metadata.zip",
+      "local_size_bytes": 1726509,
+      "local_md5_reported": "636dcb8188e5eb80f19522e244704e2c",
+      "zenodo_md5_recorded_in_repository": "636dcb8188e5eb80f19522e244704e2c",
+      "comparison": "MATCH_REPORTED"
+    },
+    {
+      "archive": "01_Batch_Distillation_Plant_M-202210_Timeseries_Sensors.zip",
+      "local_size_bytes": 36470058,
+      "local_md5_reported": "ecf2ee25f32d758bdd1e31820d77883e",
+      "zenodo_md5_recorded_in_repository": "ecf2ee25f32d758bdd1e31820d77883e",
+      "comparison": "MATCH_REPORTED"
+    },
+    {
+      "archive": "02_Batch_Distillation_Plant_M-202210_Timeseries_Actuators.zip",
+      "local_size_bytes": 8777587,
+      "local_md5_reported": "d345a725171ea2fecd0b608752998d63",
+      "zenodo_md5_recorded_in_repository": "d345a725171ea2fecd0b608752998d63",
+      "comparison": "MATCH_REPORTED"
+    },
+    {
+      "archive": "03_Batch_Distillation_Plant_M-202210_Timeseries_Sensor_Uncertainties.zip",
+      "local_size_bytes": 31912981,
+      "local_md5_reported": "0ee827ce07f3b520fb61ae15903b06cb",
+      "zenodo_md5_recorded_in_repository": "0ee827ce07f3b520fb61ae15903b06cb",
+      "comparison": "MATCH_REPORTED"
+    },
+    {
+      "archive": "06_Batch_Distillation_Plant_M-202210_Tabular_Plant_Information.zip",
+      "local_size_bytes": 392921,
+      "local_md5_reported": "1ec30434ba3fd058ad1969e526ce9698",
+      "zenodo_md5_recorded_in_repository": null,
+      "comparison": "NO_RECORDED_EXPECTED_MD5_TO_COMPARE"
+    },
+    {
+      "archive": "14_Batch_Distillation_Plant_M-202210_Timeseries_Simulation_Configuration.zip",
+      "local_size_bytes": 257956,
+      "local_md5_reported": "8676ba6454704dd6829d46dfadd1afe6",
+      "zenodo_md5_recorded_in_repository": "8676ba6454704dd6829d46dfadd1afe6",
+      "comparison": "MATCH_REPORTED"
+    }
+  ],
+  "previously_checked_archive_not_redownloaded": {
+    "archive": "13_Batch_Distillation_Plant_M-202210_Timeseries_Simulation.zip",
+    "historical_local_md5": "21399c5def2c114bd2461e80270d90cf",
+    "re_downloaded_during_recovery": false,
+    "reverified_during_recovery": false,
+    "note": "Reported locally verified during the initial audit; not re-downloaded or re-hashed in the 2026-11-02 recovery session."
+  },
+  "recovery_searches": {
+    "runtime_resets_reported": 3,
+    "inspected_notebooks": [
+      "SimTrust_Pre_Audit_v3_1.ipynb",
+      "SimTrust_Pre_Audit_v4_1.ipynb",
+      "Untitled0.ipynb"
+    ],
+    "notebook_search_terms": [
+      "class_v223",
+      "class_v224",
+      "254",
+      "artifact_2",
+      "artifact_3",
+      "artifact_4",
+      "hv_feasibility",
+      "p701p702",
+      "parent_event_key",
+      "Anomaly.id"
+    ],
+    "notebook_scan_result": "No matching code-cell references reported in the three scanned notebooks; targeted scan only, not exhaustive.",
+    "drive_trash_search": {
+      "path": "/content/drive/.Trash",
+      "pattern": "artifact_4*",
+      "result": "NO_MATCH_REPORTED"
+    },
+    "local_git_history_attempt": {
+      "path": "/content/simtrust-pre",
+      "result": "INCONCLUSIVE",
+      "note": "The clone directory was reported absent in the same runtime inspection; stderr and exit status were not retained. Empty stdout is not proof of an exhaustive remote GitHub history search."
+    },
+    "github_tree_inspection": {
+      "branch": "main",
+      "baseline_commit": "47df178d9464af4d5c484c3b9490bfb1edcd46ca",
+      "original_csv_payloads_present": false
+    }
+  },
+  "interpretation_corrections": [
+    "The subtotal 12 + 1 + 1 + 3 + 4 = 21 in an earlier category summary is not the original Artifact 4 row count.",
+    "An earlier conversational assertion that the project owner had supplied 21 as the expected Artifact 4 row count was withdrawn as incorrect.",
+    "No 21-row Artifact 4 derivative was created; all four OP017 records remain in the 25-row rebuilt file."
+  ],
+  "integrity_policy": [
+    "Do not replace historical expected MD5 values with hashes of rebuilt files.",
+    "Do not modify scripts/verify_evidence.py to accept rebuilt or approximate files as original evidence.",
+    "Keep rebuilt and approximate artifacts under distinct filenames and statuses.",
+    "Matching row count does not establish matching event identities, schema, or semantic equivalence.",
+    "Do not infer the original CSV schema from file-size proximity.",
+    "Do not alter the locked scientific conclusions through this recovery exercise."
+  ]
+}
