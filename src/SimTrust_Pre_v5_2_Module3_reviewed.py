@@ -51,8 +51,8 @@ SIM_PRESSURE_PA_COL = "pressure stage 12 / Pa"
 SENSOR_ROOT = "01_Batch_Distillation_Plant_M-202210_Timeseries_Sensors"
 UNC_ROOT = "03_Batch_Distillation_Plant_M-202210_Timeseries_Sensor_Uncertainties"
 
-TRUE_TOKENS = {"true", "1", "yes", "y", "t"}
-FALSE_TOKENS = {"false", "0", "no", "n", "f"}
+TRUE_TOKENS = {"true", "1", "1.0", "yes", "y", "t"}
+FALSE_TOKENS = {"false", "0", "0.0", "no", "n", "f"}
 
 REQUIRED_REVIEW_FIELDS = {
     "review_status",
