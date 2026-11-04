@@ -103,11 +103,11 @@ The verifier correctly retains the historical original-file fingerprints and doe
 - [x] Add `.gitignore` protections for common local environment, credential, and private certificate/key files.
 - [x] Harden CI permissions and checkout credential persistence; pin Actions by immutable commit SHA and add `pip check`.
 - [x] Add weekly Dependabot updates for pip and GitHub Actions.
-- [x] Pin direct and runtime dependencies and pass CI on NumPy 2.5.4 / pandas 3.1.0 / scikit-learn 1.9.1. These are preventive only.
+- [x] Pin direct and observed runtime dependencies and pass CI on NumPy 2.5.4 / pandas 3.1.0 / scikit-learn 1.9.1. This improves version repeatability; package hashes and a complete software-supply-chain audit remain out of scope.
 - [x] Add a scoped MIT license for original project software/code configuration in `src/`, `scripts/`, `tests/`, `.github/workflows/`, `requirements-v5.2.txt`, `.gitignore`, and `notebooks/`.
-- [x] Add a separate CC BY 4.0 notice for project-authored documentation and audit materials in `README.md`, `RECOVERY_LOG.md`, `docs/`, `evidence/`, and notebook README files. Third-party and upstream dataset materials retain their own terms.
+- [x] Add a separate CC BY 4.0 notice for project-authored documentation and audit materials in `README.md`, `RECOVERY_LOG.md`, `CONTRIBUTING.md`, `docs/`, `evidence/`, and notebook README files. Third-party and upstream dataset materials retain their own terms.
 - [x] Add machine-readable citation metadata in `CITATION.cff`. The author is currently represented by the GitHub handle `untidykid`; the owner can substitute a preferred scholarly name and add an ORCID/DOI if appropriate. No DOI was invented.
-- [x] Update `scikit-learn` to the currently supported `1.9.1` release and pass CI on that dependency pin.
+- [x] Add the English `CONTRIBUTING.md` guide covering setup, scientific boundaries, data provenance, and contribution expectations.
 - [ ] Owner must change the repository visibility from Private to Public in GitHub repository settings. The available GitHub connection used for this audit can inspect and edit repository contents but does not expose a repository-visibility mutation.
 - [ ] After changing the repository to Public, enable `main` branch protection / rulesets and require the CI workflow. All five branches are currently unprotected; private-repository rulesets are unavailable under the current GitHub plan.
 - [ ] After changing the repository to Public, verify GitHub Secret Scanning is active and enable push protection in repository security settings. The connector cannot inspect or mutate these account-level settings.
