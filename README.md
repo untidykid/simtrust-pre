@@ -126,6 +126,8 @@ Do not treat this repository as a complete data release. The evidence files shou
 
 ```
 README.md
+LICENSE
+CITATION.cff
 .gitignore
 RECOVERY_LOG.md
 requirements-v5.2.txt
@@ -133,6 +135,7 @@ requirements-v5.2.txt
   workflows/
     tests.yml
 docs/
+  LICENSE-CC-BY-4.0.md
   MERGE_v5.2.md
   PUBLIC_RELEASE_AUDIT.md
   decisions/
