@@ -41,7 +41,7 @@ For each of the four locked v3.1 traces, all 12 exported stage-wise pressure col
 
 #### PY23
 
-Under the expected physical relation (heating up → pressure up; heating down → pressure down). The H701 perturbation magnitudes below are **percentage-point** changes in the metadata's heater setting, not relative-percent changes in the initial power value. PY23 is the experimental column-top pressure signal; its values and differences in this audit are reported in **mbar**. This experimental sensor unit is separate from the unresolved `/Pa` versus `_mbar` labelling discrepancy in the simulator-export diagnostic.
+The expected physical relation is heating up → pressure up and heating down → pressure down. The H701 perturbation magnitudes below are **percentage-point** changes in the metadata's heater setting, not relative-percent changes in the initial power value. PY23 is the experimental column-top pressure signal; its values and differences in this audit are reported in **mbar**. This experimental sensor unit is separate from the unresolved `/Pa` versus `_mbar` labelling discrepancy in the simulator-export diagnostic.
 
 | Candidate | H701 metadata perturbation | Observed ΔPY23 (mbar) | Interpretation |
 |---|---|---:|---|
@@ -126,6 +126,8 @@ Do not treat this repository as a complete data release. The evidence files shou
 
 ```
 README.md
+LICENSE
+CITATION.cff
 .gitignore
 RECOVERY_LOG.md
 requirements-v5.2.txt
@@ -133,7 +135,9 @@ requirements-v5.2.txt
   workflows/
     tests.yml
 docs/
+  LICENSE-CC-BY-4.0.md
   MERGE_v5.2.md
+  PUBLIC_RELEASE_AUDIT.md
   decisions/
     h701-op028-decision-addendum-2026-10-31.md
   drafts/
@@ -169,7 +173,7 @@ tests/
   test_v5_2_smoke.py
 ```
 
-Run `python scripts/verify_evidence.py` from the repository root after placing the four original CSVs in `evidence/`. The verifier checks both recorded byte size and MD5, and prints SHA-256 digests for recording. Run its fixture-based unit tests with `python -m unittest discover -s tests -v` (Python 3.10+). GitHub Actions repeats compile and unit-test checks on pushes and pull requests to `main`; the frozen-file checksum step stays skipped until all four original CSVs are present.
+Run `python scripts/verify_evidence.py` from the repository root after placing the four original CSVs in `evidence/`. The verifier checks both recorded byte size and MD5, and prints SHA-256 digests for recording. Run its fixture-based unit tests with `python -m unittest discover -s tests -v` (Python 3.12, the version exercised in CI). GitHub Actions repeats compile and unit-test checks on pushes and pull requests to `main`; the frozen-file checksum step stays skipped until all four original CSVs are present.
 
 The planned primary predictor was the pre-onset pressure discrepancy over the 300-s window: `q_i^300 = median_{t∈[t0−300 s,t0)} (|P^real_{PY23,i}(t) − P^sim_{12,i}(t−δ_i)| / u_{PY23,i}(t))`, subject to the documented missingness, interpolation, uncertainty, and alignment rules and requiring valid positive uncertainty values. The offset convention is `t_real = t_sim + δ_i`. The planned primary utility estimand was paired fault-segment `ΔAP_i^fault = AP(M_{−i,+S_i}, R_i^eval) − AP(M_{−i}, R_i^eval)`. Neither the paired `q` values nor `ΔAP` were estimated on a validated H701 cohort. A constant simulated P12 trajectory during the fault does not establish that pre-onset `q` is zero, constant, or uncomputable; the paired pre-onset real/simulation values and valid uncertainties would have to be calculated.
 
@@ -179,9 +183,21 @@ A separate Stage 1 structural/protocol notebook was reviewed during this audit. 
 
 The repository also contains the reviewed v5.2 research pipeline under `src/`. Its five modules cover fault-only sampling and weighting, paired utility estimation, reviewed pre-onset discrepancy calculation, real-window construction, and end-to-end orchestration. The five synthetic smoke suites contain 84 labelled checks and run in GitHub Actions; the Module 5 suite also asserts baseline parity for donor-matched comparisons. They use synthetic arrays and temporary ZIP fixtures only; they do not read the real Zenodo archives or establish any empirical result. The Orchestrator currently reports event-level results and group-level descriptive summaries; the protocol's group-level Spearman statistic, group-aware uncertainty/permutation inference, and design-sensitivity analysis remain to be implemented and tested. The six-event software gate is not a statistical-power claim. The v5.2 source is separate from the locked v3.1 audit and does not rebuild its four evidence CSVs. The pressure-export `/Pa` versus mbar-like numerical-scale discrepancy recorded in the v3.1 audit must be resolved against the original source/export definitions before a real-data pressure comparison is treated as validated. See [the v5.2 implementation guide](docs/v5.2/README.md), [the English scientific rationale](docs/v5.2/phase0/RATIONALE.md), [the matched-baseline decision addendum](docs/v5.2/phase0/DECISION_ADDENDUM_2026-11-02.md), [the source inventory](docs/source-inventory.md), and [the Phase 0 protocol summary](docs/v5.2/phase0-protocol-summary.md).
 
+## Public release readiness
+
+See [the public release readiness audit](docs/PUBLIC_RELEASE_AUDIT.md) for the verified repository state, publication boundaries, unresolved technical decisions, and the actions required before making this repository public.
+
 ## License and citation
 
-The dataset descriptor states that the complete dataset is openly shared under **CC BY 4.0**. Before redistributing individual upstream archive files, check the license field on the specific Zenodo record/version as well. This upstream statement does not automatically license this repository's original documentation, derived audit tables, or scripts. This repository has no `LICENSE` or `CITATION.cff` yet; its own reuse terms and formal citation metadata must be set separately by the project owner.
+This repository uses separate, explicit licenses for its own software and written research materials:
+
+- **Software:** the original software code and configuration in `src/`, `scripts/`, `tests/`, `.github/workflows/`, `requirements-v5.2.txt`, `.gitignore`, and the archived notebook code in `notebooks/` is licensed under the [MIT License](LICENSE).
+- **Documentation and audit materials:** original project documentation, narrative audit records, and project-authored metadata/summary materials in `README.md`, `RECOVERY_LOG.md`, `docs/`, `evidence/`, and `notebooks/**/README.md` are licensed under [Creative Commons Attribution 4.0 International (CC BY 4.0)](docs/LICENSE-CC-BY-4.0.md).
+- **Upstream dataset and third-party material:** these repository licenses do not replace or broaden the license of the Zenodo dataset, its individual archive members, or any other third-party material. The dataset descriptor states that the complete dataset is openly shared under **CC BY 4.0**; check the license field on the specific Zenodo record/version before redistributing archive files. Preserve the upstream attribution and any additional applicable terms.
+
+The license split applies only to material the project has the right to license. It does not relicense third-party material or grant rights not held by the project.
+
+A machine-readable citation record is provided in [`CITATION.cff`](CITATION.cff). It currently uses the repository's GitHub handle as the author identifier; replace that with the preferred scholarly author name and add an ORCID/DOI if and when the owner confirms them.
 
 ### Upstream citation
 

@@ -1,0 +1,7 @@
+cff-version: 1.2.0
+message: "If you use SimTrust-Pre, please cite this project and the upstream dataset as appropriate."
+title: "SimTrust-Pre"
+type: software
+authors:
+  - name: "untidykid"
+repository-code: "https://github.com/untidykid/simtrust-pre"
