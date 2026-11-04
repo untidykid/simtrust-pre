@@ -4,7 +4,7 @@
 **Repository:** `untidykid/simtrust-pre`  
 **Branch reviewed:** `main`  
 **Main commit reviewed:** `cf8f6b92cd868a224a5bb7d5fe8d94ca562c1050`  
-**Decision:** suitable for a carefully labelled public research-software snapshot after owner-controlled visibility and licensing decisions; **not** a complete reproducible release of the v3.1 evidence and **not** ready to support confirmatory v5.2 empirical claims.
+**Decision:** suitable for a carefully labelled public research-software and audit-record snapshot after completion of the remaining historical-security and owner-controlled visibility gates; **not** a complete reproducible release of the v3.1 evidence and **not** ready to support confirmatory v5.2 empirical claims.
 
 ## Executive decision
 
@@ -21,7 +21,7 @@ At the time of this audit, GitHub reports the repository visibility as **Private
 - GitHub Actions run [41518313759](https://github.com/untidykid/simtrust-pre/actions/runs/41518313759) completed successfully for PR #1 head `f0873481ce60484c05cba494d3a496a2ec719d39`.
 - The run used Python 3.12 and completed dependency installation, compilation, all 13 then-existing unittest tests, and the 84 synthetic smoke checks.
 - The evidence-verification step reported all four original CSVs missing and explicitly emitted a notice that checksum verification was skipped. This is **not** a successful evidence checksum verification.
-- The successful run above was on PR #1's head. It is not evidence that the current post-PR #2 main commit or this audit branch has passed CI; the current pull request must run independently.
+- The successful run above was on PR #1's head and is historical context only. PR #3 has since run independently; see the 2026-11-03 follow-up verification below.
 
 ## Security and repository-hygiene checks (2026-11-03 follow-up)
 
@@ -31,6 +31,15 @@ At the time of this audit, GitHub reports the repository visibility as **Private
 - **A complete historical secret scan has not been completed.** The GitHub connection does not expose the repository's secret-scanning/secret-alert administration endpoints, and this review did not download and inspect every historical tree/blob across all refs. Do not describe this as a clean full-history security audit.
 - The four listed branch refs (`main` and three working branches) currently report `protected: false`. A branch-protection read was denied by the integration, so required checks/ruleset settings could not be fully inspected. Before a public collaboration workflow, configure protection for `main` and require passing CI/review as appropriate.
 - PR #3 workflow run [41681399095](https://github.com/untidykid/simtrust-pre/actions/runs/41681399095) completed successfully: Python compilation passed, **14 unit tests passed**, and all five synthetic smoke suites passed (84 labelled checks as documented by the suite). The four original v3.1 CSVs were absent, so the evidence checksum step was skipped. This remains a software-test result, not evidence verification.
+
+## Follow-up verification on PR #3 (2026-11-03)
+
+- GitHub Actions run [41681399095](https://github.com/untidykid/simtrust-pre/actions/runs/41681399095) completed successfully on PR #3 head `16d9a9756afc2c41b6f289ff78f2a08ca3b8a8dc`.
+- Python compilation completed successfully. The workflow reported **14 unit tests passed** (`Ran 14 tests`, `OK`) and all five synthetic smoke suites passed.
+- The four original v3.1 CSV files remained absent. The evidence checksum step listed each file as pending and explicitly skipped checksum verification. This is not a checksum pass.
+- A targeted heuristic scan was run on all 29 blobs in the current `main` tree and all four files changed by PR #3. It checked for common private-key headers, GitHub token formats, AWS access-key IDs, credential-like assignments, email addresses, Persian/Arabic Unicode ranges, and common user-home absolute paths. No matches were found.
+- These scans are limited by their patterns and by the current/PR trees. They do not certify the complete commit history, all refs, or hidden/private metadata. A full historical scan remains open.
+- All four existing branch refs reported `protected: false`. The integration could not read branch-protection settings (permission denied), so required review/check policies were not verified. Configure protection for `main` before accepting outside contributions.
 
 ## What is useful and should remain in the project
 
@@ -82,8 +91,9 @@ The verifier correctly retains the historical original-file fingerprints and doe
 
 - [x] Run a targeted heuristic scan across all 29 current `main` blobs and all 4 PR #3 changed files; no matches were found for the listed common secret/private-data patterns. **A complete historical secret scan remains open** because every historical tree/blob across all refs was not inspected and the integration does not expose GitHub secret-scanning administration.
 - [x] Scan all 29 current `main` blobs and all 4 PR #3 changed files for Persian/Arabic Unicode characters; no matches were found. This does not certify uninspected historical snapshots or future additions.
-- [ ] Decide the repository's own license. There is no `LICENSE` file. The upstream dataset's stated CC BY 4.0 terms do not automatically license this repository's original code, documentation, or derived tables. Do not add a license without the owner's explicit choice and confirmation of rights.
-- [ ] Add accurate citation metadata (`CITATION.cff`) after confirming the preferred author/citation identity and versioning details. Do not invent an author name or DOI for this repository.
+- [x] Add a scoped MIT license for original project software under `src/`, `scripts/`, `tests/`, `.github/workflows/`, and `notebooks/`.
+- [x] Add a separate CC BY 4.0 notice for project-authored documentation and audit materials under `README.md`, `docs/`, and `evidence/`. Third-party and upstream dataset materials retain their own terms.
+- [x] Add machine-readable citation metadata in `CITATION.cff`. The author is currently represented by the GitHub handle `untidykid`; replace it with a preferred scholarly name and add an ORCID/DOI only when confirmed. No DOI was invented.
 - [ ] Owner must change the repository visibility from Private to Public in GitHub repository settings. The available GitHub connection used for this audit can inspect and edit repository contents but does not expose a repository-visibility mutation.
 
 ### Required before a complete reproducible v3.1 data release
@@ -104,4 +114,4 @@ The verifier correctly retains the historical original-file fingerprints and doe
 
 The defensible near-term publication target is a **public research-software and audit-record repository**, clearly labelled as a synthetic-tested prototype plus a bounded historical audit. It must not be advertised as a complete reproducible v3.1 release, a validated simulator, or a completed confirmatory v5.2 study.
 
-A public repository without a license is viewable but does not grant the public permission to reuse the code. If the intention is open-source publication, choose and add an appropriate license before describing the project as open source.
+The repository now declares separate reuse terms for original software and project-authored documentation/audit materials. These terms do not cover third-party material, upstream archives, or content the project does not have the right to license.
