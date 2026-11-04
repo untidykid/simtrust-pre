@@ -25,21 +25,13 @@ At the time of this audit, GitHub reports the repository visibility as **Private
 
 ## Security and repository-hygiene checks (2026-11-03 follow-up)
 
-- A targeted heuristic scan was run against all **29 tracked blobs on the current `main` tree**, plus all **4 files changed by PR #3**. The scan looked for common private-key headers, common GitHub token formats, AWS access-key IDs, credential-like assignments, email addresses, Persian/Arabic Unicode ranges, and common user-home absolute paths. No matches were found in the scanned current-tree/PR content.
+- The current PR #3 branch contains **33 tracked files**. A targeted heuristic scan covered all 33 current blobs, including the final versions of all seven files changed/added by this PR. It checked for common private-key headers, GitHub token formats, AWS access-key IDs, credential-like assignments, email addresses, Persian/Arabic Unicode ranges, and common user-home absolute paths. **No matches were found** for these patterns.
 - Targeted GitHub code-search probes for common token/credential indicators returned no indexed matches. Search indexing and pattern coverage are incomplete; this is corroborating evidence only, not a guarantee.
-- The `main` ancestry currently contains **72 commits**. Commit metadata reviewed from the returned history uses the repository owner's GitHub noreply address; this does not establish that every historical blob is free of secrets or private data.
-- **A complete historical secret scan has not been completed.** The GitHub connection does not expose the repository's secret-scanning/secret-alert administration endpoints, and this review did not download and inspect every historical tree/blob across all refs. Do not describe this as a clean full-history security audit.
-- The four listed branch refs (`main` and three working branches) currently report `protected: false`. A branch-protection read was denied by the integration, so required checks/ruleset settings could not be fully inspected. Before a public collaboration workflow, configure protection for `main` and require passing CI/review as appropriate.
-- PR #3 workflow run [41681399095](https://github.com/untidykid/simtrust-pre/actions/runs/41681399095) completed successfully: Python compilation passed, **14 unit tests passed**, and all five synthetic smoke suites passed (84 labelled checks as documented by the suite). The four original v3.1 CSVs were absent, so the evidence checksum step was skipped. This remains a software-test result, not evidence verification.
-
-## Follow-up verification on PR #3 (2026-11-03)
-
-- GitHub Actions run [41681399095](https://github.com/untidykid/simtrust-pre/actions/runs/41681399095) completed successfully on PR #3 head `16d9a9756afc2c41b6f289ff78f2a08ca3b8a8dc`.
-- Python compilation completed successfully. The workflow reported **14 unit tests passed** (`Ran 14 tests`, `OK`) and all five synthetic smoke suites passed.
-- The four original v3.1 CSV files remained absent. The evidence checksum step listed each file as pending and explicitly skipped checksum verification. This is not a checksum pass.
-- A targeted heuristic scan was run on all 29 blobs in the current `main` tree and all four files changed by PR #3. It checked for common private-key headers, GitHub token formats, AWS access-key IDs, credential-like assignments, email addresses, Persian/Arabic Unicode ranges, and common user-home absolute paths. No matches were found.
-- These scans are limited by their patterns and by the current/PR trees. They do not certify the complete commit history, all refs, or hidden/private metadata. A full historical scan remains open.
-- All four existing branch refs reported `protected: false`. The integration could not read branch-protection settings (permission denied), so required review/check policies were not verified. Configure protection for `main` before accepting outside contributions.
+- The main ancestry contains **72 commits**. Commit metadata reviewed from the returned history uses the repository owner's GitHub noreply address; this does not establish that every historical blob is free of secrets or private data.
+- **A complete historical secret/privacy scan has not been completed.** Every historical tree/blob across all refs was not downloaded and inspected, and the GitHub integration does not expose repository secret-scanning administration. Do not describe this as a clean full-history security audit.
+- The four existing branch refs (main and three working branches) report protected: false. A branch-protection read was denied by the integration, so required review/check policies could not be fully inspected. Configure protection for main before accepting outside contributions.
+- GitHub Actions run [41681399095](https://github.com/untidykid/simtrust-pre/actions/runs/41681399095) passed on the initial PR #3 head: Python compilation passed, **14 unit tests passed**, and all five synthetic smoke suites passed. The four original v3.1 CSVs were absent, so the evidence checksum step was skipped; this is not an evidence checksum pass.
+- Further license/citation and hygiene commits triggered workflow run [41753546880](https://github.com/untidykid/simtrust-pre/actions/runs/41753546880) on the then-current PR head. Its result must be checked at the final branch head; no success is claimed here for those later commits.
 
 ## What is useful and should remain in the project
 
@@ -89,10 +81,10 @@ The verifier correctly retains the historical original-file fingerprints and doe
 
 ### Required before changing visibility
 
-- [x] Run a targeted heuristic scan across all 29 current `main` blobs and all 4 PR #3 changed files; no matches were found for the listed common secret/private-data patterns. **A complete historical secret scan remains open** because every historical tree/blob across all refs was not inspected and the integration does not expose GitHub secret-scanning administration.
-- [x] Scan all 29 current `main` blobs and all 4 PR #3 changed files for Persian/Arabic Unicode characters; no matches were found. This does not certify uninspected historical snapshots or future additions.
-- [x] Add a scoped MIT license for original project software under `src/`, `scripts/`, `tests/`, `.github/workflows/`, and `notebooks/`.
-- [x] Add a separate CC BY 4.0 notice for project-authored documentation and audit materials under `README.md`, `docs/`, and `evidence/`. Third-party and upstream dataset materials retain their own terms.
+- [x] Run a targeted heuristic scan across all 33 tracked files in the current PR #3 branch for the listed common secret/private-data patterns; no matches were found. **A complete historical secret scan remains open** because every historical tree/blob across all refs was not inspected and the integration does not expose GitHub secret-scanning administration.
+- [x] Scan all 33 tracked files in the current PR #3 branch for Persian/Arabic Unicode characters; no matches were found. This does not certify uninspected historical snapshots or future additions.
+- [x] Add a scoped MIT license for original project software/code configuration in src/, scripts/, tests/, .github/workflows/, requirements-v5.2.txt, .gitignore, and notebooks/.
+- [x] Add a separate CC BY 4.0 notice for project-authored documentation and audit materials in README.md, RECOVERY_LOG.md, docs/, evidence/, and notebook README files. Third-party and upstream dataset materials retain their own terms.
 - [x] Add machine-readable citation metadata in `CITATION.cff`. The author is currently represented by the GitHub handle `untidykid`; replace it with a preferred scholarly name and add an ORCID/DOI only when confirmed. No DOI was invented.
 - [ ] Owner must change the repository visibility from Private to Public in GitHub repository settings. The available GitHub connection used for this audit can inspect and edit repository contents but does not expose a repository-visibility mutation.
 
