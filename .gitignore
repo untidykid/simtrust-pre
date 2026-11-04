@@ -3,3 +3,10 @@ __pycache__/
 .venv/
 .env
 .DS_Store
+
+# Local environment and private credential files
+.env.*
+!.env.example
+*.pem
+*.p12
+*.pfx
