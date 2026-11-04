@@ -1,12 +1,19 @@
 __pycache__/
 *.py[cod]
 .venv/
-.env
 .DS_Store
 
-# Local environment and private credential files
+# Local environment and credential files
+.env
 .env.*
 !.env.example
 *.pem
+*.key
 *.p12
 *.pfx
+id_rsa
+id_ed25519
+id_ecdsa
+**/.aws/credentials
+**/.netrc
+**/.pypirc
