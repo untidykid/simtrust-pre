@@ -186,7 +186,15 @@ See [the public release readiness audit](docs/PUBLIC_RELEASE_AUDIT.md) for the v
 
 ## License and citation
 
-The dataset descriptor states that the complete dataset is openly shared under **CC BY 4.0**. Before redistributing individual upstream archive files, check the license field on the specific Zenodo record/version as well. This upstream statement does not automatically license this repository's original documentation, derived audit tables, or scripts. This repository has no `LICENSE` or `CITATION.cff` yet; its own reuse terms and formal citation metadata must be set separately by the project owner.
+This repository uses separate, explicit licenses for its own software and written research materials:
+
+- **Software:** the original software code in `src/`, `scripts/`, `tests/`, `.github/workflows/`, and the archived notebook code in `notebooks/` is licensed under the [MIT License](LICENSE).
+- **Documentation and audit materials:** original project documentation, narrative audit records, and project-authored metadata/summary materials in `README.md`, `docs/`, and `evidence/` are licensed under [Creative Commons Attribution 4.0 International (CC BY 4.0)](docs/LICENSE-CC-BY-4.0.md).
+- **Upstream dataset and third-party material:** these repository licenses do not replace or broaden the license of the Zenodo dataset, its individual archive members, or any other third-party material. The dataset descriptor states that the complete dataset is openly shared under **CC BY 4.0**; check the license field on the specific Zenodo record/version before redistributing archive files. Preserve the upstream attribution and any additional applicable terms.
+
+The license split applies only to material the project has the right to license. It does not relicense third-party material or grant rights not held by the project.
+
+A machine-readable citation record is provided in [`CITATION.cff`](CITATION.cff). It currently uses the repository's GitHub handle as the author identifier; replace that with the preferred scholarly author name and add an ORCID/DOI if and when the owner confirms them.
 
 ### Upstream citation
 
