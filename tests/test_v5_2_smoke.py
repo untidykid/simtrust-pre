@@ -3,9 +3,9 @@ from __future__ import annotations
 
 import sys
 import unittest
+from pathlib import Path
 
 import pandas as pd
-from pathlib import Path
 
 SRC = Path(__file__).resolve().parents[1] / "src"
 if str(SRC) not in sys.path:
