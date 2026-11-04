@@ -26,11 +26,12 @@ The tested dependency set is recorded in `requirements-v5.2.txt` at the reposito
 
 ```bash
 python -m pip install -r requirements-v5.2.txt
+python -m pip check
 python -m compileall -q src tests scripts
 python -m unittest discover -s tests -v
 ```
 
-The GitHub Actions workflow runs the same compile and unit-test commands. The v5.2 test methods use synthetic arrays and temporary ZIP fixtures only; they do not access the Zenodo service or open the project's real archives.
+The GitHub Actions workflow runs dependency-consistency checking, Python compilation, and the unit-test/synthetic smoke suites. The v5.2 test methods use synthetic arrays and temporary ZIP fixtures only; they do not access the Zenodo service or open the project's real archives.
 
 ## Protocol reference
 

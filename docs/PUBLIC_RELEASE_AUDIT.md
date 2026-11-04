@@ -1,10 +1,10 @@
 # Public Release Readiness Audit
 
-**Audit date:** 2026-11-03  
+**Audit date:** 2026-11-04  
 **Repository:** `untidykid/simtrust-pre`  
-**Branch reviewed:** `main`  
-**Main commit reviewed:** `cf8f6b92cd868a224a5bb7d5fe8d94ca562c1050`  
-**Decision:** suitable for a carefully labelled public research-software and audit-record snapshot after completion of the remaining historical-security and owner-controlled visibility gates; **not** a complete reproducible release of the v3.1 evidence and **not** ready to support confirmatory v5.2 empirical claims.
+**Main commit reviewed:** `893622b3ff02deec7c383fac41a27630a1f7e7cf`  
+**Review branch:** `post-merge-ci-record-2026-11-04`  
+**Decision:** content is suitable for a carefully labelled public research-software and audit-record snapshot after the owner completes account-level visibility and security settings and confirms licensing rights; **not** a complete reproducible release of the v3.1 evidence and **not** ready to support confirmatory v5.2 empirical claims.
 
 ## Executive decision
 
@@ -12,7 +12,7 @@ The repository contains useful, carefully qualified scientific audit records and
 
 The repository must not be described as a fully reproducible v3.1 data release. The four original v3.1 evidence CSVs are absent, the exact extraction code for the locked tables is not included, and the retained figures/counts have not been independently regenerated from source archives in this repository. The v5.2 implementation has only synthetic-fixture test evidence and has not been run against the real Zenodo dataset here.
 
-At the time of this audit, GitHub reports the repository visibility as **Private**. This audit does not change repository visibility.
+GitHub currently reports the repository visibility as **Private**. The available GitHub connector can edit repository contents and pull requests but does not expose the repository-visibility settings mutation; the owner must change this setting in GitHub.
 
 ## Verified GitHub state
 
@@ -23,22 +23,31 @@ At the time of this audit, GitHub reports the repository visibility as **Private
 - The evidence-verification step reported all four original CSVs missing and explicitly emitted a notice that checksum verification was skipped. This is **not** a successful evidence checksum verification.
 - The successful run above was on PR #1's head and is historical context only. PR #3 has since run independently; see the 2026-11-03 follow-up verification below.
 
-## Security and repository-hygiene checks (2026-11-04 follow-up)
+## Security and repository-hygiene checks (2026-11-04)
 
-- The current PR #3 branch contains **33 tracked files**. All 33 current blobs were scanned, including the final versions of the seven files changed or added by this PR.
-- The available Git history was scanned at the tracked-blob level across all four current branch refs. The main ancestry contains **72 commits / 70 unique tree snapshots** and 87 unique historical blob versions. PR #3 adds **17 commits / 17 tree snapshots** and 16 additional unique blob versions beyond main. In total, **103 unique tracked text-blob versions** were scanned across the reachable history and current PR branch.
-- Heuristic patterns covered common private-key headers, GitHub personal-access-token formats, AWS access-key IDs, Slack and GitLab token formats, Google API-key formats, JWT-like strings, credential-like assignments, email addresses, common user-home absolute paths, and Persian/Arabic Unicode ranges. **No matches were found** in the scanned blobs.
-- This is a thorough tracked-blob heuristic scan, not a guarantee that every possible secret format or personal-data pattern was detected. The GitHub integration does not expose the repository's secret-scanning administration endpoint; GitHub Secret Scanning and push-protection status were therefore not independently inspected. External release assets or content outside the scanned Git refs are not covered.
-- The four current branch refs (main and three working branches) report `protected: false`. The branch-protection read was denied by the integration, so required review/check policies could not be inspected. Configure protection for `main` before accepting outside contributions.
-- GitHub Actions run [41753914447](https://github.com/untidykid/simtrust-pre/actions/runs/41753914447) passed on final branch head `6664d0d7e639b5fe56a6ae2593863c313e67a9dc` after the supported scikit-learn pin update: dependency installation, Python compilation, **14 unit tests**, and all five synthetic smoke suites passed.
-- The four original v3.1 CSVs were absent, so the workflow explicitly skipped evidence checksum verification. This is not a checksum pass or a reproduction of the locked evidence.
+- The current `main` tree contains **33 tracked files**. The current PR #4 review tree contains **35 tracked files**, including the new English `CONTRIBUTING.md` and `.github/dependabot.yml`.
+- The main ancestry contains **73 commits / 71 unique tree snapshots**. The earlier PR #3 historical scan covered 103 unique tracked text-blob versions: 87 from the then-current main ancestry and 16 additional blobs introduced in PR #3. The current PR #4 adds **9 additional unique blob versions** beyond main. In total, **112 unique tracked text-blob versions** across the reviewed main/PR history have been scanned.
+- The current-content review covers all 35 files in the PR #4 tree. Previously scanned unchanged blobs are counted in the historical review; all nine distinct PR #4 blob versions beyond main were separately fetched and rescanned.
+- Heuristic patterns covered common private-key headers, GitHub personal-access-token formats, AWS access-key IDs, Slack and GitLab token formats, Google API-key formats, JWT-like strings, credential-like assignments, email addresses, common user-home absolute paths, and Persian/Arabic Unicode ranges. **No matches were found** in the scanned tracked blobs.
+- All **56 GitHub Actions workflow-run logs** recorded for the repository as of this audit update were scanned with the targeted private-key, GitHub/AWS/Slack/GitLab/Google token, JWT-like, credential-assignment, and email patterns. No matches were found. This is a pattern-based scan, not a guarantee that every possible secret or personal-data format was detected.
+- These scans do not replace GitHub Secret Scanning or push protection. The repository's security administration endpoints are not accessible through the current connector, so the status of secret scanning and push protection could not be independently inspected. External artifacts and content outside scanned Git refs and logs are not covered.
+- The PR #4 changes add preventive `.gitignore` rules for `.env`, `.env.*` (while allowing `.env.example`), common private-key/certificate extensions, SSH private-key filenames, and common local credential files. These rules prevent accidental future adds when files are untracked; they do not remove or protect secrets already committed.
+- GitHub currently lists **five branches**, and all five report `protected: false`. The branch-protection/ruleset read is unavailable for this private repository under its current GitHub plan. Before accepting outside contributions, enable protection for `main` and require the CI check.
+- The CI workflow now uses the pinned `ubuntu-24.04` runner label, immutable full commit SHAs for `actions/checkout` and `actions/setup-python`, `contents: read` permissions, a 15-minute timeout, and `persist-credentials: false` for checkout.
+- Dependabot is configured for weekly Python dependency and GitHub Actions updates. It proposes updates through pull requests; updates must still be reviewed and tested.
+- PR #3 was squash-merged as `893622b3ff02deec7c383fac41a27630a1f7e7cf`. Its post-merge `main` workflow [41755565717](https://github.com/untidykid/simtrust-pre/actions/runs/41755565717) passed on that exact commit using the previous pinned dependency set.
+- The updated dependency set (NumPy 2.5.4, pandas 3.1.0, scikit-learn 1.9.1 plus pinned runtime dependencies) passed dependency installation, `pip check`, Python compilation, **14 unit tests**, and all five synthetic smoke suites in [run 41758359755](https://github.com/untidykid/simtrust-pre/actions/runs/41758359755).
+- The subsequent PR #4 review/documentation revisions passed on the then-current head `86ae47f517fcc868ab35158aa394abef723b9b19` in [run 41758710161](https://github.com/untidykid/simtrust-pre/actions/runs/41758710161): dependency installation, `pip check`, compilation, 14 unit tests, and all five synthetic smoke suites. This run also explicitly skipped the four original evidence CSV checksums.
+- On the current dependency set, CI installed NumPy 2.5.4, pandas 3.1.0, scikit-learn 1.9.1, and exact versions for the listed runtime dependencies. `pip check` reported no broken requirements. The tests were still synthetic-only.
+- In every workflow run, the four original v3.1 CSVs were absent, so the evidence checksum step explicitly skipped verification. This is not a checksum pass or a reproduction of the locked evidence.
 
 ## Dependency maintenance review (2026-11-04)
 
-- The previous pin `scikit-learn==1.8.0` was outside the versions currently supported by the project's security policy; that policy marks only `1.9.1` as supported. The pin is updated to `1.9.1` in `requirements-v5.2.txt`. See the [scikit-learn security policy](https://github.com/scikit-learn/scikit-learn/blob/main/SECURITY.md), [1.9.1 release notes](https://github.com/scikit-learn/scikit-learn/blob/main/doc/whats_new/v1.9.rst), and [PyPI release metadata](https://pypi.org/project/scikit-learn/1.9.1/).
-- The 1.9.1 release supports Python 3.12, and its documented minimum NumPy version is below the project's current NumPy pin. The CI run on this updated dependency set is the compatibility check for this branch; passing synthetic tests does not establish unchanged real-data outputs.
-- `numpy==2.3.5` and `pandas==2.2.3` remain pinned for now to avoid combining an unrelated NumPy/pandas modernization with this low-risk pre-publication patch. Current releases are newer (NumPy 2.5.4 and pandas 3.1.0); schedule a separate, explicit compatibility review before changing these pins. See the [NumPy release list](https://numpy.org/news/) and [pandas version policy](https://pandas.pydata.org/docs/development/policies.html).
-- No vulnerability-free claim is made for the complete dependency tree. Transitive dependencies and the newer NumPy/pandas candidates have not undergone a full advisory/compatibility audit in this pass.
+- The previous `scikit-learn==1.8.0` pin was outside the versions currently supported by the project's security policy. The policy marks 1.9.1 as supported; the repository now pins `scikit-learn==1.9.1`. See the [scikit-learn security policy](https://github.com/scikit-learn/scikit-learn/blob/main/SECURITY.md) and [1.9.1 release notes](https://github.com/scikit-learn/scikit-learn/blob/main/doc/whats_new/v1.9.rst).
+- NumPy is pinned to `2.5.4` and pandas to `3.1.0`, current stable releases at this audit date. All direct scientific packages and the runtime dependencies observed in CI are now exact-version pinned in `requirements-v5.2.txt`.
+- The current pinned set was installed successfully under Python 3.12 on the `ubuntu-24.04` runner. `pip check` reported no broken requirements; Python compilation, all **14 unit tests**, and all five synthetic smoke suites passed on the current PR #4 head. See [run 41758359755](https://github.com/untidykid/simtrust-pre/actions/runs/41758359755).
+- These exact version pins improve repeatability but do not constitute a hash-locked supply-chain build. The requirements file does not include wheel/source distribution hashes, and no full vulnerability audit of every dependency or transitive package is claimed. Dependabot is enabled to propose weekly updates, which require review and CI before merging.
+- Passing the updated synthetic test suite establishes only the tested software contracts on synthetic inputs. It does not establish unchanged real-data output, physical validity, or reproducibility of the v3.1 scientific evidence.
 
 ## What is useful and should remain in the project
 
@@ -55,11 +64,11 @@ The 371-row v2.1 crosswalk is not the original 254-parent-key v2.2.5 artifact. T
 
 ## Technical review findings
 
-### Corrected in this audit branch
+### Corrected and merged on main
 
 1. **Boolean flag parsing:** Module 4.1 accepted the string tokens `"1.0"` and `"0.0"`, while Module 3 did not. Module 3 now accepts the same decimal-string spellings. A focused unit test checks true, false, and unknown handling. Numeric 1/0 parsing and nullable unknown handling remain intact.
 
-2. **README accuracy and clarity:** the incomplete sentence describing the expected H701/PY23 physical direction has been repaired. The generic Python 3.10+ statement has been narrowed to Python 3.12, the version actually exercised by the checked-in workflow. The README now links to this audit.
+2. **README accuracy and clarity:** the incomplete sentence describing the expected H701/PY23 physical direction has been repaired. The generic Python 3.10+ statement has been narrowed to Python 3.12, the version actually exercised by the checked-in workflow. The README links to the audit and the English contribution guide.
 
 ### Deliberately not changed
 
@@ -88,14 +97,21 @@ The verifier correctly retains the historical original-file fingerprints and doe
 
 ### Required before changing visibility
 
-- [x] Scan all 33 current PR #3 tracked files and all 103 unique tracked text-blob versions across the reachable history of the four current branch refs for the listed common secret/private-data patterns; no matches were found. The scan is heuristic and does not replace GitHub Secret Scanning.
-- [x] Scan all 103 historical tracked text-blob versions for Persian/Arabic Unicode characters; no matches were found. This does not certify untracked material, external assets, or future additions.
+- [x] Scan all 35 current PR #4 tracked files and all 112 unique tracked text-blob versions across the reviewed main/PR history for common secret/private-data patterns; no matches were found. The scan is heuristic and does not replace GitHub Secret Scanning.
+- [x] Scan the 112 reviewed historical tracked text-blob versions and the current PR #4 tree for Persian/Arabic Unicode characters; no matches were found. This does not certify untracked material, external assets, or future additions.
+- [x] Scan all 56 recorded GitHub Actions workflow logs for common private-key/token/credential/email patterns; no matches were found.
+- [x] Add `.gitignore` protections for common local environment, credential, and private certificate/key files.
+- [x] Harden CI permissions and checkout credential persistence; pin Actions by immutable commit SHA and add `pip check`.
+- [x] Add weekly Dependabot updates for pip and GitHub Actions.
+- [x] Pin direct and observed runtime dependencies and pass CI on NumPy 2.5.4 / pandas 3.1.0 / scikit-learn 1.9.1. This improves version repeatability; package hashes and a complete software-supply-chain audit remain out of scope.
 - [x] Add a scoped MIT license for original project software/code configuration in `src/`, `scripts/`, `tests/`, `.github/workflows/`, `requirements-v5.2.txt`, `.gitignore`, and `notebooks/`.
-- [x] Add a separate CC BY 4.0 notice for project-authored documentation and audit materials in `README.md`, `RECOVERY_LOG.md`, `docs/`, `evidence/`, and notebook README files. Third-party and upstream dataset materials retain their own terms.
+- [x] Add a separate CC BY 4.0 notice for project-authored documentation and audit materials in `README.md`, `RECOVERY_LOG.md`, `CONTRIBUTING.md`, `docs/`, `evidence/`, and notebook README files. Third-party and upstream dataset materials retain their own terms.
 - [x] Add machine-readable citation metadata in `CITATION.cff`. The author is currently represented by the GitHub handle `untidykid`; the owner can substitute a preferred scholarly name and add an ORCID/DOI if appropriate. No DOI was invented.
-- [x] Update `scikit-learn` to the currently supported `1.9.1` release and pass CI on that dependency pin.
+- [x] Add the English `CONTRIBUTING.md` guide covering setup, scientific boundaries, data provenance, and contribution expectations.
 - [ ] Owner must change the repository visibility from Private to Public in GitHub repository settings. The available GitHub connection used for this audit can inspect and edit repository contents but does not expose a repository-visibility mutation.
-- [ ] Enable appropriate protection for `main` before inviting outside contributions. Current branch refs report unprotected; the integration could not inspect required-check/review policies.
+- [ ] After changing the repository to Public, enable `main` branch protection / rulesets and require the CI workflow. All five branches are currently unprotected; private-repository rulesets are unavailable under the current GitHub plan.
+- [ ] After changing the repository to Public, verify GitHub Secret Scanning is active and enable push protection in repository security settings. The connector cannot inspect or mutate these account-level settings.
+- [ ] Owner should confirm that all material covered by the MIT and CC BY 4.0 notices is owned or authorized for licensing. Replace the GitHub handle in `CITATION.cff` with a preferred scholarly author name/ORCID when desired; no DOI should be invented.
 
 ### Required before a complete reproducible v3.1 data release
 
@@ -113,6 +129,6 @@ The verifier correctly retains the historical original-file fingerprints and doe
 
 ## Publication recommendation
 
-The defensible near-term publication target is a **public research-software and audit-record repository**, clearly labelled as a synthetic-tested prototype plus a bounded historical audit. It must not be advertised as a complete reproducible v3.1 release, a validated simulator, or a completed confirmatory v5.2 study.
+The defensible near-term publication target is a **public research-software and audit-record repository**, clearly labelled as a synthetic-tested prototype plus a bounded historical audit. Its current contents and CI are ready for that limited kind of public release once the owner-controlled visibility and security settings are completed. It must not be advertised as a complete reproducible v3.1 data release, a validated simulator, or a completed confirmatory v5.2 study.
 
-The repository now declares separate reuse terms for original software and project-authored documentation/audit materials. These terms do not cover third-party material, upstream archives, or content the project does not have the right to license.
+The repository declares separate reuse terms for original software and project-authored documentation/audit materials. The new English `CONTRIBUTING.md` describes the scientific boundaries, reproduction commands, and contribution rules. These terms do not cover third-party material, upstream archives, or content the project does not have the right to license.

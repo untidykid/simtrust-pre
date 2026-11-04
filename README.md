@@ -130,8 +130,10 @@ LICENSE
 CITATION.cff
 .gitignore
 RECOVERY_LOG.md
+CONTRIBUTING.md
 requirements-v5.2.txt
 .github/
+  dependabot.yml
   workflows/
     tests.yml
 docs/
@@ -185,14 +187,14 @@ The repository also contains the reviewed v5.2 research pipeline under `src/`. I
 
 ## Public release readiness
 
-See [the public release readiness audit](docs/PUBLIC_RELEASE_AUDIT.md) for the verified repository state, publication boundaries, unresolved technical decisions, and the actions required before making this repository public.
+See [the public release readiness audit](docs/PUBLIC_RELEASE_AUDIT.md) for the verified repository state, publication boundaries, unresolved technical decisions, and the remaining owner-controlled release settings. Contributions should follow [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## License and citation
 
 This repository uses separate, explicit licenses for its own software and written research materials:
 
 - **Software:** the original software code and configuration in `src/`, `scripts/`, `tests/`, `.github/workflows/`, `requirements-v5.2.txt`, `.gitignore`, and the archived notebook code in `notebooks/` is licensed under the [MIT License](LICENSE).
-- **Documentation and audit materials:** original project documentation, narrative audit records, and project-authored metadata/summary materials in `README.md`, `RECOVERY_LOG.md`, `docs/`, `evidence/`, and `notebooks/**/README.md` are licensed under [Creative Commons Attribution 4.0 International (CC BY 4.0)](docs/LICENSE-CC-BY-4.0.md).
+- **Documentation and audit materials:** original project documentation, narrative audit records, and project-authored metadata/summary materials in `README.md`, `RECOVERY_LOG.md`, `CONTRIBUTING.md`, `docs/`, `evidence/`, and `notebooks/**/README.md` are licensed under [Creative Commons Attribution 4.0 International (CC BY 4.0)](docs/LICENSE-CC-BY-4.0.md).
 - **Upstream dataset and third-party material:** these repository licenses do not replace or broaden the license of the Zenodo dataset, its individual archive members, or any other third-party material. The dataset descriptor states that the complete dataset is openly shared under **CC BY 4.0**; check the license field on the specific Zenodo record/version before redistributing archive files. Preserve the upstream attribution and any additional applicable terms.
 
 The license split applies only to material the project has the right to license. It does not relicense third-party material or grant rights not held by the project.
