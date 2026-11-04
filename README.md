@@ -191,8 +191,8 @@ See [the public release readiness audit](docs/PUBLIC_RELEASE_AUDIT.md) for the v
 
 This repository uses separate, explicit licenses for its own software and written research materials:
 
-- **Software:** the original software code in `src/`, `scripts/`, `tests/`, `.github/workflows/`, and the archived notebook code in `notebooks/` is licensed under the [MIT License](LICENSE).
-- **Documentation and audit materials:** original project documentation, narrative audit records, and project-authored metadata/summary materials in `README.md`, `docs/`, and `evidence/` are licensed under [Creative Commons Attribution 4.0 International (CC BY 4.0)](docs/LICENSE-CC-BY-4.0.md).
+- **Software:** the original software code and configuration in `src/`, `scripts/`, `tests/`, `.github/workflows/`, `requirements-v5.2.txt`, `.gitignore`, and the archived notebook code in `notebooks/` is licensed under the [MIT License](LICENSE).
+- **Documentation and audit materials:** original project documentation, narrative audit records, and project-authored metadata/summary materials in `README.md`, `RECOVERY_LOG.md`, `docs/`, `evidence/`, and `notebooks/**/README.md` are licensed under [Creative Commons Attribution 4.0 International (CC BY 4.0)](docs/LICENSE-CC-BY-4.0.md).
 - **Upstream dataset and third-party material:** these repository licenses do not replace or broaden the license of the Zenodo dataset, its individual archive members, or any other third-party material. The dataset descriptor states that the complete dataset is openly shared under **CC BY 4.0**; check the license field on the specific Zenodo record/version before redistributing archive files. Preserve the upstream attribution and any additional applicable terms.
 
 The license split applies only to material the project has the right to license. It does not relicense third-party material or grant rights not held by the project.
