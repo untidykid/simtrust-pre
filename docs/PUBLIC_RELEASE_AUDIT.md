@@ -33,6 +33,13 @@ At the time of this audit, GitHub reports the repository visibility as **Private
 - GitHub Actions run [41681399095](https://github.com/untidykid/simtrust-pre/actions/runs/41681399095) passed on the initial PR #3 head: Python compilation passed, **14 unit tests passed**, and all five synthetic smoke suites passed. The four original v3.1 CSVs were absent, so the evidence checksum step was skipped; this is not an evidence checksum pass.
 - Further license/citation and hygiene commits triggered workflow run [41753546880](https://github.com/untidykid/simtrust-pre/actions/runs/41753546880) on the then-current PR head. Its result must be checked at the final branch head; no success is claimed here for those later commits.
 
+## Dependency maintenance review (2026-11-04)
+
+- The previous pin `scikit-learn==1.8.0` was outside the versions currently supported by the project's security policy; that policy marks only `1.9.1` as supported. The pin is updated to `1.9.1` in `requirements-v5.2.txt`. See the [scikit-learn security policy](https://github.com/scikit-learn/scikit-learn/blob/main/SECURITY.md), [1.9.1 release notes](https://github.com/scikit-learn/scikit-learn/blob/main/doc/whats_new/v1.9.rst), and [PyPI release metadata](https://pypi.org/project/scikit-learn/1.9.1/).
+- The 1.9.1 release supports Python 3.12, and its documented minimum NumPy version is below the project's current NumPy pin. The CI run on this updated dependency set is the compatibility check for this branch; passing synthetic tests does not establish unchanged real-data outputs.
+- `numpy==2.3.5` and `pandas==2.2.3` remain pinned for now to avoid combining an unrelated NumPy/pandas modernization with this low-risk pre-publication patch. Current releases are newer (NumPy 2.5.4 and pandas 3.1.0); schedule a separate, explicit compatibility review before changing these pins. See the [NumPy release list](https://numpy.org/news/) and [pandas version policy](https://pandas.pydata.org/docs/development/policies.html).
+- No vulnerability-free claim is made for the complete dependency tree. Transitive dependencies and the newer NumPy/pandas candidates have not undergone a full advisory/compatibility audit in this pass.
+
 ## What is useful and should remain in the project
 
 | Component | Value | Correct publication treatment |
