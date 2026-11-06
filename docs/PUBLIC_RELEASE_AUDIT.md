@@ -2,9 +2,9 @@
 
 **Audit date:** 2026-11-06  
 **Repository:** `untidykid/simtrust-pre`  
-**Base `main` commit reviewed:** `58b987a9d4e500b6f45600b9c8ffaec603971d41`  
-**Review branch:** `final-main-ci-audit-record-2026-11-06`  
-**Decision:** content is suitable for a carefully labelled public research-software and audit-record snapshot after the owner completes account-level visibility and security settings and confirms licensing rights; **not** a complete reproducible release of the v3.1 evidence and **not** ready to support confirmatory v5.2 empirical claims.
+**Base `main` commit reviewed:** `0dbe6e2fec84130b6357b26f922c664c4a8ed780`  
+**Review branch:** `public-repository-state-audit-2026-11-06`  
+**Decision:** the repository is **Public** as verified through GitHub repository metadata on 2026-11-06 and is suitable as a carefully labelled public research-software and historical audit-record snapshot. Remaining owner-controlled hardening and rights checks are listed below. It is **not** a complete reproducible release of the v3.1 evidence and is **not** ready to support confirmatory v5.2 empirical claims.
 
 ## Executive decision
 
@@ -12,10 +12,15 @@ The repository contains useful, carefully qualified scientific audit records and
 
 The repository must not be described as a fully reproducible v3.1 data release. The four original v3.1 evidence CSVs are absent, the exact extraction code for the locked tables is not included, and the retained figures/counts have not been independently regenerated from source archives in this repository. The v5.2 implementation has only synthetic-fixture test evidence and has not been run against the real Zenodo dataset here.
 
-GitHub currently reports the repository visibility as **Private**. The available GitHub connector can edit repository contents and pull requests but does not expose the repository-visibility settings mutation; the owner must change this setting in GitHub.
+GitHub repository metadata currently reports `visibility: public` (`private: false`). The repository is publicly accessible at https://github.com/untidykid/simtrust-pre. This is a verified current state, not an assumption based on a browser-rendered page.
 
 ## Verified GitHub state
 
+- GitHub reports the repository as **Public**; the repository metadata response has `visibility: public` and `private: false`.
+- Pull requests **#1 through #7 are all merged**; the repository currently has no open pull requests.
+- The reviewed `main` commit is `0dbe6e2fec84130b6357b26f922c664c4a8ed780` (2026-11-06). Its GitHub commit object reports a valid verified signature.
+- The latest `main` push workflow, [run 42296764020](https://github.com/untidykid/simtrust-pre/actions/runs/42296764020), completed successfully on that exact commit. It passed dependency installation, `pip check`, the isolated `pip-audit==2.10.1` check (**No known vulnerabilities found**), Python compilation, **14 unittest tests**, and all five synthetic smoke suites. The evidence step explicitly skipped checksums because all four original v3.1 CSVs remain absent; this is not an evidence verification pass.
+- The GitHub Releases API currently returns no formal Release objects. The repository therefore has no published GitHub Release at the time of this audit.
 - PR #1 was merged into `main` as `e6a75c5aaa78a08ecc29d72efc780127c126f39c`.
 - PR #2 was merged into `main` as `cf8f6b92cd868a224a5bb7d5fe8d94ca562c1050`.
 - GitHub Actions run [41518313759](https://github.com/untidykid/simtrust-pre/actions/runs/41518313759) completed successfully for PR #1 head `f0873481ce60484c05cba494d3a496a2ec719d39`.
@@ -34,7 +39,7 @@ GitHub currently reports the repository visibility as **Private**. The available
 - The PR #5 workflow log was additionally scanned for the same common secret/token/credential/email patterns; no matches were found.
 - These scans do not replace GitHub Secret Scanning or push protection. The repository's security administration endpoints are not accessible through the current connector, so the status of secret scanning and push protection could not be independently inspected. External artifacts and content outside scanned Git refs and logs are not covered.
 - The PR #4 changes add preventive `.gitignore` rules for `.env`, `.env.*` (while allowing `.env.example`), common private-key/certificate extensions, SSH private-key filenames, and common local credential files. These rules prevent accidental future adds when files are untracked; they do not remove or protect secrets already committed.
-- GitHub lists **seven branches**, and all seven report `protected: false`; this includes the temporary audit branches. Enable protection for `main` and require the CI check before accepting outside contributions. The branch-protection/ruleset read is unavailable for this private repository under its current GitHub plan. Before accepting outside contributions, enable protection for `main` and require the CI check.
+- GitHub currently lists **eight branches**, and each branch object reports `protected: false`, including `main` and temporary audit branches. This confirms that GitHub's branch-listing API does not report classic branch protection for these branches. Ruleset enforcement was not independently verified through the current connection; do not assume that required checks or rulesets are active. Enable protection for `main` and require the CI workflow before accepting outside contributions.
 - The CI workflow now uses the pinned `ubuntu-24.04` runner label, immutable full commit SHAs for `actions/checkout` and `actions/setup-python`, `contents: read` permissions, a 15-minute timeout, and `persist-credentials: false` for checkout.
 - Dependabot is configured for weekly Python dependency and GitHub Actions updates. It proposes updates through pull requests; updates must still be reviewed and tested.
 - PR #3 was squash-merged as `893622b3ff02deec7c383fac41a27630a1f7e7cf`. Its post-merge `main` workflow [41755565717](https://github.com/untidykid/simtrust-pre/actions/runs/41755565717) passed on that exact commit using the previous pinned dependency set.
@@ -100,9 +105,9 @@ The 371-row v2.1 crosswalk is not the original 254-parent-key v2.2.5 artifact. T
 
 The verifier correctly retains the historical original-file fingerprints and does not accept approximate or rebuilt files as originals. Keep this behavior.
 
-## Public-release gates
+## Public-release status and remaining owner-controlled settings
 
-### Required before changing visibility
+### Verified public-release prerequisites
 
 - [x] Scan all 35 current main tracked files and all 117 unique tracked text-blob versions across the reviewed main/PR history for common secret/private-data patterns; no matches were found. The scan is heuristic and does not replace GitHub Secret Scanning.
 - [x] Scan the 117 reviewed historical tracked text-blob versions and the current main tree for Persian/Arabic Unicode characters; no matches were found. This does not certify untracked material, external assets, or future additions.
@@ -116,9 +121,9 @@ The verifier correctly retains the historical original-file fingerprints and doe
 - [x] Add a separate CC BY 4.0 notice for project-authored documentation and audit materials in `README.md`, `RECOVERY_LOG.md`, `CONTRIBUTING.md`, `CITATION.cff`, `docs/`, `evidence/`, and notebook README files. Third-party and upstream dataset materials retain their own terms.
 - [x] Add machine-readable citation metadata in `CITATION.cff`. The author is currently represented by the GitHub handle `untidykid`; the owner can substitute a preferred scholarly name and add an ORCID/DOI if appropriate. No DOI was invented.
 - [x] Add the English `CONTRIBUTING.md` guide covering setup, scientific boundaries, data provenance, and contribution expectations.
-- [ ] Owner must change the repository visibility from Private to Public in GitHub repository settings. The available GitHub connection used for this audit can inspect and edit repository contents but does not expose a repository-visibility mutation.
-- [ ] After changing the repository to Public, enable `main` branch protection / rulesets and require the CI workflow. All seven branches currently report unprotected; private-repository rulesets are unavailable under the current GitHub plan.
-- [ ] After changing the repository to Public, verify GitHub Secret Scanning is active and enable push protection in repository security settings. The connector cannot inspect or mutate these account-level settings.
+- [x] Verify that GitHub reports the repository as Public (`visibility: public`, `private: false`) and that the public repository endpoint resolves.
+- [ ] Enable branch protection for `main` and require the CI workflow. The branch listing currently reports `protected: false` for all eight branches; ruleset enforcement has not been independently verified.
+- [ ] Verify GitHub Secret Scanning status and enable push protection in repository security settings if available. The current connection cannot independently inspect or change these owner-level security settings.
 - [ ] Owner should confirm that all material covered by the MIT and CC BY 4.0 notices is owned or authorized for licensing. Replace the GitHub handle in `CITATION.cff` with a preferred scholarly author name/ORCID when desired; no DOI should be invented.
 
 ### Required before a complete reproducible v3.1 data release
@@ -137,6 +142,6 @@ The verifier correctly retains the historical original-file fingerprints and doe
 
 ## Publication recommendation
 
-The defensible near-term publication target is a **public research-software and audit-record repository**, clearly labelled as a synthetic-tested prototype plus a bounded historical audit. Its current contents and CI are ready for that limited kind of public release once the owner-controlled visibility and security settings are completed. It must not be advertised as a complete reproducible v3.1 data release, a validated simulator, or a completed confirmatory v5.2 study.
+The repository is now a **public research-software and historical audit-record repository**, clearly labelled as a synthetic-tested prototype plus a bounded historical audit. Its current `main` commit and CI have been verified in the public state. Remaining hardening items are branch protection, independently checking GitHub Secret Scanning / push-protection settings, and the owner's confirmation of licensing rights. It must not be advertised as a complete reproducible v3.1 data release, a validated simulator, or a completed confirmatory v5.2 study.
 
 The repository declares separate reuse terms for original software and project-authored documentation/audit materials. The new English `CONTRIBUTING.md` describes the scientific boundaries, reproduction commands, and contribution rules. These terms do not cover third-party material, upstream archives, or content the project does not have the right to license.
