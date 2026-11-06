@@ -1,6 +1,6 @@
 # Direct scientific-computing dependencies
 numpy==2.5.4
-pandas==3.1.0
+pandas==3.1.1
 scikit-learn==1.9.1
 
 # Exact runtime dependency pins for reproducible CI installation
