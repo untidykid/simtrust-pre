@@ -24,7 +24,7 @@ python -m compileall -q scripts tests src
 python -m unittest discover -s tests -v
 ```
 
-The CI workflow runs dependency consistency checks, compilation, and the unit/synthetic smoke suites on pull requests and pushes to `main`. The evidence checksum step remains skipped until all four original v3.1 CSVs are available; that skip is not a successful evidence verification.
+The CI workflow runs dependency consistency checks, an isolated `pip-audit` scan of the pinned requirements, compilation, and the unit/synthetic smoke suites on pull requests and pushes to `main`. The evidence checksum step remains skipped until all four original v3.1 CSVs are available; that skip is not a successful evidence verification.
 
 ## Scientific and data-integrity requirements
 
