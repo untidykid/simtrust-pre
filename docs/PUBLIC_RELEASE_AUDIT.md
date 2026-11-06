@@ -2,8 +2,9 @@
 
 **Audit date:** 2026-11-06  
 **Repository:** `untidykid/simtrust-pre`  
-**Verified `main` commit:** `521bfbacb0cc979baa683437442057fbfc9ccf95`  
-**Post-merge CI:** [run 42300833222](https://github.com/untidykid/simtrust-pre/actions/runs/42300833222)  
+**Audit base `main` commit (before PR #9):** `521bfbacb0cc979baa683437442057fbfc9ccf95`  
+**PR #9 merge commit:** `8887916a7aaae1322e175c8108f16c297a914069`  
+**PR #9 validation:** [run 42302142124](https://github.com/untidykid/simtrust-pre/actions/runs/42302142124) passed on PR head `bfd6407597f91b023157457eaf841ce075dcb313`. **Post-merge `main` validation:** [run 42302341445](https://github.com/untidykid/simtrust-pre/actions/runs/42302341445) passed on merge commit `8887916a7aaae1322e175c8108f16c297a914069`.  
 **Decision:** the repository is **Public** and is suitable as a carefully labelled public research-software and historical audit-record snapshot. It is **not** a complete reproducible release of the v3.1 evidence and is **not** ready to support confirmatory v5.2 empirical claims. Owner-controlled security and rights checks remain open.
 
 ## Executive decision
@@ -15,12 +16,12 @@ Do **not** describe this repository as a fully reproducible v3.1 data release. A
 ## Verified GitHub state — 2026-11-06
 
 - **Visibility:** GitHub repository metadata reports `visibility: public` and `private: false`.
-- **Pull requests:** PRs **#1 through #8 were merged before this audit refresh**. This documentation refresh is submitted as PR **#9**.
-- **Current main:** `521bfbacb0cc979baa683437442057fbfc9ccf95` (`Update release audit for verified public repository state`). The commit object reports a valid verified signature.
-- **Post-merge CI:** [run 42300833222](https://github.com/untidykid/simtrust-pre/actions/runs/42300833222) completed successfully on that exact `main` SHA. Its job passed dependency installation, `pip check`, `pip-audit==2.10.1` (**No known vulnerabilities found**), Python compilation, **14 unit tests**, and all five synthetic smoke suites.
+- **Pull requests:** PRs **#1 through #9 are merged** as of this audit metadata correction.
+- **Audit base main:** `521bfbacb0cc979baa683437442057fbfc9ccf95` (`Update release audit for verified public repository state`) is the pre-PR #9 commit reviewed for this audit. PR #9's documentation-only update was merged as `8887916a7aaae1322e175c8108f16c297a914069`; its PR validation and post-merge `main` validation both passed, as linked above. The audit does not label the pre-PR #9 SHA as the current `main` head.
+- **Pre-PR #9 main CI:** [run 42300833222](https://github.com/untidykid/simtrust-pre/actions/runs/42300833222) completed successfully on the audit base SHA. It passed dependency installation, `pip check`, `pip-audit==2.10.1` (**No known vulnerabilities found**), Python compilation, **14 unit tests**, and all five synthetic smoke suites. The later PR #9 and post-merge CI runs are listed in the audit header.
 - **Evidence gate:** the same CI run explicitly reported all four original evidence CSVs missing and skipped checksum verification. A successful workflow conclusion does **not** mean the evidence checksum gate passed.
 - **Tracked files:** the recursive Git tree contains 35 tracked files. The `evidence/` directory contains the manifest and README, but none of the four original CSV payloads.
-- **Branches and rulesets:** GitHub listed **10 branches** at this review, including this audit PR branch; all reported `protected: false`. The repository rulesets endpoint returned an empty list. The classic branch-protection endpoint returned HTTP 403 (`Resource not accessible by integration`), so the detailed protection configuration could not be read. Treat `main` as unprotected until verified in repository settings.
+- **Branches and rulesets:** At the pre-PR #10 verification snapshot, GitHub listed **10 branches**, including the PR #9 audit branch; all reported `protected: false`. The repository rulesets endpoint returned an empty list. The classic branch-protection endpoint returned HTTP 403 (`Resource not accessible by integration`), so the detailed protection configuration could not be read. Treat `main` as unprotected until verified in repository settings.
 - **Security settings:** the current GitHub connection exposes no write operation for branch protection, rulesets, Secret Scanning, or push protection. Secret Scanning and push-protection status could not be independently read or changed through this connection. The owner must verify these settings in GitHub repository settings.
 - **Formal release:** the GitHub Releases API returned an empty list; no formal GitHub Release object was published at this snapshot.
 - **Owner confirmation:** the owner still needs to confirm that all material covered by the MIT and CC BY 4.0 notices is owned or authorized for those licenses. The GitHub handle in `CITATION.cff` may be replaced with the preferred scholarly author name/ORCID; no DOI should be invented.
@@ -28,9 +29,9 @@ Do **not** describe this repository as a fully reproducible v3.1 data release. A
 ## Security and repository-hygiene checks (scope and limitations)
 
 - Earlier pattern-based reviews covered the then-current tracked files, reviewed historical text-blob versions, and recorded GitHub Actions logs through the PR #5 / post-merge audit period. Those reviews found no matches for the selected common private-key, token, credential-assignment, JWT-like, and email patterns. They are **historical, heuristic scans**, not a complete security certification of every possible format or a substitute for GitHub Secret Scanning.
-- The current tree still contains 35 tracked files. PR #8 and the latest main commit changed the release-audit documentation; the current post-merge CI run tested the code and configuration, but CI is not a secret-scanning service.
+- The main tree contained 35 tracked files at the verification snapshot. PRs #8 and #9 changed release-audit documentation; the PR #9 post-merge CI run tested code and configuration, but CI is not a secret-scanning service.
 - The `.gitignore` rules cover common local environment, credential, and private-key/certificate filenames. They reduce accidental future additions; they do not remove or protect secrets already committed.
-- Branch protection remains a real outstanding issue: all 10 listed branches, including this audit PR branch, reported `protected: false`, and no repository rulesets were returned. Because the active connection provides no branch-protection/ruleset mutation action and its branch-protection read returned 403, this audit cannot enable or fully inspect protection. Configure `main` protection in GitHub settings and require the CI check before accepting outside contributions.
+- Branch protection remains a real outstanding issue: at the pre-PR #10 verification snapshot, all 10 listed branches, including the PR #9 audit branch, reported `protected: false`, and no repository rulesets were returned. Because the active connection provides no branch-protection/ruleset mutation action and its branch-protection read returned 403, this audit cannot enable or fully inspect protection. Configure `main` protection in GitHub settings and require the CI check before accepting outside contributions.
 - Secret Scanning and push protection also remain unverified owner-level settings. Check **Settings → Code security and analysis** in GitHub and enable the available protections. The current connection cannot perform that setting change.
 - The CI workflow uses the pinned `ubuntu-24.04` runner label, immutable full commit SHAs for `actions/checkout` and `actions/setup-python`, `contents: read` permissions, a 15-minute timeout, and `persist-credentials: false` for checkout.
 - Dependabot is configured for weekly Python dependency and GitHub Actions updates. Proposed updates still require review and CI.
@@ -103,13 +104,13 @@ The verifier correctly retains the historical original-file fingerprints and doe
 - [x] Harden CI permissions and checkout credential persistence; pin Actions by immutable commit SHA and add `pip check`.
 - [x] Add weekly Dependabot updates for pip and GitHub Actions.
 - [x] Pin direct and observed runtime dependencies and pass CI on NumPy 2.5.4 / pandas 3.1.0 / scikit-learn 1.9.1. This improves version repeatability; package hashes and a complete software-supply-chain audit remain out of scope.
-- [x] Validate the pandas 3.1.1 patch upgrade and isolated `pip-audit==2.10.1` scan on PR #5; run 42294987058 passed and reported no known vulnerabilities. The final post-merge main CI run is [42300833222](https://github.com/untidykid/simtrust-pre/actions/runs/42300833222), on the exact verified main SHA listed above.
+- [x] Validate the pandas 3.1.1 patch upgrade and isolated `pip-audit==2.10.1` scan on PR #5; run 42294987058 passed and reported no known vulnerabilities. The post-PR #9 main CI run is [42302341445](https://github.com/untidykid/simtrust-pre/actions/runs/42302341445), on the PR #9 merge commit listed above.
 - [x] Add a scoped MIT license for original project software/code configuration in `src/`, `scripts/`, `tests/`, `.github/`, `requirements-v5.2.txt`, `.gitignore`, and `notebooks/`.
 - [x] Add a separate CC BY 4.0 notice for project-authored documentation and audit materials in `README.md`, `RECOVERY_LOG.md`, `CONTRIBUTING.md`, `CITATION.cff`, `docs/`, `evidence/`, and notebook README files. Third-party and upstream dataset materials retain their own terms.
 - [x] Add machine-readable citation metadata in `CITATION.cff`. The author is currently represented by the GitHub handle `untidykid`; the owner can substitute a preferred scholarly name and add an ORCID/DOI if appropriate. No DOI was invented.
 - [x] Add the English `CONTRIBUTING.md` guide covering setup, scientific boundaries, data provenance, and contribution expectations.
 - [x] Verify that GitHub reports the repository as Public (`visibility: public`, `private: false`) and that the public repository endpoint resolves.
-- [ ] Enable branch protection for `main` and require the CI workflow. The branch listing at this review reports `protected: false` for all ten branches, including this audit PR branch; the rulesets endpoint returned an empty list. The classic branch-protection endpoint returned HTTP 403 to the current connection.
+- [ ] Enable branch protection for `main` and require the CI workflow. At the pre-PR #10 verification snapshot, the branch listing reported `protected: false` for all ten branches, including the PR #9 audit branch; the rulesets endpoint returned an empty list. The classic branch-protection endpoint returned HTTP 403 to the current connection.
 - [ ] Verify GitHub Secret Scanning status and enable push protection in repository security settings if available. The current connection cannot independently inspect or change these owner-level security settings.
 - [ ] Owner should confirm that all material covered by the MIT and CC BY 4.0 notices is owned or authorized for licensing. Replace the GitHub handle in `CITATION.cff` with a preferred scholarly author name/ORCID when desired; no DOI should be invented.
 
