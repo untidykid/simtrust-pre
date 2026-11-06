@@ -175,7 +175,7 @@ tests/
   test_v5_2_smoke.py
 ```
 
-Run `python scripts/verify_evidence.py` from the repository root after placing the four original CSVs in `evidence/`. The verifier checks both recorded byte size and MD5, and prints SHA-256 digests for recording. Run its fixture-based unit tests with `python -m unittest discover -s tests -v` (Python 3.12, the version exercised in CI). GitHub Actions repeats compile and unit-test checks on pushes and pull requests to `main`; the frozen-file checksum step stays skipped until all four original CSVs are present.
+Run `python scripts/verify_evidence.py` from the repository root after placing the four original CSVs in `evidence/`. The verifier checks both recorded byte size and MD5, and prints SHA-256 digests for recording. Run its fixture-based unit tests with `python -m unittest discover -s tests -v` (Python 3.12, the version exercised in CI). GitHub Actions repeats dependency consistency checks, an isolated known-vulnerability scan of the pinned requirements, compilation, and unit tests on pushes and pull requests to `main`; the frozen-file checksum step stays skipped until all four original CSVs are present.
 
 The planned primary predictor was the pre-onset pressure discrepancy over the 300-s window: `q_i^300 = median_{t∈[t0−300 s,t0)} (|P^real_{PY23,i}(t) − P^sim_{12,i}(t−δ_i)| / u_{PY23,i}(t))`, subject to the documented missingness, interpolation, uncertainty, and alignment rules and requiring valid positive uncertainty values. The offset convention is `t_real = t_sim + δ_i`. The planned primary utility estimand was paired fault-segment `ΔAP_i^fault = AP(M_{−i,+S_i}, R_i^eval) − AP(M_{−i}, R_i^eval)`. Neither the paired `q` values nor `ΔAP` were estimated on a validated H701 cohort. A constant simulated P12 trajectory during the fault does not establish that pre-onset `q` is zero, constant, or uncomputable; the paired pre-onset real/simulation values and valid uncertainties would have to be calculated.
 
@@ -193,7 +193,7 @@ See [the public release readiness audit](docs/PUBLIC_RELEASE_AUDIT.md) for the v
 
 This repository uses separate, explicit licenses for its own software and written research materials:
 
-- **Software:** the original software code and configuration in `src/`, `scripts/`, `tests/`, `.github/workflows/`, `requirements-v5.2.txt`, `.gitignore`, and the archived notebook code in `notebooks/` is licensed under the [MIT License](LICENSE).
+- **Software:** the original software code and configuration in `src/`, `scripts/`, `tests/`, `.github/workflows/`, `requirements-v5.2.txt`, `.gitignore`, and the archived notebook code in `notebooks/` are licensed under the [MIT License](LICENSE).
 - **Documentation and audit materials:** original project documentation, narrative audit records, and project-authored metadata/summary materials in `README.md`, `RECOVERY_LOG.md`, `CONTRIBUTING.md`, `docs/`, `evidence/`, and `notebooks/**/README.md` are licensed under [Creative Commons Attribution 4.0 International (CC BY 4.0)](docs/LICENSE-CC-BY-4.0.md).
 - **Upstream dataset and third-party material:** these repository licenses do not replace or broaden the license of the Zenodo dataset, its individual archive members, or any other third-party material. The dataset descriptor states that the complete dataset is openly shared under **CC BY 4.0**; check the license field on the specific Zenodo record/version before redistributing archive files. Preserve the upstream attribution and any additional applicable terms.
 
