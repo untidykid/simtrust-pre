@@ -2,7 +2,7 @@
 
 **Audit date:** 2026-11-06  
 **Repository:** `untidykid/simtrust-pre`  
-**Main commit reviewed:** `58b987a9d4e500b6f45600b9c8ffaec603971d41`  
+**Base `main` commit reviewed:** `58b987a9d4e500b6f45600b9c8ffaec603971d41`  
 **Review branch:** `public-release-refresh-2026-11-06`  
 **Decision:** content is suitable for a carefully labelled public research-software and audit-record snapshot after the owner completes account-level visibility and security settings and confirms licensing rights; **not** a complete reproducible release of the v3.1 evidence and **not** ready to support confirmatory v5.2 empirical claims.
 
@@ -23,7 +23,7 @@ GitHub currently reports the repository visibility as **Private**. The available
 - The evidence-verification step reported all four original CSVs missing and explicitly emitted a notice that checksum verification was skipped. This is **not** a successful evidence checksum verification.
 - The successful run above was on PR #1's head and is historical context only. PR #3 has since run independently; see the 2026-11-03 follow-up verification below.
 
-## Security and repository-hygiene checks (2026-11-04)
+## Security and repository-hygiene checks (refreshed 2026-11-06)
 
 - The current `main` tree contains **35 tracked files**, including the English `CONTRIBUTING.md` and `.github/dependabot.yml` added in PR #4.
 - The main ancestry contains **74 commits / 72 unique tree snapshots** as of the reviewed main commit. The earlier PR #3 historical scan covered 103 unique tracked text-blob versions: 87 from the then-current main ancestry and 16 additional blobs introduced in PR #3. The current PR #4 adds **9 additional unique blob versions** beyond main. In total, **112 unique tracked text-blob versions** across the reviewed main/PR history have been scanned.
