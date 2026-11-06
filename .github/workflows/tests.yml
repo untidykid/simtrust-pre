@@ -31,6 +31,14 @@ jobs:
       - name: Check dependency consistency
         run: python -m pip check
 
+      - name: Audit pinned dependencies for known vulnerabilities
+        shell: bash
+        run: |
+          audit_venv="${RUNNER_TEMP}/pip-audit-venv"
+          python -m venv "$audit_venv"
+          "$audit_venv/bin/python" -m pip install --disable-pip-version-check "pip-audit==2.10.1"
+          "$audit_venv/bin/pip-audit" -r requirements-v5.2.txt --progress-spinner off
+
       - name: Compile Python files
         run: python -m compileall -q scripts tests src
 
