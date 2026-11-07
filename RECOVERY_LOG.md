@@ -187,3 +187,19 @@ As of 2026-11-02, the v3.1 evidence and recovery record remains documentation-on
 The recovery manifest at evidence/MANIFEST_v3_1_rebuild.json provides the machine-readable inventory, historical fingerprints, reported rebuilt-file fingerprints, and source-archive checksum record.
 
 Future recovery of an original file should be tested against its historical size and MD5 before it is substituted for, or given the original filename of, a rebuilt copy.
+
+
+## 6. Follow-up upload verification — 2026-11-07
+
+After the 2026-11-02 recovery record above was written, the project owner supplied a raw conversation upload named `artifact_1_h701_cohort.csv`. The uploaded bytes were independently read and checked before being added to the repository:
+
+- Size: **19,327 bytes**, matching the historical expected size.
+- MD5: `38f395a6e5b32fa7c97a13dc6e0cd208`, matching the historical expected MD5.
+- SHA-256: `f78681b71e0d684e2f6334c2be523cde9ca488965ce7ed5ef9172e86376318e0`.
+- CSV parsing: **40 data rows × 21 columns**; all data rows parsed with 21 fields.
+- Git blob SHA for the exact 19,327-byte payload: `deb8d80263d031cc07aa569d773042f5b3b1a253`.
+- Repository path: `evidence/artifact_1_h701_cohort.csv` (added on the evidence-recovery branch and submitted for review in PR #12).
+
+The file is classified as an **exact historical fingerprint match** on the basis of the recorded size and MD5. MD5 is not collision-resistant, and this check does not independently regenerate or re-evaluate scientific classifications. The Artifact 1 scientific conclusion is unchanged.
+
+This follow-up does not change the 2026-11-02 historical snapshot described in Sections 1–5. Artifacts 2 and 3 remain unavailable as originals; Artifact 2's 371-row file remains an approximation, and Artifact 4's 25-row file remains a non-byte-identical rebuild. Neither is substituted for the original.
