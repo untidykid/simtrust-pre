@@ -1,9 +1,9 @@
 # Evidence manifest
 
 
-> **Post-reset recovery record (2026-11-02):** The original evidence CSV payloads remain absent from this GitHub tree. Recovery status, preserved historical fingerprints, and rebuilt/approximate alternatives are recorded in [RECOVERY_LOG.md](../RECOVERY_LOG.md) and [MANIFEST_v3_1_rebuild.json](MANIFEST_v3_1_rebuild.json). Rebuilt and approximate files are not substitutes for the original evidence payloads.
+> **Recovery update (2026-11-07):** Artifact 1 has now been uploaded, independently checked against its historical size and MD5 fingerprint, and added to this repository. Artifacts 2–4 remain absent. Recovery details and the distinction between original, approximate, and rebuilt files are recorded in [RECOVERY_LOG.md](../RECOVERY_LOG.md) and [MANIFEST_v3_1_rebuild.json](MANIFEST_v3_1_rebuild.json). Rebuilt and approximate files are not substitutes for the original evidence payloads.
 
-This directory is intended to hold the four frozen CSV evidence artifacts. The values below were recorded from the verified files in the audit environment; the file bytes were not available when this repository was bootstrapped.
+This directory holds the frozen CSV evidence artifacts as they are independently recovered. Historical expected sizes and MD5 values are retained below. The Artifact 1 upload was re-read and hashed on 2026-11-07; the remaining three original CSV payloads are still unavailable in this repository.
 
 | File | Size (bytes) | MD5 | Repository status |
 |---|---:|---|---|
