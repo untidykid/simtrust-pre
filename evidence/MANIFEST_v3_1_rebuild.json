@@ -4,8 +4,8 @@
   "record_date": "2026-11-02",
   "repository": "untidykid/simtrust-pre",
   "baseline_commit": "47df178d9464af4d5c484c3b9490bfb1edcd46ca",
-  "provenance_note": "Reported sizes, row counts, and locally computed hashes below come from the project owner's Colab/Google Drive outputs pasted into the project conversation. This GitHub documentation update did not have direct access to those runtime files and did not independently re-hash them. Historical expected fingerprints are retained from the repository's pre-recovery evidence/README.md.",
-  "repository_payload_note": "This manifest and RECOVERY_LOG.md are documentation only. No recovered CSV payload is added to this commit. Recovered/rebuilt CSV copies were reported in Google Drive, not in the GitHub tree.",
+  "provenance_note": "Reported sizes, row counts, and locally computed hashes below come from the project owner's Colab/Google Drive outputs pasted into the project conversation. This GitHub documentation update did not have direct access to those runtime files and did not independently re-hash them. Historical expected fingerprints are retained from the repository's pre-recovery evidence/README.md. On 2026-11-07, a conversation-uploaded copy of Artifact 1 was independently re-read and hashed; its size and MD5 match the historical expected fingerprint. That copy is being added to the repository by the current evidence-recovery pull request. This does not independently re-derive the scientific classifications.",
+  "repository_payload_note": "Artifact 1's uploaded CSV copy matches the historical size and MD5 fingerprint and is included in the current evidence-recovery pull request. Artifacts 2–4 original CSV payloads remain absent from the GitHub main tree; approximate and rebuilt alternatives are not substituted.",
   "artifacts": [
     {
       "artifact": "artifact_1_h701_cohort.csv",
@@ -17,9 +17,15 @@
       "byte_identical_by_recorded_size_and_md5": true,
       "row_count_matches_original": true,
       "rebuild_source": "SimTrust_Pre_v5_2_Module5_Orchestrator cell #41",
-      "recovered_copy_location_reported": "Google Drive",
-      "committed_to_github": false,
-      "identity_note": "Reported recovered size and MD5 match the historical fingerprint retained in the original evidence manifest. The recovered CSV bytes were not independently re-read in this GitHub documentation commit."
+      "recovered_copy_location_reported": "Google Drive; also supplied as a raw conversation upload on 2026-11-07",
+      "committed_to_github": true,
+      "identity_note": "The uploaded 19,327-byte CSV was independently re-read. Its MD5 matches the historical expected fingerprint; its SHA-256 and Git blob SHA are recorded in the evidence README. It contains 40 data rows and 21 columns. This is a historical fingerprint match and structural parse check, not an independent re-derivation of the scientific classifications.",
+      "git_path": "evidence/artifact_1_h701_cohort.csv",
+      "git_blob_sha": "deb8d80263d031cc07aa569d773042f5b3b1a253",
+      "verified_upload_date": "2026-11-07",
+      "verified_upload_size_bytes": 19327,
+      "verified_upload_md5": "38f395a6e5b32fa7c97a13dc6e0cd208",
+      "verified_upload_sha256": "f78681b71e0d684e2f6334c2be523cde9ca488965ce7ed5ef9172e86376318e0"
     },
     {
       "artifact": "artifact_2_crosswalk_v21_APPROX_371.csv",
@@ -168,5 +174,6 @@
     "Matching row count does not establish matching event identities, schema, or semantic equivalence.",
     "Do not infer the original CSV schema from file-size proximity.",
     "Do not alter the locked scientific conclusions through this recovery exercise."
-  ]
+  ],
+  "last_updated": "2026-11-07"
 }
