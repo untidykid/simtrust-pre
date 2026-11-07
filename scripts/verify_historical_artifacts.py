@@ -48,6 +48,10 @@ def inspect(path: Path, item: dict[str, Any], candidate: bool = False) -> dict[s
     result: dict[str, Any] = {
         "filename": item["filename"], "path": relative(path), "present": path.is_file()
     }
+    if candidate:
+        result["classification"] = item["status"]
+        result["historical_equivalence"] = False
+        result["limitation"] = item.get("limitation", "Not a historical original artifact.")
     if not path.is_file():
         result["status"] = "CANDIDATE_FILE_MISSING" if candidate else "MISSING"
         return result
