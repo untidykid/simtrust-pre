@@ -1,26 +1,26 @@
 # Public Release Readiness Audit
 
-**Audit date:** 2026-11-06  
+**Audit date:** 2026-11-07  
 **Repository:** `untidykid/simtrust-pre`  
 **Audit base `main` commit (before PR #9):** `521bfbacb0cc979baa683437442057fbfc9ccf95`  
 **PR #9 merge commit:** `8887916a7aaae1322e175c8108f16c297a914069`  
-**PR #9 validation:** [run 42302142124](https://github.com/untidykid/simtrust-pre/actions/runs/42302142124) passed on PR head `bfd6407597f91b023157457eaf841ce075dcb313`. **Post-PR #9 merge validation:** [run 42302341445](https://github.com/untidykid/simtrust-pre/actions/runs/42302341445) passed on merge commit `8887916a7aaae1322e175c8108f16c297a914069`. **Latest `main`:** `05e1a2fe7c434724955cbbc40809bc7efa2910e3` (PR #10); [CI run 42302712511](https://github.com/untidykid/simtrust-pre/actions/runs/42302712511) passed on that exact commit.  
+**PR #9 validation:** [run 42302142124](https://github.com/untidykid/simtrust-pre/actions/runs/42302142124) passed on PR head `bfd6407597f91b023157457eaf841ce075dcb313`. **Post-PR #9 merge validation:** [run 42302341445](https://github.com/untidykid/simtrust-pre/actions/runs/42302341445) passed on merge commit `8887916a7aaae1322e175c8108f16c297a914069`. **PR #10 `main` validation:** [run 42302712511](https://github.com/untidykid/simtrust-pre/actions/runs/42302712511) passed on `05e1a2fe7c434724955cbbc40809bc7efa2910e3`. **PR #11:** merged as `19eb99ec5b7d3be0503912bc6ef57b5077a7a643`; PR workflow [run 42307153659](https://github.com/untidykid/simtrust-pre/actions/runs/42307153659) passed, and post-merge `main` CI [run 42375080651](https://github.com/untidykid/simtrust-pre/actions/runs/42375080651) passed on that exact commit.  
 **Decision:** the repository is **Public** and is suitable as a carefully labelled public research-software and historical audit-record snapshot. It is **not** a complete reproducible release of the v3.1 evidence and is **not** ready to support confirmatory v5.2 empirical claims. `main` branch protection is configured. The owner reports Secret Scanning and push protection enabled; those two settings are not independently readable through the current GitHub connection. License-rights confirmation remains with the owner.
 
 ## Executive decision
 
 The public repository contains useful, qualified historical audit records and a separate v5.2 software implementation. The critical distinction must be preserved between (1) locked historical v3.1 findings, (2) reported recovery fingerprints whose file bytes are not committed, (3) synthetic software tests, and (4) future real-data analysis.
 
-Do **not** describe this repository as a fully reproducible v3.1 data release. All four original v3.1 evidence CSVs are still absent, the exact extraction/build code for the locked tables is not included, and the historical tables have not been independently regenerated from the source archives in this repository. The v5.2 implementation has passed synthetic-fixture tests only; it has not been run against the real Zenodo dataset here.
+Do **not** describe this repository as a fully reproducible v3.1 data release. Artifact 1 has now been uploaded and independently checked against its historical size and MD5 fingerprint; it is included in the current evidence-recovery PR #12. The original CSV payloads for Artifacts 2–4 remain absent, the exact extraction/build code for the locked tables is not included, and the historical tables have not been independently regenerated from the source archives in this repository. The v5.2 implementation has passed synthetic-fixture tests only; it has not been run against the real Zenodo dataset here.
 
-## Verified GitHub state — 2026-11-06
+## Verified GitHub state — 2026-11-07
 
 - **Visibility:** GitHub repository metadata reports `visibility: public` and `private: false`.
-- **Pull requests:** PRs **#1 through #10 are merged** as of this audit refresh. No open pull requests were returned by the repository API at the time of review.
+- **Pull requests:** PRs **#1 through #11 are merged**. PR #12 is the current evidence-recovery PR and adds the fingerprint-verified Artifact 1 CSV plus corresponding metadata updates.
 - **Audit base main:** `521bfbacb0cc979baa683437442057fbfc9ccf95` (`Update release audit for verified public repository state`) is the pre-PR #9 commit reviewed for this audit. PR #9's documentation-only update was merged as `8887916a7aaae1322e175c8108f16c297a914069`; its PR validation and post-merge `main` validation both passed, as linked above. The audit does not label the pre-PR #9 SHA as the current `main` head.
-- **Latest `main` CI:** [run 42302712511](https://github.com/untidykid/simtrust-pre/actions/runs/42302712511) completed successfully on exact head `05e1a2fe7c434724955cbbc40809bc7efa2910e3`. The workflow passed dependency installation, `pip check`, `pip-audit` (**No known vulnerabilities found**), Python compilation, **14 unit tests**, and all five synthetic smoke suites. Earlier audit-base and PR #9 CI runs are retained as historical validation records.
-- **Evidence gate:** the same CI run explicitly reported all four original evidence CSVs missing and skipped checksum verification. A successful workflow conclusion does **not** mean the evidence checksum gate passed.
-- **Tracked files:** the recursive Git tree contains 35 tracked files. The `evidence/` directory contains the manifest and README, but none of the four original CSV payloads.
+- **Latest merged `main` CI:** [run 42375080651](https://github.com/untidykid/simtrust-pre/actions/runs/42375080651) completed successfully on exact head `19eb99ec5b7d3be0503912bc6ef57b5077a7a643` after PR #11. The workflow passed dependency installation, `pip check`, `pip-audit` (**No known vulnerabilities found**), Python compilation, **14 unit tests**, and all five synthetic smoke suites. PR #12 introduces one evidence payload and is subject to its own required CI run.
+- **Evidence gate:** [run 42375080651](https://github.com/untidykid/simtrust-pre/actions/runs/42375080651) ran before Artifact 1 was added and skipped the all-four-file checksum gate. PR #12 adds Artifact 1, but Artifacts 2–4 remain absent; therefore the all-four-file verifier still cannot run. A successful software CI result must not be described as a passed evidence checksum gate.
+- **Tracked files:** the PR #11 `main` base contains 35 tracked files. PR #12 adds `evidence/artifact_1_h701_cohort.csv`, bringing the proposed PR tree to 36 tracked files. The `evidence/` directory then contains the manifest, README, and Artifact 1; original CSV payloads for Artifacts 2–4 remain absent.
 - **Branches and rulesets:** The earlier pre-PR #10 snapshot had no ruleset. On 2026-11-06, a repository ruleset named `Protect main` (ID `26731306`) was created and independently read back as **Active**, targeting the default branch (`main`) with an empty bypass list. It requires a pull request, `unit-tests`, up-to-date branches, conversation resolution, linear history, Squash-only merging, and blocks deletion and force pushes. See [the active ruleset](https://github.com/untidykid/simtrust-pre/rules/26731306). This is the current verified protection state; the earlier branch-list snapshot is historical.
 - **Security settings:** the repository owner reports that **Secret Scanning** and **push protection** have both been enabled in GitHub Settings → Advanced Security. The current GitHub connection cannot independently read either toggle, so this is recorded as owner-confirmed, not independently API-verified. Earlier heuristic secret scans are not a substitute for GitHub Secret Scanning.
 - **Formal release:** the GitHub Releases API returned an empty list; no formal GitHub Release object was published at this snapshot.
@@ -29,7 +29,7 @@ Do **not** describe this repository as a fully reproducible v3.1 data release. A
 ## Security and repository-hygiene checks (scope and limitations)
 
 - Earlier pattern-based reviews covered the then-current tracked files, reviewed historical text-blob versions, and recorded GitHub Actions logs through the PR #5 / post-merge audit period. Those reviews found no matches for the selected common private-key, token, credential-assignment, JWT-like, and email patterns. They are **historical, heuristic scans**, not a complete security certification of every possible format or a substitute for GitHub Secret Scanning.
-- The main tree contained 35 tracked files at the verification snapshot. PRs #8 and #9 changed release-audit documentation; the PR #9 post-merge CI run tested code and configuration, but CI is not a secret-scanning service.
+- The PR #11 main tree contained 35 tracked files before PR #12. PR #12 adds only the recovered Artifact 1 payload and evidence metadata/documentation; it does not change source code, scientific results, dependencies, or CI. CI is not a secret-scanning service.
 - The `.gitignore` rules cover common local environment, credential, and private-key/certificate filenames. They reduce accidental future additions; they do not remove or protect secrets already committed.
 - `main` protection is now configured through active repository ruleset `Protect main` (ID `26731306`). Its live rules require PRs, the `unit-tests` check, up-to-date branches, conversation resolution, linear history, Squash-only merges, and prohibit deletion and force pushes. The prior statement that no ruleset existed describes only the historical pre-PR #10 snapshot.
 - The owner reports Secret Scanning and push protection enabled. The current connection cannot independently read these settings; retain this distinction in any security statement. Do not present the owner confirmation as an independent security audit or certification.
@@ -86,12 +86,12 @@ The 371-row v2.1 crosswalk is not the original 254-parent-key v2.2.5 artifact. T
 
 | v3.1 artifact | Historical status | Present in GitHub? | Permitted interpretation |
 |---|---|---:|---|
-| Artifact 1 — H701 cohort | Reported `EXACT` fingerprint recovery | No | Reported match only; not independently verified from committed bytes |
+| Artifact 1 — H701 cohort | `EXACT` historical size+MD5 fingerprint match; uploaded copy independently re-hashed on 2026-11-07 | Yes, in PR #12 branch; awaiting merge | Size 19,327 bytes; MD5 matches historical value; SHA-256 and Git blob SHA recorded in `evidence/README.md`. Integrity check only, not a new semantic derivation |
 | Artifact 2 — Crosswalk v2.2.5 | Original unavailable; v2.1 approximation has 371 rows | No | Approximation is not the original 254-parent-key artifact |
 | Artifact 3 — HV feasibility | `UNAVAILABLE` | No | Do not claim reconstruction |
 | Artifact 4 — P701/P702 | 25-row `REBUILT_NOT_BYTE_IDENTICAL` file | No | Rebuild is not the original artifact |
 
-The verifier correctly retains the historical original-file fingerprints and does not accept approximate or rebuilt files as originals. Keep this behavior.
+The verifier correctly retains the historical original-file fingerprints and does not accept approximate or rebuilt files as originals. Artifact 1's uploaded copy matches its historical size and MD5; Artifacts 2–4 are still absent, and the verifier must continue to reject approximations or rebuilds as substitutes.
 
 ## Public-release status and remaining owner-controlled settings
 
@@ -116,7 +116,7 @@ The verifier correctly retains the historical original-file fingerprints and doe
 
 ### Required before a complete reproducible v3.1 data release
 
-- [ ] Recover and independently verify all four original evidence CSVs against their historical size and MD5 values.
+- [x] Independently verify the uploaded Artifact 1 copy against its historical size and MD5; record SHA-256 and Git blob SHA. [ ] Recover and independently verify original Artifacts 2–4 against their historical size and MD5 values.
 - [ ] Include the exact source archives and extraction/build code, or provide durable, versioned access to them with clear provenance and licensing.
 - [ ] Re-run the frozen extraction from the pinned source data and independently reproduce the locked tables without changing the v3.1 cohort or criteria.
 
@@ -130,6 +130,6 @@ The verifier correctly retains the historical original-file fingerprints and doe
 
 ## Publication recommendation
 
-The repository is now a **public research-software and historical audit-record repository**, clearly labelled as a synthetic-tested prototype plus a bounded historical audit. Its current `main` commit and post-merge CI have been verified in the public state. Remaining owner-controlled item for the public repository snapshot is confirmation that the project has rights to license all project-authored material under the scoped MIT and CC BY 4.0 notices. The owner reports Secret Scanning and push protection enabled, but those toggles were not independently API-verified. It must not be advertised as a complete reproducible v3.1 data release, a validated simulator, or a completed confirmatory v5.2 study.
+The repository is a **public research-software and historical audit-record repository**, clearly labelled as a synthetic-tested prototype plus a bounded historical audit. Artifact 1 has a fingerprint-matched upload included in PR #12; Artifacts 2–4, the exact source archives, and the extraction/build code remain outstanding. Remaining owner-controlled item for the public repository snapshot is confirmation that the project has rights to license all project-authored material under the scoped MIT and CC BY 4.0 notices. The owner reports Secret Scanning and push protection enabled, but those toggles were not independently API-verified. It must not be advertised as a complete reproducible v3.1 data release, a validated simulator, or a completed confirmatory v5.2 study.
 
 The repository declares separate reuse terms for original software and project-authored documentation/audit materials. The new English `CONTRIBUTING.md` describes the scientific boundaries, reproduction commands, and contribution rules. These terms do not cover third-party material, upstream archives, or content the project does not have the right to license.

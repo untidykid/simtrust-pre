@@ -1,16 +1,28 @@
 # Evidence manifest
 
 
-> **Post-reset recovery record (2026-11-02):** The original evidence CSV payloads remain absent from this GitHub tree. Recovery status, preserved historical fingerprints, and rebuilt/approximate alternatives are recorded in [RECOVERY_LOG.md](../RECOVERY_LOG.md) and [MANIFEST_v3_1_rebuild.json](MANIFEST_v3_1_rebuild.json). Rebuilt and approximate files are not substitutes for the original evidence payloads.
+> **Recovery update (2026-11-07):** Artifact 1 has now been uploaded, independently checked against its historical size and MD5 fingerprint, and added to this repository. Artifacts 2–4 remain absent. Recovery details and the distinction between original, approximate, and rebuilt files are recorded in [RECOVERY_LOG.md](../RECOVERY_LOG.md) and [MANIFEST_v3_1_rebuild.json](MANIFEST_v3_1_rebuild.json). Rebuilt and approximate files are not substitutes for the original evidence payloads.
 
-This directory is intended to hold the four frozen CSV evidence artifacts. The values below were recorded from the verified files in the audit environment; the file bytes were not available when this repository was bootstrapped.
+This directory holds the frozen CSV evidence artifacts as they are independently recovered. Historical expected sizes and MD5 values are retained below. The Artifact 1 upload was re-read and hashed on 2026-11-07; the remaining three original CSV payloads are still unavailable in this repository.
 
 | File | Size (bytes) | MD5 | Repository status |
 |---|---:|---|---|
-| `artifact_1_h701_cohort.csv` | 19,327 | `38f395a6e5b32fa7c97a13dc6e0cd208` | Awaiting original file |
+| `artifact_1_h701_cohort.csv` | 19,327 | `38f395a6e5b32fa7c97a13dc6e0cd208` | Present; upload matches historical size and MD5 |
 | `artifact_2_crosswalk_254_parents.csv` | 78,322 | `780886326cbb615cfeb3a4a563ed820b` | Awaiting original file |
 | `artifact_3_hv_feasibility.csv` | 11,863 | `b0345b49abb899a2d7cdca8f65bb1b87` | Awaiting original file |
 | `artifact_4_p701p702_events.csv` | 3,539 | `127ed0fb1ed7145fd439d7c0e3bf08fe` | Awaiting original file |
+
+## Artifact 1 — upload verification (2026-11-07)
+
+The uploaded `artifact_1_h701_cohort.csv` was independently read from the conversation attachment and checked before repository inclusion:
+
+- Size: **19,327 bytes** (matches the historical expected size).
+- MD5: `38f395a6e5b32fa7c97a13dc6e0cd208` (matches the historical expected MD5).
+- SHA-256: `f78681b71e0d684e2f6334c2be523cde9ca488965ce7ed5ef9172e86376318e0`.
+- Parsed as UTF-8 CSV: **40 data rows and 21 columns**; all parsed rows have 21 fields.
+- Git blob SHA for the exact 19,327-byte payload: `deb8d80263d031cc07aa569d773042f5b3b1a253`.
+
+The upload is recorded as a **historical fingerprint match**. The size+MD5 agreement is strong byte-integrity evidence against the preserved historical fingerprint, but MD5 is not a collision-resistant authenticity proof. This check does not independently regenerate or re-evaluate the scientific classifications. Artifact 1's scientific interpretation remains unchanged.
 
 ## Pinned source dataset
 
