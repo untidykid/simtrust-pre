@@ -1,6 +1,6 @@
 # SimTrust-Pre
 
-**Repository status:** v3.1 audit records and integrity tooling committed; reviewed v5.2 research modules and synthetic CI tests included; original v3.1 evidence payload pending.
+**Repository status:** v3.1 audit records and integrity tooling committed; reviewed v5.2 research modules and synthetic CI tests included; Artifact 1 is fingerprint-verified and being added; original Artifacts 2–4 remain pending.
 
 SimTrust-Pre is a structured audit of whether selected simulated process-plant perturbations support predefined sensor-response expectations. The project deliberately distinguishes trace-level observations, archive metadata, feasibility evidence, and validation claims.
 
@@ -21,7 +21,7 @@ The project’s central conclusion is not that the simulator is generally invali
 
 The source dataset is pinned to [Zenodo record 22250958, version 1.1.3](https://doi.org/10.5281/zenodo.22250958), published 2026-09-02. The record lists 119 experimental runs with simulation predictions available for 115 experiments, within a 95.2-GB multimodal deposit. Version 1.1.3 corrects a formatting error in one binary ethanol/2-propanol normal run affecting sensor, actuator, and uncertainty modalities; do not silently mix this release with earlier versions. This audit concerns selected event families and selected archive members, not a complete validation of all runs.
 
-This GitHub repository is a documentation and source-code package, but it is not a computationally reproducible release of the locked v3.1 audit. The v5.2 research modules are included as a separate, synthetic-test-validated implementation of the corrected protocol; they do not reproduce the v3.1 audit tables and have not been executed on the real Zenodo data in this repository. The four final v3.1 evidence CSVs, source archives, and the exact analysis/extraction code that generated the locked v3.1 tables are still not included. The figures and counts below are transcribed from the locked audit record and retained diagnostic outputs; they have not been independently regenerated from raw source files in this repository.
+This GitHub repository is a documentation and source-code package, but it is not a computationally reproducible release of the locked v3.1 audit. The v5.2 research modules are included as a separate, synthetic-test-validated implementation of the corrected protocol; they do not reproduce the v3.1 audit tables and have not been executed on the real Zenodo data in this repository. Artifact 1's H701 cohort CSV has now been uploaded, independently checked against its historical size and MD5 fingerprint, and added at `evidence/artifact_1_h701_cohort.csv` (40 data rows, 21 columns; SHA-256 `f78681b71e0d684e2f6334c2be523cde9ca488965ce7ed5ef9172e86376318e0`). The original CSV payloads for Artifacts 2–4, the source archives, and the exact analysis/extraction code that generated the locked v3.1 tables are still not included. The upload integrity check does not independently regenerate the scientific classifications. The figures and counts below are transcribed from the locked audit record and retained diagnostic outputs; they have not been independently regenerated from raw source files in this repository.
 
 ## Principal findings
 
